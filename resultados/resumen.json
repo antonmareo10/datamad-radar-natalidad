@@ -1,0 +1,751 @@
+{
+  "coherencia_1o_consejeria_menos_ie": {
+    "2018": 0.0,
+    "2019": 0.0,
+    "2020": 0.0,
+    "2021": 0.0,
+    "2022": 0.0,
+    "2023": 0.0,
+    "2024": 0.0
+  },
+  "backtest_1o": {
+    "cursos": [
+      2018,
+      2024
+    ],
+    "municipios_por_grupo": {
+      "Madrid capital": 1,
+      "grande": 36,
+      "mediano": 44,
+      "pequeño": 54
+    },
+    "mdape": {
+      "Madrid capital": {
+        "1": {
+          "radar": 1.4,
+          "ingenuo": 2.3,
+          "nacidos": 6.5,
+          "n": 6
+        },
+        "2": {
+          "radar": 1.7,
+          "ingenuo": 4.5,
+          "nacidos": 7.5,
+          "n": 5
+        },
+        "3": {
+          "radar": 2.2,
+          "ingenuo": 6.9,
+          "nacidos": 7.9,
+          "n": 4
+        },
+        "4": {
+          "radar": 2.6,
+          "ingenuo": 9.4,
+          "nacidos": 8.4,
+          "n": 3
+        },
+        "5": {
+          "radar": 3.4,
+          "ingenuo": 13.5,
+          "nacidos": 8.3,
+          "n": 2
+        },
+        "6": {
+          "radar": 2.9,
+          "ingenuo": 17.7,
+          "nacidos": 9.1,
+          "n": 1
+        }
+      },
+      "grande": {
+        "1": {
+          "radar": 3.7,
+          "ingenuo": 4.5,
+          "nacidos": 11.5,
+          "n": 216
+        },
+        "2": {
+          "radar": 3.0,
+          "ingenuo": 6.7,
+          "nacidos": 11.6,
+          "n": 180
+        },
+        "3": {
+          "radar": 3.6,
+          "ingenuo": 8.3,
+          "nacidos": 12.5,
+          "n": 144
+        },
+        "4": {
+          "radar": 4.7,
+          "ingenuo": 11.7,
+          "nacidos": 13.6,
+          "n": 108
+        },
+        "5": {
+          "radar": 4.3,
+          "ingenuo": 16.1,
+          "nacidos": 13.6,
+          "n": 72
+        },
+        "6": {
+          "radar": 6.5,
+          "ingenuo": 21.6,
+          "nacidos": 14.4,
+          "n": 36
+        }
+      },
+      "mediano": {
+        "1": {
+          "radar": 6.2,
+          "ingenuo": 10.9,
+          "nacidos": 18.3,
+          "n": 264
+        },
+        "2": {
+          "radar": 7.2,
+          "ingenuo": 11.1,
+          "nacidos": 19.5,
+          "n": 220
+        },
+        "3": {
+          "radar": 7.8,
+          "ingenuo": 12.7,
+          "nacidos": 18.7,
+          "n": 176
+        },
+        "4": {
+          "radar": 9.8,
+          "ingenuo": 17.1,
+          "nacidos": 19.5,
+          "n": 132
+        },
+        "5": {
+          "radar": 11.4,
+          "ingenuo": 21.5,
+          "nacidos": 19.6,
+          "n": 88
+        },
+        "6": {
+          "radar": 12.6,
+          "ingenuo": 29.0,
+          "nacidos": 20.8,
+          "n": 44
+        }
+      },
+      "pequeño": {
+        "1": {
+          "radar": 14.7,
+          "ingenuo": 19.0,
+          "nacidos": 32.0,
+          "n": 318
+        },
+        "2": {
+          "radar": 14.8,
+          "ingenuo": 18.2,
+          "nacidos": 27.8,
+          "n": 264
+        },
+        "3": {
+          "radar": 15.8,
+          "ingenuo": 22.7,
+          "nacidos": 27.6,
+          "n": 211
+        },
+        "4": {
+          "radar": 18.0,
+          "ingenuo": 22.5,
+          "nacidos": 27.4,
+          "n": 158
+        },
+        "5": {
+          "radar": 22.8,
+          "ingenuo": 25.0,
+          "nacidos": 25.0,
+          "n": 105
+        },
+        "6": {
+          "radar": 22.5,
+          "ingenuo": 24.0,
+          "nacidos": 23.0,
+          "n": 52
+        }
+      }
+    },
+    "sesgo_radar": {
+      "Madrid capital": {
+        "1": 0.2,
+        "2": 1.2,
+        "3": 2.0,
+        "4": 2.9,
+        "5": 3.4,
+        "6": 2.9
+      },
+      "grande": {
+        "1": 0.0,
+        "2": 0.0,
+        "3": -0.2,
+        "4": -0.3,
+        "5": -0.2,
+        "6": -1.3
+      },
+      "mediano": {
+        "1": -1.3,
+        "2": -2.8,
+        "3": -4.5,
+        "4": -5.6,
+        "5": -7.7,
+        "6": -10.1
+      },
+      "pequeño": {
+        "1": -1.6,
+        "2": -1.5,
+        "3": -2.1,
+        "4": 1.1,
+        "5": -0.4,
+        "6": 2.3
+      }
+    },
+    "wape_areas": {
+      "1": {
+        "radar": 1.8,
+        "ingenuo": 3.4
+      },
+      "2": {
+        "radar": 1.4,
+        "ingenuo": 5.8
+      },
+      "3": {
+        "radar": 2.3,
+        "ingenuo": 8.2
+      },
+      "4": {
+        "radar": 2.3,
+        "ingenuo": 11.2
+      },
+      "5": {
+        "radar": 2.6,
+        "ingenuo": 14.9
+      },
+      "6": {
+        "radar": 2.6,
+        "ingenuo": 20.3
+      }
+    },
+    "seleccion_mdape_medio": {
+      "p_finfk": 6.04,
+      "p_combo": 6.82,
+      "p_finf": 6.84,
+      "p_f3s": 8.28,
+      "p_f2": 8.62,
+      "p_f1": 8.68,
+      "p_f3": 8.85,
+      "p_births_reg": 14.12,
+      "p_births": 15.03,
+      "p_naive": 15.22
+    }
+  },
+  "donde_falla": {
+    "municipios": 81,
+    "anio_censo": 2021,
+    "spearman_error_con_signo_vs_ninos_0_4": -0.55,
+    "spearman_error_absoluto_vs_ninos_0_4": 0.59,
+    "por_area_mediana_ape": {
+      "Capital": 2.1,
+      "Este": 6.4,
+      "Norte": 8.2,
+      "Oeste": 8.8,
+      "Sur": 5.2
+    },
+    "peores": [
+      {
+        "municipio": "Buitrago del Lozoya",
+        "error_medio_pct": -34.1
+      },
+      {
+        "municipio": "Cubas de la Sagra",
+        "error_medio_pct": -0.3
+      },
+      {
+        "municipio": "Nuevo Baztán",
+        "error_medio_pct": -15.4
+      },
+      {
+        "municipio": "Ajalvir",
+        "error_medio_pct": 11.5
+      },
+      {
+        "municipio": "Fuente el Saz de Jarama",
+        "error_medio_pct": -7.5
+      },
+      {
+        "municipio": "Talamanca de Jarama",
+        "error_medio_pct": -1.4
+      },
+      {
+        "municipio": "Miraflores de la Sierra",
+        "error_medio_pct": -3.7
+      },
+      {
+        "municipio": "Soto del Real",
+        "error_medio_pct": -10.5
+      }
+    ]
+  },
+  "region_serie_larga": {
+    "cursos": [
+      1999,
+      2025
+    ],
+    "mdape_razon_regional": {
+      "1": 1.9,
+      "2": 3.7,
+      "3": 5.1,
+      "4": 6.4,
+      "5": 7.6,
+      "6": 7.6
+    },
+    "mdape_ingenuo": {
+      "1": 2.6,
+      "2": 4.6,
+      "3": 6.0,
+      "4": 7.6,
+      "5": 9.9,
+      "6": 11.7
+    },
+    "mdape_nacidos": {
+      "1": 3.8,
+      "2": 4.1,
+      "3": 3.8,
+      "4": 3.5,
+      "5": 3.3,
+      "6": 3.1
+    },
+    "razon_1o_por_nacido": {
+      "1999": 1.009,
+      "2000": 1.033,
+      "2001": 1.062,
+      "2002": 1.086,
+      "2003": 1.102,
+      "2004": 1.088,
+      "2005": 1.073,
+      "2006": 1.043,
+      "2007": 1.022,
+      "2008": 1.001,
+      "2009": 0.982,
+      "2010": 0.972,
+      "2011": 0.96,
+      "2012": 0.942,
+      "2013": 0.916,
+      "2014": 0.909,
+      "2015": 0.95,
+      "2016": 0.966,
+      "2017": 0.99,
+      "2018": 1.02,
+      "2019": 1.048,
+      "2020": 1.032,
+      "2021": 1.049,
+      "2022": 1.028,
+      "2023": 1.031,
+      "2024": 1.023,
+      "2025": 1.013
+    },
+    "por_periodo_razon_regional": {
+      "2000-2008": {
+        "mdape_min": 2.1,
+        "mdape_max": 6.5,
+        "sesgo_min": 0.3,
+        "sesgo_max": 1.8,
+        "ingenuo_mdape_max": 17.4
+      },
+      "2009-2015": {
+        "mdape_min": 1.8,
+        "mdape_max": 11.6,
+        "sesgo_min": 0.7,
+        "sesgo_max": 10.2,
+        "ingenuo_mdape_max": 12.9
+      },
+      "2016-en adelante": {
+        "mdape_min": 1.6,
+        "mdape_max": 5.0,
+        "sesgo_min": -5.3,
+        "sesgo_max": -0.7,
+        "ingenuo_mdape_max": 6.6
+      }
+    }
+  },
+  "backtest_infantil": {
+    "mdape": {
+      "Madrid capital": {
+        "1": {
+          "radar": 0.9,
+          "ingenuo": 3.2,
+          "n": 6
+        },
+        "2": {
+          "radar": 1.1,
+          "ingenuo": 6.4,
+          "n": 5
+        },
+        "3": {
+          "radar": 2.7,
+          "ingenuo": 10.2,
+          "n": 4
+        }
+      },
+      "grande": {
+        "1": {
+          "radar": 1.7,
+          "ingenuo": 4.5,
+          "n": 186
+        },
+        "2": {
+          "radar": 2.8,
+          "ingenuo": 9.7,
+          "n": 155
+        },
+        "3": {
+          "radar": 3.5,
+          "ingenuo": 15.0,
+          "n": 124
+        }
+      },
+      "mediano": {
+        "1": {
+          "radar": 4.3,
+          "ingenuo": 5.3,
+          "n": 348
+        },
+        "2": {
+          "radar": 6.2,
+          "ingenuo": 10.2,
+          "n": 290
+        },
+        "3": {
+          "radar": 8.1,
+          "ingenuo": 16.9,
+          "n": 232
+        }
+      },
+      "pequeño": {
+        "1": {
+          "radar": 10.0,
+          "ingenuo": 9.1,
+          "n": 266
+        },
+        "2": {
+          "radar": 13.3,
+          "ingenuo": 13.3,
+          "n": 221
+        },
+        "3": {
+          "radar": 19.3,
+          "ingenuo": 15.1,
+          "n": 176
+        }
+      }
+    },
+    "mdape_todos": {
+      "1": {
+        "radar": 4.4,
+        "ingenuo": 5.7
+      },
+      "2": {
+        "radar": 6.5,
+        "ingenuo": 10.7
+      },
+      "3": {
+        "radar": 8.5,
+        "ingenuo": 15.4
+      }
+    }
+  },
+  "proyeccion_1o": {
+    "base": "2024/25",
+    "ultimo_ano_nacidos": 2024,
+    "real_base": 58859,
+    "nacidos_base_cohorte": 57554.0,
+    "region": [
+      {
+        "curso": "2025/26",
+        "t": 2025,
+        "h": 1,
+        "nacidos_region": 55741.0,
+        "prevision": 56968.7,
+        "p10": 55824.6,
+        "p90": 58546.1,
+        "n": 26,
+        "cambio_pct": -3.2
+      },
+      {
+        "curso": "2026/27",
+        "t": 2026,
+        "h": 2,
+        "nacidos_region": 52357.0,
+        "prevision": 53416.5,
+        "p10": 51220.6,
+        "p90": 56334.5,
+        "n": 25,
+        "cambio_pct": -9.2
+      },
+      {
+        "curso": "2027/28",
+        "t": 2027,
+        "h": 3,
+        "nacidos_region": 51366.0,
+        "prevision": 52694.5,
+        "p10": 49636.4,
+        "p90": 56712.6,
+        "n": 24,
+        "cambio_pct": -10.5
+      },
+      {
+        "curso": "2028/29",
+        "t": 2028,
+        "h": 4,
+        "nacidos_region": 50961.0,
+        "prevision": 52345.4,
+        "p10": 48593.6,
+        "p90": 57075.6,
+        "n": 23,
+        "cambio_pct": -11.1
+      },
+      {
+        "curso": "2029/30",
+        "t": 2029,
+        "h": 5,
+        "nacidos_region": 50299.0,
+        "prevision": 51599.7,
+        "p10": 46892.1,
+        "p90": 56085.0,
+        "n": 22,
+        "cambio_pct": -12.3
+      },
+      {
+        "curso": "2030/31",
+        "t": 2030,
+        "h": 6,
+        "nacidos_region": 50770.0,
+        "prevision": 52047.0,
+        "p10": 46544.7,
+        "p90": 57471.3,
+        "n": 21,
+        "cambio_pct": -11.6
+      }
+    ],
+    "comprobacion_fuera_de_muestra": {
+      "curso": "2025/26",
+      "previsto": 56969,
+      "publicado": 56482,
+      "provisional": true,
+      "error_pct": 0.9,
+      "dentro_intervalo": true
+    },
+    "capital": {
+      "base": 25579.0,
+      "prevision": 24124,
+      "cambio_pct": -5.7
+    },
+    "resto": {
+      "base": 33280.0,
+      "prevision": 27923,
+      "cambio_pct": -16.1
+    },
+    "por_area_cambio_pct": {
+      "Capital": -5.7,
+      "Este": -13.4,
+      "Norte": -13.9,
+      "Oeste": -10.1,
+      "Sur": -21.0
+    },
+    "municipios_con_colegio": 136,
+    "municipios_que_caen": 97,
+    "factor_respaldo": 0,
+    "kinf": 1.0227
+  },
+  "ranking": {
+    "curso": "2030/31",
+    "municipios": 52,
+    "caen": 42,
+    "caen_mas_10": 35,
+    "caida_segura": 29,
+    "subida_segura": 2,
+    "mas_caen": [
+      {
+        "municipio": "Paracuellos de Jarama",
+        "base": 318.0,
+        "prevision": 193,
+        "p10": 180,
+        "p90": 214,
+        "cambio_pct": -39
+      },
+      {
+        "municipio": "Guadarrama",
+        "base": 267.0,
+        "prevision": 169,
+        "p10": 158,
+        "p90": 187,
+        "cambio_pct": -37
+      },
+      {
+        "municipio": "Arroyomolinos",
+        "base": 532.0,
+        "prevision": 352,
+        "p10": 329,
+        "p90": 390,
+        "cambio_pct": -34
+      },
+      {
+        "municipio": "Meco",
+        "base": 161.0,
+        "prevision": 110,
+        "p10": 99,
+        "p90": 147,
+        "cambio_pct": -31
+      },
+      {
+        "municipio": "Arganda del Rey",
+        "base": 653.0,
+        "prevision": 464,
+        "p10": 433,
+        "p90": 515,
+        "cambio_pct": -29
+      },
+      {
+        "municipio": "Loeches",
+        "base": 102.0,
+        "prevision": 73,
+        "p10": 65,
+        "p90": 97,
+        "cambio_pct": -29
+      },
+      {
+        "municipio": "Fuenlabrada",
+        "base": 1560.0,
+        "prevision": 1150,
+        "p10": 1075,
+        "p90": 1277,
+        "cambio_pct": -26
+      },
+      {
+        "municipio": "San Sebastián de los Reyes",
+        "base": 810.0,
+        "prevision": 597,
+        "p10": 558,
+        "p90": 663,
+        "cambio_pct": -26
+      }
+    ],
+    "mas_suben": [
+      {
+        "municipio": "Moralzarzal",
+        "base": 138.0,
+        "prevision": 155,
+        "p10": 139,
+        "p90": 206,
+        "cambio_pct": 12
+      },
+      {
+        "municipio": "Villalbilla",
+        "base": 207.0,
+        "prevision": 229,
+        "p10": 206,
+        "p90": 306,
+        "cambio_pct": 11
+      },
+      {
+        "municipio": "Colmenar Viejo",
+        "base": 550.0,
+        "prevision": 596,
+        "p10": 557,
+        "p90": 661,
+        "cambio_pct": 8
+      },
+      {
+        "municipio": "Tres Cantos",
+        "base": 610.0,
+        "prevision": 643,
+        "p10": 601,
+        "p90": 714,
+        "cambio_pct": 5
+      },
+      {
+        "municipio": "Villanueva del Pardillo",
+        "base": 165.0,
+        "prevision": 173,
+        "p10": 162,
+        "p90": 192,
+        "cambio_pct": 5
+      },
+      {
+        "municipio": "San Lorenzo de El Escorial",
+        "base": 165.0,
+        "prevision": 172,
+        "p10": 154,
+        "p90": 229,
+        "cambio_pct": 4
+      }
+    ]
+  },
+  "ancho_intervalo_ultimo_curso_pct": {
+    "Madrid capital": 18,
+    "grande": 18,
+    "mediano": 43,
+    "pequeño": 108
+  },
+  "cobertura_intervalos_1o_pct": {
+    "grande": 76.7,
+    "mediano": 78.2,
+    "pequeño": 79.1,
+    "todos": 78.2
+  },
+  "proyeccion_infantil": {
+    "base": "2024/25",
+    "real_base": 159467,
+    "region": [
+      {
+        "curso": "2025/26",
+        "prevision": 154946,
+        "cambio_pct": -2.8
+      },
+      {
+        "curso": "2026/27",
+        "prevision": 153169,
+        "cambio_pct": -3.9
+      },
+      {
+        "curso": "2027/28",
+        "prevision": 152536,
+        "cambio_pct": -4.3
+      }
+    ]
+  },
+  "nacidos_region": {
+    "2000": 56622,
+    "2001": 59724,
+    "2002": 63153,
+    "2003": 67044,
+    "2004": 69029,
+    "2005": 69364,
+    "2006": 71941,
+    "2007": 74841,
+    "2008": 78741,
+    "2009": 75892,
+    "2010": 73776,
+    "2011": 72023,
+    "2012": 69374,
+    "2013": 65343,
+    "2014": 65505,
+    "2015": 64879,
+    "2016": 63112,
+    "2017": 60555,
+    "2018": 57554,
+    "2019": 55741,
+    "2020": 52357,
+    "2021": 51366,
+    "2022": 50961,
+    "2023": 50299,
+    "2024": 50770
+  }
+}

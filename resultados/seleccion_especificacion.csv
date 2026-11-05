@@ -1,0 +1,11 @@
+,MdAPE_medio_h2_6,descripcion
+p_finfk,6.04,(b5) ídem (b4) × corrección regional 1º/infantil [elegida]
+p_combo,6.82,"(b6) media de (b2, tres cursos) y (b5)"
+p_finf,6.84,(b4) nacidos × razón de infantil 3-5 del municipio
+p_f3s,8.28,"(b3) ídem tres cursos, contraída hacia su área (λ = 100 nacidos)"
+p_f2,8.62,"(b2) ídem, dos últimos cursos"
+p_f1,8.68,"(b2) nacidos × razón de 1º del municipio, último curso"
+p_f3,8.85,"(b2) ídem, tres últimos cursos"
+p_births_reg,14.12,(a') nacidos × razón regional alumnos/nacidos
+p_births,15.03,(a) nacidos seis años antes
+p_naive,15.22,(c) ingenuo: los alumnos de 1º del curso base

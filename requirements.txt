@@ -1,0 +1,5 @@
+# Cálculo
+pandas>=2.1
+numpy>=1.26
+# Tests
+pytest>=8

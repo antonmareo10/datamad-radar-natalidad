@@ -1,0 +1,11 @@
+[project]
+name = "radar-natalidad-municipal"
+version = "1.0.0"
+description = "Previsión abierta de alumnos de 1º de primaria e infantil por municipio de la Comunidad de Madrid"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dependencies = ["pandas>=2.1", "numpy>=1.26"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

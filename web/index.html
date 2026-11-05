@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Radar de natalidad municipal</title>
+<meta name="description" content="Previsión abierta de los niños que entrarán en 1º de primaria e infantil en cada municipio de la Comunidad de Madrid, con su error medido en cursos ya cerrados.">
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<a class="saltar" href="#principal">Saltar al contenido</a>
+
+<header class="cabecera">
+  <div class="contenedor">
+    <p class="antetitulo">DataMad 2026 · Datos abiertos de la Comunidad de Madrid</p>
+    <h1>Radar de natalidad municipal</h1>
+    <p class="entradilla">Los niños que empezarán primaria en <span data-r="cursos_p1.-1"></span> ya han nacido. El radar convierte los nacimientos y la matrícula que publica la Comunidad de Madrid en una previsión de cuántos alumnos entrarán en 1º de primaria y en infantil en cada municipio, con un margen de error medido en cursos que ya han terminado.</p>
+    <nav class="indice" aria-label="Secciones de la página">
+      <ul>
+        <li><a href="#mapa">Mapa y fichas</a></li>
+        <li><a href="#region">Toda la región</a></li>
+        <li><a href="#metodo">Método y error</a></li>
+        <li><a href="#uso">Para quién</a></li>
+        <li><a href="#datos">Datos y licencias</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="principal">
+  <noscript><p class="contenedor aviso">La página necesita JavaScript para dibujar el mapa y las fichas. Las tablas completas están en la carpeta <code>resultados/</code> del repositorio.</p></noscript>
+
+  <section class="contenedor cifras" aria-label="Cifras principales" id="cifras"></section>
+
+  <section id="mapa" class="bloque" aria-labelledby="t-mapa">
+    <div class="contenedor">
+      <p class="kicker">Municipio a municipio</p>
+      <h2 id="t-mapa">¿Cuántos niños empezarán el colegio en cada municipio?</h2>
+      <p class="lead">El color muestra el cambio previsto frente al curso <span data-r="base"></span>, el último con matrícula publicada. Toca un municipio o elígelo en la lista para ver su ficha.</p>
+
+      <form class="controles" id="controles" onsubmit="return false">
+        <fieldset class="segmentado">
+          <legend>Etapa</legend>
+          <label><input type="radio" name="nivel" value="p1" checked><span>1º de primaria</span></label>
+          <label><input type="radio" name="nivel" value="pi"><span>Infantil (3 a 5 años)</span></label>
+        </fieldset>
+        <div class="campo">
+          <label for="sel-curso">Curso</label>
+          <select id="sel-curso"></select>
+        </div>
+        <fieldset class="segmentado">
+          <legend>Qué colorear</legend>
+          <label><input type="radio" name="modo" value="cambio" checked><span>Cambio previsto</span></label>
+          <label><input type="radio" name="modo" value="ancho"><span>Incertidumbre</span></label>
+        </fieldset>
+        <div class="campo campo-ancho">
+          <label for="sel-muni">Municipio</label>
+          <select id="sel-muni"></select>
+        </div>
+      </form>
+
+      <div class="rejilla-mapa">
+        <figure class="tarjeta mapa-fig">
+          <div class="mapa-caja" id="mapa-caja">
+            <svg id="svg-mapa" role="img" aria-labelledby="mapa-titulo mapa-desc">
+              <title id="mapa-titulo">Mapa de los municipios de la Comunidad de Madrid</title>
+              <desc id="mapa-desc">Coroplético del cambio previsto por municipio. La misma información está en la tabla de municipios, debajo del mapa.</desc>
+            </svg>
+            <div class="tooltip" id="tooltip" hidden></div>
+          </div>
+          <figcaption>
+            <div class="leyenda" id="leyenda"></div>
+            <p class="nota" id="nota-mapa"></p>
+          </figcaption>
+        </figure>
+        <article class="tarjeta ficha" id="ficha" aria-labelledby="ficha-titulo"></article>
+      </div>
+      <p class="sr-only" aria-live="polite" id="anuncio"></p>
+
+      <details class="tarjeta desplegable" id="tabla-munis">
+        <summary>Tabla de todos los municipios (alternativa al mapa)</summary>
+        <div class="tabla-scroll">
+          <table class="tabla" id="tabla-municipios">
+            <caption id="tabla-caption"></caption>
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section id="region" class="bloque alterno" aria-labelledby="t-region">
+    <div class="contenedor">
+      <p class="kicker">Toda la región</p>
+      <h2 id="t-region">La caída de nacimientos ya está llegando a primaria</h2>
+      <div class="dos-columnas">
+        <div>
+          <p>En <span data-r="nac_ultimo_anio"></span> nacieron en la Comunidad de Madrid <span data-r="nac_ultimo"></span> niños, frente a <span data-r="nac_2008"></span> en 2008. Los nacidos de cada año llegan a 1º de primaria seis cursos después, así que la curva gris anticipa la azul.</p>
+          <p>Para el curso <span data-r="resumen.proyeccion_1o.region.-1.curso"></span> el radar prevé <span data-r="resumen.proyeccion_1o.region.-1.prevision" data-f="int"></span> alumnos de 1º (entre <span data-r="resumen.proyeccion_1o.region.-1.p10" data-f="int"></span> y <span data-r="resumen.proyeccion_1o.region.-1.p90" data-f="int"></span>), un <span data-r="resumen.proyeccion_1o.region.-1.cambio_pct" data-f="pct1abs"></span> menos que en <span data-r="base"></span>. La caída no es igual en todas partes: en la capital, <span data-r="resumen.proyeccion_1o.capital.cambio_pct" data-f="pct1"></span>; en el resto de la región, <span data-r="resumen.proyeccion_1o.resto.cambio_pct" data-f="pct1"></span>; en el área Sur, <span data-r="resumen.proyeccion_1o.por_area_cambio_pct.Sur" data-f="pct1"></span>.</p>
+          <p>Comprobación con un dato que el modelo no usa: para <span data-r="resumen.proyeccion_1o.comprobacion_fuera_de_muestra.curso"></span> prevé <span data-r="resumen.proyeccion_1o.comprobacion_fuera_de_muestra.previsto" data-f="int"></span> alumnos y la cifra provisional publicada por el Instituto de Estadística es <span data-r="resumen.proyeccion_1o.comprobacion_fuera_de_muestra.publicado" data-f="int"></span> (<span data-r="resumen.proyeccion_1o.comprobacion_fuera_de_muestra.error_pct" data-f="pct1"></span>). Es un solo punto y además provisional, pero no se ajustó nada para acertarlo.</p>
+        </div>
+        <figure class="tarjeta grafico-fig">
+          <figcaption class="grafico-titulo">1º de primaria en la Comunidad de Madrid, por curso</figcaption>
+          <div class="grafico" id="graf-region"></div>
+          <details class="desplegable-mini"><summary>Ver los datos en una tabla</summary><div class="tabla-scroll" id="tabla-region"></div></details>
+        </figure>
+      </div>
+      <h3>Dónde más cambia (municipios con 100 alumnos de 1º o más)</h3>
+      <div class="dos-columnas ranking">
+        <div><h4>Más caída hasta <span data-r="resumen.ranking.curso"></span></h4><ol id="rk-caen" class="lista-rk"></ol></div>
+        <div><h4>Suben o casi no cambian</h4><ol id="rk-suben" class="lista-rk"></ol></div>
+      </div>
+      <p class="nota">De los <span data-r="resumen.ranking.municipios"></span> municipios con 100 alumnos de 1º o más, caen <span data-r="resumen.ranking.caen"></span>. En <span data-r="resumen.ranking.caida_segura"></span> la caída es clara incluso en el extremo alto del intervalo; la subida es clara en <span data-r="resumen.ranking.subida_segura"></span>. Las subidas están donde llegan familias, que es justo donde el método tiende a quedarse corto: podrían ser mayores.</p>
+    </div>
+  </section>
+
+  <section id="metodo" class="bloque" aria-labelledby="t-metodo">
+    <div class="contenedor">
+      <p class="kicker">Método y error</p>
+      <h2 id="t-metodo">Cómo se calcula y cuánto se equivoca</h2>
+      <div class="dos-columnas">
+        <div>
+          <h3>La idea</h3>
+          <p>Un niño que empieza 1º de primaria en el curso 2030/31 nació en 2024, y los nacimientos de 2024 ya están publicados. Pero no basta con contar nacidos: los nacimientos se registran donde vive la madre y los alumnos donde está el colegio, hay familias que se mudan con niños pequeños y pueblos que escolarizan a los de su comarca. Contando solo nacidos, el error mediano en los municipios grandes es del <span data-r="resumen.backtest_1o.mdape.grande.3.nacidos" data-f="pct1abs"></span> a tres cursos.</p>
+          <p>Por eso cada municipio lleva su propio factor, medido en su matrícula de infantil (3 a 5 años): cuántos alumnos tiene por cada niño nacido allí. Ese factor recoge la llegada y salida de familias y la escolarización entre municipios vecinos. La previsión es nacidos seis años antes × factor del municipio × una corrección regional que iguala la escala de infantil con la de 1º.</p>
+          <p>Las previsiones se ponen a prueba con origen móvil: se calcula como si estuviéramos en un curso pasado, usando solo lo que se sabía entonces, y se compara con lo que pasó después. Ninguna previsión usa datos posteriores a su fecha; hay un test que lo comprueba.</p>
+          <p>Probé diez variantes y me quedé con la de menor error mediano medio a 2-6 cursos en los municipios con 50 alumnos de 1º o más. Ese criterio y tres de las variantes los añadí después de ver los primeros resultados, y la elección se hizo sobre la misma muestra que se mide: sus errores son algo optimistas. Las comprobaciones que no intervinieron en la elección son el dato de <span data-r="resumen.proyeccion_1o.comprobacion_fuera_de_muestra.curso"></span>, la serie regional desde 1999 y la cobertura de los intervalos calculada sin la base que se evalúa.</p>
+        </div>
+        <div>
+          <h3>El error, medido</h3>
+          <p>Error mediano en 1º de primaria, en % de los alumnos reales, según con cuántos cursos de antelación se hace la previsión. «Nada cambia» es suponer que el curso que viene habrá los mismos alumnos que este.</p>
+          <div class="tabla-scroll"><table class="tabla compacta" id="tabla-error"></table></div>
+          <p class="nota">Grupos fijos según los alumnos de 1º en <span data-r="curso_inicial"></span>: grande, 250 o más; mediano, de 50 a 249; pequeño, menos de 50. Cursos contrastados: de <span data-r="curso_inicial"></span> a <span data-r="base"></span>.</p>
+        </div>
+      </div>
+
+      <h3>Dónde falla</h3>
+      <ul class="lista-fallos">
+        <li>En los municipios pequeños. Con menos de 50 alumnos de 1º, dos o tres familias mueven mucho el porcentaje: el error mediano es del <span data-r="resumen.backtest_1o.mdape.pequeño.1.radar" data-f="pct1abs"></span> al <span data-r="resumen.backtest_1o.mdape.pequeño.6.radar" data-f="pct1abs"></span>. Por eso sus intervalos son muy anchos (ancho mediano del <span data-r="resumen.ancho_intervalo_ultimo_curso_pct.pequeño" data-f="pctabs"></span> de la previsión en <span data-r="cursos_p1.-1"></span>, frente al <span data-r="resumen.ancho_intervalo_ultimo_curso_pct.grande" data-f="pctabs"></span> en los grandes) y conviene leerlos junto a su zona. En infantil, en los pequeños, el método no mejora a suponer que nada cambia.</li>
+        <li>En los municipios que ganan familias jóvenes. Cuantos más niños de 0 a 4 años tiene censados por cada nacido, más se queda corto (correlación de Spearman de <span data-r="resumen.donde_falla.spearman_error_con_signo_vs_ninos_0_4" data-f="dec"></span> entre esa razón y el error con signo, en <span data-r="resumen.donde_falla.municipios"></span> municipios). En los medianos, a cinco y seis cursos, el sesgo llega al <span data-r="resumen.backtest_1o.sesgo_radar.mediano.6" data-f="pct"></span>.</li>
+        <li>En los que escolarizan a niños de toda la comarca, como Buitrago del Lozoya (error medio del <span data-r="peor_error"></span> a 2-4 cursos).</li>
+        <li>Cuando cambia el ciclo migratorio. Los intervalos municipales salen de <span data-r="curso_inicial"></span>-<span data-r="base"></span>, años de migración estable. En la serie regional, con la razón alumnos/nacidos congelada, el error mediano llegó, según la antelación, hasta el <span data-r="resumen.region_serie_larga.por_periodo_razon_regional.2009-2015.mdape_max" data-f="pct1abs"></span> en 2009-2015, tras la crisis, cuando se fueron familias; con el ciclo estable de 2016 en adelante no pasó del <span data-r="resumen.region_serie_larga.por_periodo_razon_regional.2016-en adelante.mdape_max" data-f="pct1abs"></span>.</li>
+        <li>No prevé el total de primaria ni la red pública y la concertada por separado, y no baja a los distritos de la capital: el catálogo no publica nacimientos por distrito.</li>
+      </ul>
+      <p>Agregar ayuda: sumando las previsiones de cada área territorial (Capital, Norte, Sur, Este y Oeste), el error total baja al <span data-r="resumen.backtest_1o.wape_areas.5.radar" data-f="pct1abs"></span> a cinco cursos, frente al <span data-r="resumen.backtest_1o.wape_areas.5.ingenuo" data-f="pct1abs"></span> de suponer que nada cambia. Los intervalos del 80 % se calibraron con los errores del pasado; calculados sin la base que se evalúa, contienen al real en el <span data-r="resumen.cobertura_intervalos_1o_pct.todos" data-f="pct1abs"></span> de los casos.</p>
+    </div>
+  </section>
+
+  <section id="uso" class="bloque alterno" aria-labelledby="t-uso">
+    <div class="contenedor">
+      <p class="kicker">Para quién y cómo se usaría</p>
+      <h2 id="t-uso">Una herramienta para planificar plazas, no un estudio</h2>
+      <div class="tres-columnas">
+        <div class="tarjeta">
+          <h3>Ayuntamientos</h3>
+          <p>Las concejalías de Educación y de Familia necesitan saber con varios cursos de margen si sobrarán o faltarán plazas en sus colegios y escuelas infantiles: para reconvertir aulas, decidir el uso de un edificio o negociar con la Consejería una ampliación o un cierre de unidades. La ficha de cada municipio da la cifra, su rango y cómo habría acertado en el pasado.</p>
+        </div>
+        <div class="tarjeta">
+          <h3>Consejería de Educación</h3>
+          <p>La planificación de la red (unidades por centro, cupos de profesorado, conciertos, inversiones) se decide por zonas y con años de antelación. El radar ofrece una primera estimación común y abierta para los <span data-r="resumen.proyeccion_1o.municipios_con_colegio"></span> municipios con colegio, que se puede contrastar con los datos internos de escolarización de la propia Consejería.</p>
+        </div>
+        <div class="tarjeta">
+          <h3>Reutilizadores</h3>
+          <p>Periodistas, AMPAs, centros privados y concertados o consultoras pueden usar las tablas y el código sin pedir permiso: todo es abierto y se puede rehacer desde cero con una orden.</p>
+        </div>
+      </div>
+      <div class="dos-columnas">
+        <div>
+          <h3>Cómo se actualiza cada año</h3>
+          <ol class="pasos">
+            <li>Cuando la Consejería publica la matrícula del curso nuevo (la del curso <span data-r="base"></span> se actualizó en el catálogo el <span data-r="fecha_primaria"></span>) y el Instituto de Estadística los nacimientos del año (los de <span data-r="nac_ultimo_anio"></span>, el <span data-r="fecha_nacidos"></span>), se ejecuta <code>python -m radar todo</code>.</li>
+            <li>El programa vuelve a descargar los ficheros oficiales, deja constancia de la URL, la fecha y la huella SHA-256 de cada uno, mueve la base al último curso, añade un curso más al backtest y regenera las previsiones, los intervalos y esta web.</li>
+            <li>La web es un único directorio de ficheros estáticos: se publica copiándolo a cualquier servidor, incluido el del propio portal de datos abiertos.</li>
+          </ol>
+        </div>
+        <div>
+          <h3>Coste</h3>
+          <ul class="pasos">
+            <li>Datos: 0 €. Todo sale del catálogo de datos abiertos de la Comunidad de Madrid, con licencia CC BY.</li>
+            <li>Infraestructura: 0 € si se aloja como web estática; no hay servidor, base de datos ni claves.</li>
+            <li>Cálculo: menos de un minuto en un portátil, con Python y dos librerías libres (pandas y numpy).</li>
+            <li>Mantenimiento: una actualización al año, revisar que el portal no haya cambiado el formato y leer las alarmas de la ficha. Lo estimo en unas horas al año.</li>
+          </ul>
+          <p class="nota">Viabilidad comercial: el núcleo es abierto y gratuito; lo que tendría valor de servicio es bajarlo a zonas de escolarización o a centros con datos que no son públicos, e integrarlo en las herramientas de planificación de un ayuntamiento o de la Consejería. Nadie lo usa todavía: es un prototipo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="datos" class="bloque" aria-labelledby="t-datos">
+    <div class="contenedor">
+      <p class="kicker">Datos y licencias</p>
+      <h2 id="t-datos">De dónde sale cada cifra</h2>
+      <p>Todos los ficheros se descargan de su URL oficial en el catálogo de la Comunidad de Madrid. La fecha es la de la descarga que generó esta versión.</p>
+      <div class="tabla-scroll"><table class="tabla" id="tabla-fuentes"></table></div>
+      <p class="nota">Código con licencia MIT. Tablas derivadas con licencia CC BY 4.0, citando como fuente original a la Comunidad de Madrid (datos.comunidad.madrid). Los límites municipales son la capa «Municipios y Distritos de Madrid (2020)» del mismo catálogo (CC BY); los 21 distritos de la capital se funden en uno y las líneas se simplifican para el mapa. Datos generados el <span data-r="generado"></span>.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="contenedor">
+    <p>Radar de natalidad municipal · Proyecto para DataMad 2026 · Código abierto (MIT). Para reproducirlo: <code>python -m radar todo</code>.</p>
+  </div>
+</footer>
+
+<script src="datos/radar.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
