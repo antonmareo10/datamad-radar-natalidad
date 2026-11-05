@@ -1,3 +1,8 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/marca/lockup-reversed.svg">
+  <img src="docs/marca/lockup.svg" alt="Radar de natalidad municipal" width="360">
+</picture>
+
 # Radar de natalidad municipal
 
 Previsión abierta de cuántos niños entrarán en 1º de primaria y en infantil (3 a 5 años) en cada municipio de la Comunidad de Madrid durante los próximos cursos, con un intervalo de incertidumbre que sale de los errores reales del método en cursos ya cerrados. Todo se calcula con datos del catálogo de datos abiertos de la Comunidad de Madrid y se puede rehacer desde cero con una orden.
@@ -132,8 +137,8 @@ radar/            código: fuentes, descarga, carga, modelo, backtest, intervalo
 tests/            tests con datos sintéticos de resultado conocido
 fuentes/          manifiesto de la última descarga (URL, fecha, SHA-256, licencia)
 resultados/       tablas del backtest, proyecciones y resumen.json
-web/              web estática (index.html, app.js, estilo.css y datos/radar.js generado)
-docs/             captura para este README
+web/              web estática (index.html, app.js, estilo.css, favicon, og.png y datos/radar.js generado)
+docs/             captura para este README y logotipo (docs/marca/)
 ```
 
 ## Actualización anual y coste
