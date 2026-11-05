@@ -1,5 +1,5 @@
 # Datos descargados y salidas pesadas (se regeneran con `python -m radar todo`)
-datos/
+/datos/
 __pycache__/
 *.pyc
 .pytest_cache/
