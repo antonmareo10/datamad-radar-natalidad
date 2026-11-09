@@ -9,6 +9,8 @@ Previsión abierta de cuántos niños entrarán en 1º de primaria y en infantil
 
 Proyecto para DataMad 2026. Código con licencia MIT.
 
+Web: https://radar-natalidad-madrid.vercel.app
+
 ![Mapa del cambio previsto en 1º de primaria y ficha de Fuenlabrada](docs/captura.png)
 
 ## Qué hace
