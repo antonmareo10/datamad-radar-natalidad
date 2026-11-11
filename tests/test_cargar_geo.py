@@ -29,18 +29,22 @@ def test_nombre_legible():
     assert C.nombre_legible("Fuenlabrada") == "Fuenlabrada"
 
 
-def test_leer_ie(tmp_path):
+@pytest.mark.parametrize("codificacion", ["latin-1", "utf-8-sig", "utf-8"])
+def test_leer_ie(tmp_path, codificacion):
+    # El Instituto de Estadística pasó de latin-1 a UTF-8 con BOM el 5-nov-2026: valen las dos.
     txt = ("Año;Tipo territorio;Código territorio;Territorio;Sexo;Valor;Unidad;Estado dato\n"
            "2024;Comunidad de Madrid;;Comunidad de Madrid;Total;50770;Número;\n"
            "2024;Municipios;0091;Algete;Total;150;Número;\n"
            "2024;Municipios;0014;Acebeda (La);Total;-;Número;\n"
+           "2024;Municipios;0920;Móstoles;Total;1800;Número;\n"
            "2023;Municipios;0091;Algete;Total;160;Número;\n")
     p = tmp_path / "n.csv"
-    p.write_bytes(txt.encode("latin-1"))
+    p.write_bytes(txt.encode(codificacion))
     B, nombres = C.nacidos(p)
     assert B.at["28009", 2024] == 150
     assert B.at["28009", 2023] == 160
     assert nombres["28001"] == "La Acebeda"
+    assert nombres["28092"] == "Móstoles"
     assert "Comunidad de Madrid" not in nombres.values
 
 

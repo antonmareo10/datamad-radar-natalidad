@@ -50,9 +50,22 @@ def _sin_tildes(s: str) -> str:
     return "".join(c for c in unicodedata.normalize("NFD", s) if unicodedata.category(c) != "Mn").lower()
 
 
+def _codificacion(ruta: pathlib.Path) -> str:
+    """UTF-8 (con o sin BOM) si el fichero lo es entero; si no, latin-1.
+
+    El Instituto de Estadística publicaba sus CSV en latin-1 y desde el 5-nov-2026 los publica
+    en UTF-8 con BOM, con el mismo contenido. Se aceptan las dos versiones.
+    """
+    try:
+        ruta.read_bytes().decode("utf-8")
+        return "utf-8-sig"
+    except UnicodeDecodeError:
+        return "latin-1"
+
+
 def leer_ie(ruta: pathlib.Path) -> pd.DataFrame:
-    """CSV del Instituto de Estadística (latin-1, ';'). Columnas normalizadas y valor numérico."""
-    df = pd.read_csv(ruta, sep=";", encoding="latin-1", dtype=str, keep_default_na=False)
+    """CSV del Instituto de Estadística (';', latin-1 o UTF-8). Columnas normalizadas y valor numérico."""
+    df = pd.read_csv(ruta, sep=";", encoding=_codificacion(pathlib.Path(ruta)), dtype=str, keep_default_na=False)
     df.columns = [_sin_tildes(c.strip()) for c in df.columns]
     ren = {"ano": "anio", "tipo territorio": "tipo", "codigo territorio": "cod", "territorio": "territorio",
            "valor": "valor_txt", "unidad": "unidad", "estado dato": "estado", "concepto": "concepto"}

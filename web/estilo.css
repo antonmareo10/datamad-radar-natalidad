@@ -124,7 +124,8 @@ p { margin: 0 0 1em; max-width: 72ch; }
 .tooltip .t-sec { color: #d6d4cc; }
 .leyenda { display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 10px; font-size: 0.8rem; color: var(--tinta-2); align-items: center; }
 .leyenda .ley-titulo { width: 100%; font-weight: 600; color: var(--tinta-2); }
-.leyenda .ley-item { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+.leyenda .ley-item { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; max-width: 100%; }
+.leyenda .ley-item:last-child { white-space: normal; }
 .leyenda .sw { width: 14px; height: 14px; border-radius: 3px; border: 1px solid rgba(0, 0, 0, 0.12); flex: none; }
 .leyenda .sw.rayado { background: repeating-linear-gradient(45deg, #f1efea 0 3px, #c8c5bc 3px 4.5px); }
 .mapa-fig .nota { margin: 8px 0 0; }
@@ -203,4 +204,5 @@ abbr[title] { text-decoration: none; }
 .baja { color: #a8302a; }
 
 .pie { border-top: 1px solid var(--linea); padding: 22px 0 36px; color: var(--tinta-3); font-size: 0.9rem; }
+.pie a { overflow-wrap: anywhere; }
 .aviso-noscript { padding: 12px; }
