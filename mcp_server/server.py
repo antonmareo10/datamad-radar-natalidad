@@ -32,7 +32,7 @@ except ImportError:  # pragma: no cover - mcp 1.x
 from mcp_server import herramientas as H
 
 INSTRUCCIONES = (
-    "Previsión abierta de alumnos de 1º de primaria (hasta 2030/31) e infantil de 3 a 5 años (hasta 2027/28) en los "
+    "Previsión abierta de alumnos de 1.º de primaria (hasta 2030/31) e infantil de 3 a 5 años (hasta 2027/28) en los "
     "municipios de la Comunidad de Madrid, con intervalos del 80 % calibrados con un backtest. Datos abiertos de la "
     "Comunidad de Madrid (CC BY 4.0). Al responder, da siempre la previsión junto con su intervalo y los avisos de "
     "fiabilidad, y cita la fuente."
@@ -53,7 +53,7 @@ def crear_servidor(origen: str | None = None) -> _Servidor:
     @mcp.tool(annotations=SOLO_LECTURA)
     def prevision_municipio(municipio: str, nivel: Literal["1o", "infantil"] = "1o") -> str:
         """Previsión de alumnos de un municipio, curso a curso, con su intervalo del 80 % y el cambio frente al último
-        curso con matrícula publicada. nivel="1o": 1º de primaria (hasta 2030/31); nivel="infantil": infantil de
+        curso con matrícula publicada. nivel="1o": 1.º de primaria (hasta 2030/31); nivel="infantil": infantil de
         3 a 5 años (hasta 2027/28). municipio: nombre o código INE."""
         return H.prevision_municipio(radar, municipio, nivel)
 
@@ -66,7 +66,7 @@ def crear_servidor(origen: str | None = None) -> _Servidor:
 
     @mcp.tool(annotations=SOLO_LECTURA)
     def mayores_cambios(n: int = 10, sentido: Literal["bajada", "subida"] = "bajada") -> str:
-        """Municipios (con 100 alumnos de 1º o más) donde más baja o más sube el alumnado de 1º de primaria previsto
+        """Municipios (con 100 alumnos de 1.º o más) donde más baja o más sube el alumnado de 1.º de primaria previsto
         para el último curso del horizonte, con su intervalo del 80 %. n: cuántos (1 a 52)."""
         return H.mayores_cambios(radar, n, sentido)
 

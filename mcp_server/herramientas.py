@@ -215,7 +215,7 @@ def buscar_municipio(radar: Radar, texto: str) -> str:
 def prevision_municipio(radar: Radar, municipio: str, nivel: str = "1o") -> str:
     clave = NIVELES.get(normalizar(nivel or "1o").replace(" ", "")) or NIVELES.get(str(nivel).strip().lower())
     if clave is None:
-        return f"Nivel «{nivel}» no válido: usa \"1o\" (1º de primaria) o \"infantil\" (infantil de 3 a 5 años)."
+        return f"Nivel «{nivel}» no válido: usa \"1o\" (1.º de primaria) o \"infantil\" (infantil de 3 a 5 años)."
     m, nota = resolver(radar, municipio)
     if m is None:
         return nota
@@ -224,7 +224,7 @@ def prevision_municipio(radar: Radar, municipio: str, nivel: str = "1o") -> str:
         return nota + "\n".join([_etiqueta(m) + ":", *(a["texto"] for a in d["fiabilidad"]["avisos"]),
                                  "No hay previsión propia: sus alumnos cuentan en las previsiones de los municipios donde se escolarizan.",
                                  _pie(d)])
-    etapa = "1º de primaria" if clave == "1o" else "infantil de 3 a 5 años"
+    etapa = "1.º de primaria" if clave == "1o" else "infantil de 3 a 5 años"
     bloque = d.get("primero_primaria" if clave == "1o" else "infantil_3_5")
     if not bloque:
         return nota + f"{_etiqueta(m)} no tiene alumnado de {etapa} publicado, así que el radar no hace previsión de esa etapa.\n" + _pie(d)
@@ -240,7 +240,7 @@ def prevision_municipio(radar: Radar, municipio: str, nivel: str = "1o") -> str:
     grupo = bloque.get("grupo")
     tam = "de la capital (usa los errores de los municipios grandes)" if grupo == "Madrid capital" else f"{grupo}s"
     if clave == "1o":
-        lineas.append(f"Cómo se calcula: nacidos en el municipio seis años antes × su factor ({dec(bloque['factor'], 2)} alumnos de 1º "
+        lineas.append(f"Cómo se calcula: nacidos en el municipio seis años antes × su factor ({dec(bloque['factor'], 3)} alumnos de 1.º "
                       f"por cada niño nacido aquí, medido en su matrícula de infantil de {base}). El intervalo sale de los errores "
                       f"reales del backtest en municipios {tam} con la misma antelación.")
     else:
@@ -269,10 +269,10 @@ def fiabilidad_municipio(radar: Radar, municipio: str) -> str:
     g = f["grupo"]
     md = f["error_mediano_grupo_pct"] or {}
     desc = {"Madrid capital": "Madrid capital (sus intervalos usan los errores de los municipios grandes)",
-            "grande": "municipio grande (250 alumnos de 1º o más en el primer curso del backtest)",
-            "mediano": "municipio mediano (de 50 a 249 alumnos de 1º en el primer curso del backtest)",
-            "pequeño": "municipio pequeño (menos de 50 alumnos de 1º en el primer curso del backtest)"}.get(g, g)
-    lineas = [f"{nota}Fiabilidad de la previsión de 1º de primaria en {_etiqueta(m)}.", f"Grupo: {desc}.", ""]
+            "grande": "municipio grande (250 alumnos de 1.º o más en el primer curso del backtest)",
+            "mediano": "municipio mediano (de 50 a 249 alumnos de 1.º en el primer curso del backtest)",
+            "pequeño": "municipio pequeño (menos de 50 alumnos de 1.º en el primer curso del backtest)"}.get(g, g)
+    lineas = [f"{nota}Fiabilidad de la previsión de 1.º de primaria en {_etiqueta(m)}.", f"Grupo: {desc}.", ""]
     hs = sorted(md, key=int)
     if hs:
         lineas.append("Error mediano del radar en su grupo, según los cursos de antelación (entre paréntesis, suponer que nada cambia):")
@@ -296,7 +296,7 @@ def fiabilidad_municipio(radar: Radar, municipio: str) -> str:
     pasadas = [x for x in f.get("previsiones_pasadas", []) if x["t"] == max(y["t"] for y in f["previsiones_pasadas"])]
     if pasadas:
         real = pasadas[0]
-        lineas.append(f"Cómo habría acertado {real['curso']} (hubo {ent(real['y'])} alumnos de 1º):")
+        lineas.append(f"Cómo habría acertado {real['curso']} (hubo {ent(real['y'])} alumnos de 1.º):")
         for x in sorted(pasadas, key=lambda y: y["b"]):
             lineas.append(f"- Previsión hecha en {x['curso_base']} ({x['h']} {'curso' if x['h'] == 1 else 'cursos'} antes): "
                           f"{ent(x['prevision'])} (error {pct(x['error_pct'])}); suponer que nada cambia daba {ent(x['p_naive'])} "
@@ -331,8 +331,8 @@ def mayores_cambios(radar: Radar, n: int = 10, sentido: str = "bajada") -> str:
         n = 10
     base = radar.region()["base"]
     titulo = "Mayores bajadas" if s == "bajada" else "Mayores subidas"
-    lineas = [f"{titulo} previstas en 1º de primaria de {base} a {rk['curso']}, entre los {len(filas)} municipios con 100 "
-              f"alumnos de 1º o más en {base} (entre paréntesis, el intervalo del 80 %):"]
+    lineas = [f"{titulo} previstas en 1.º de primaria de {base} a {rk['curso']}, entre los {len(filas)} municipios con 100 "
+              f"alumnos de 1.º o más en {base} (entre paréntesis, el intervalo del 80 %):"]
     for i, x in enumerate(filas[:n], 1):
         zona = f", {x['zona']}" if x.get("zona") else ""
         lineas.append(f"{i}. {x['municipio']} ({x['cmun']}{zona}): de {ent(x['alumnos_base'])} a {ent(x['prevision'])} alumnos "

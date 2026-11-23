@@ -75,7 +75,7 @@ def test_ninguna_cifra_prevista_sin_intervalo(radar):
 
 def test_niveles_admitidos(radar):
     assert "infantil de 3 a 5 años" in H.prevision_municipio(radar, "Getafe", "Infantil")
-    assert "1º de primaria" in H.prevision_municipio(radar, "Getafe", "1º")
+    assert "1.º de primaria" in H.prevision_municipio(radar, "Getafe", "1.º")
     assert "no válido" in H.prevision_municipio(radar, "Getafe", "bachillerato")
 
 

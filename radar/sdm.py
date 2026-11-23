@@ -1,4 +1,4 @@
-"""Las previsiones de 1º de primaria en el estándar Smart Data Models (FIWARE): modelo SDMX «Observation».
+"""Las previsiones de 1.º de primaria en el estándar Smart Data Models (FIWARE): modelo SDMX «Observation».
 
 Escribe web/api/v1/sdm/observaciones_1o.json: una entidad NGSI-LD por municipio con colegio y curso
 previsto, en la representación keyValues que describe el JSON Schema oficial del modelo
@@ -23,15 +23,15 @@ FICHERO_1O = "observaciones_1o.json"
 
 
 def observacion_1o(d: dict, p: dict, url_api: str) -> dict:
-    """Entidad Observation (keyValues) para la previsión de 1º de un municipio (d, de municipios/{cmun}.json) y un curso (p)."""
+    """Entidad Observation (keyValues) para la previsión de 1.º de un municipio (d, de municipios/{cmun}.json) y un curso (p)."""
     cm, t = d["cmun"], p["t"]
     return {
         "id": f"urn:ngsi-ld:Observation:radar-natalidad:1o:{cm}:{t}",
         "type": "Observation",
         "identifier": f"radar-natalidad-1o-{cm}-{t}",
         "title": f"{url_api}/sdm/{FICHERO_1O}#{cm}-{t}",
-        "name": f"Alumnos de 1º de primaria previstos en {d['municipio']}, curso {p['curso']}",
-        "description": f"Previsión del Radar de natalidad municipal para 1º de primaria en {d['municipio']} (código INE {cm}) "
+        "name": f"Alumnos de 1.º de primaria previstos en {d['municipio']}, curso {p['curso']}",
+        "description": f"Previsión del Radar de natalidad municipal para 1.º de primaria en {d['municipio']} (código INE {cm}) "
                        f"en el curso {p['curso']}, hecha con {p['h']} {'curso' if p['h'] == 1 else 'cursos'} de antelación "
                        f"desde {d['base']}. predictionInterval es el intervalo del 80 %.",
         "obsValue": p["prevision"],
@@ -55,7 +55,7 @@ def observacion_1o(d: dict, p: dict, url_api: str) -> dict:
 
 
 def observaciones_1o(fichas: dict[str, dict], url_api: str) -> list[dict]:
-    """Todas las previsiones de 1º, ordenadas por código INE y curso."""
+    """Todas las previsiones de 1.º, ordenadas por código INE y curso."""
     return [observacion_1o(d, p, url_api)
             for cm, d in sorted(fichas.items()) if d.get("primero_primaria")
             for p in d["primero_primaria"]["prevision"]]
@@ -66,6 +66,6 @@ def exportar_sdm(fichas: dict[str, dict], destino: pathlib.Path, url_api: str, e
     obs = observaciones_1o(fichas, url_api)
     out = destino / FICHERO_1O
     escribir(out, obs)
-    print(f"sdm: {out} ({len(obs)} observaciones SDMX de 1º)")
+    print(f"sdm: {out} ({len(obs)} observaciones SDMX de 1.º)")
     return out
 

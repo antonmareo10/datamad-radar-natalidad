@@ -91,7 +91,7 @@
       "alumnos_1o_por_nacido_inicial": 0.96,
       "horizontes": [2, 4],
       "anio_censo": 2021,
-      "definicion": "Error medio con signo (err_medio) y en valor absoluto (ape_medio), en % del real, de las previsiones de 1º hechas con 2 a 4 cursos de antelación en el backtest. Solo municipios con 50 alumnos de 1º o más."
+      "definicion": "Error medio con signo (err_medio) y en valor absoluto (ape_medio), en % del real, de las previsiones de 1.º hechas con 2 a 4 cursos de antelación en el backtest. Solo municipios con 50 alumnos de 1.º o más."
     },
     "previsiones_pasadas": [
       {"b": 2018, "curso_base": "2018/19", "h": 1, "t": 2019, "curso": "2019/20", "y": 453, "prevision": 461.7, "p_naive": 460, "error_pct": 1.9, "error_naive_pct": 1.5},

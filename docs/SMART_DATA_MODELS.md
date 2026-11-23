@@ -1,9 +1,9 @@
 # Las previsiones en Smart Data Models (FIWARE)
 
-Además de la [API propia](API.md), las previsiones de 1º de primaria se publican siguiendo un modelo de [Smart Data Models](https://smartdatamodels.org), la iniciativa de modelos de datos abiertos de FIWARE, para que cualquier plataforma NGSI-LD o de ciudad inteligente las pueda leer sin adaptar nada.
+Además de la [API propia](API.md), las previsiones de 1.º de primaria se publican siguiendo un modelo de [Smart Data Models](https://smartdatamodels.org), la iniciativa de modelos de datos abiertos de FIWARE, para que cualquier plataforma NGSI-LD o de ciudad inteligente las pueda leer sin adaptar nada.
 
 - **Fichero:** [`https://radar-natalidad-madrid.vercel.app/api/v1/sdm/observaciones_1o.json`](https://radar-natalidad-madrid.vercel.app/api/v1/sdm/observaciones_1o.json)
-- **Contenido:** una entidad por municipio con colegio y curso previsto de 1º de primaria (136 municipios × 6 cursos, de 2025/26 a 2030/31: 816 entidades), en una lista JSON.
+- **Contenido:** una entidad por municipio con colegio y curso previsto de 1.º de primaria (136 municipios × 6 cursos, de 2025/26 a 2030/31: 816 entidades), en una lista JSON.
 - **Cómo se genera:** `python -m radar web`, a partir de los mismos datos que `municipios/{cmun}.json` ([`radar/sdm.py`](../radar/sdm.py)).
 - **Validación:** [`tests/test_sdm.py`](../tests/test_sdm.py) valida todas las entidades contra el JSON Schema oficial del modelo y comprueba que las cifras son las de la API v1.
 
@@ -32,7 +32,7 @@ Ejemplo (Fuenlabrada, 2030/31), en la representación keyValues:
   "type": "Observation",
   "identifier": "radar-natalidad-1o-28058-2030",
   "title": "https://radar-natalidad-madrid.vercel.app/api/v1/sdm/observaciones_1o.json#28058-2030",
-  "name": "Alumnos de 1º de primaria previstos en Fuenlabrada, curso 2030/31",
+  "name": "Alumnos de 1.º de primaria previstos en Fuenlabrada, curso 2030/31",
   "obsValue": 1150.107,
   "obsStatus": "F",
   "confStatus": "F",
@@ -85,7 +85,7 @@ Los códigos `F`, `A` y `F` de `obsStatus`, `freq` y `confStatus` son los de las
 - **Fecha.** El modelo no tiene `dateObserved`: el tiempo de la observación es `timePeriod`. SDMX no tiene un formato para un curso escolar, así que `timePeriod` es el año en que empieza y el curso exacto va en `dimensions`. La fecha en que se generaron los datos está en `index.json` (`generado_utc`).
 - **Área.** El esquema remite a la lista de áreas de SDMX, que recoge países y agrupaciones de países, no municipios. `refArea` lleva el código INE del municipio y `address` su nombre.
 - **Conjunto de datos.** El modelo permite enlazar cada observación con su `dataset` (por ejemplo, una entidad `Dataset` de STAT-DCAT-AP). No publico esa entidad todavía, así que el campo va vacío.
-- **Alcance.** Solo 1º de primaria. Infantil seguiría el mismo patrón con `nivel` = `infantil`.
+- **Alcance.** Solo 1.º de primaria. Infantil seguiría el mismo patrón con `nivel` = `infantil`.
 - **Representación.** Se publica la forma keyValues, que es la que describe y valida el JSON Schema oficial. Los ejemplos oficiales del modelo incluyen también la forma NGSI-LD normalizada (cada atributo dentro de `{"type": "Property", "value": …}`), que no publico. No he cargado las entidades en un context broker.
 
 ## Validación

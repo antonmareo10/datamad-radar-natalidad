@@ -93,7 +93,7 @@
   ],
   "ranking_1o": {
     "curso": "2030/31",
-    "criterio": "Municipios con 100 alumnos de 1º o más en 2024/25, ordenados por el cambio previsto de 2024/25 a 2030/31.",
+    "criterio": "Municipios con 100 alumnos de 1.º o más en 2024/25, ordenados por el cambio previsto de 2024/25 a 2030/31.",
     "municipios": [
       {"cmun": "28104", "municipio": "Paracuellos de Jarama", "zona": "Este", "grupo": "grande", "alumnos_base": 318, "nacidos": 167, "prevision": 192.55, "p10": 179.897, "p90": 213.714, "cambio_pct": -39.4, "cambio_p10": -43.4, "cambio_p90": -32.8},
       {"cmun": "28068", "municipio": "Guadarrama", "zona": "Oeste", "grupo": "grande", "alumnos_base": 267, "nacidos": 92, "prevision": 168.912, "p10": 157.812, "p90": 187.477, "cambio_pct": -36.7, "cambio_p10": -40.9, "cambio_p90": -29.8},

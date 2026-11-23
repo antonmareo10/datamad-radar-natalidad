@@ -1,6 +1,6 @@
 # Servidor MCP del Radar de natalidad municipal
 
-Servidor [MCP](https://modelcontextprotocol.io) de solo lectura para que un asistente de IA (Claude Desktop, Claude Code o cualquier cliente MCP) consulte el radar: cuántos alumnos entrarán en 1º de primaria y en infantil en cada municipio de la Comunidad de Madrid, con su intervalo del 80 % y lo fiable que ha sido el método allí.
+Servidor [MCP](https://modelcontextprotocol.io) de solo lectura para que un asistente de IA (Claude Desktop, Claude Code o cualquier cliente MCP) consulte el radar: cuántos alumnos entrarán en 1.º de primaria y en infantil en cada municipio de la Comunidad de Madrid, con su intervalo del 80 % y lo fiable que ha sido el método allí.
 
 - **Nombre del servidor:** `radar-natalidad`. Transporte stdio.
 - **Datos:** lee la [API abierta](../docs/API.md) publicada (`https://radar-natalidad-madrid.vercel.app/api/v1/`) o, con `--local`, los mismos JSON de `web/api/v1/` sin conexión. No escribe nada ni necesita claves.
@@ -12,9 +12,9 @@ Servidor [MCP](https://modelcontextprotocol.io) de solo lectura para que un asis
 | Herramienta | Qué hace |
 |---|---|
 | `buscar_municipio(texto)` | Busca municipios por nombre (sin importar tildes ni mayúsculas) o por código INE de 5 dígitos |
-| `prevision_municipio(municipio, nivel="1o")` | Previsión curso a curso con su intervalo y el cambio frente al último curso publicado. `nivel="1o"`: 1º de primaria hasta 2030/31; `nivel="infantil"`: infantil de 3 a 5 años hasta 2027/28 |
+| `prevision_municipio(municipio, nivel="1o")` | Previsión curso a curso con su intervalo y el cambio frente al último curso publicado. `nivel="1o"`: 1.º de primaria hasta 2030/31; `nivel="infantil"`: infantil de 3 a 5 años hasta 2027/28 |
 | `fiabilidad_municipio(municipio)` | Error del método en su grupo de tamaño, error propio en el backtest, cómo habría acertado el último curso, señal de llegada de familias y avisos |
-| `mayores_cambios(n=10, sentido="bajada")` | Municipios con 100 alumnos de 1º o más donde más baja (`"bajada"`) o sube (`"subida"`) el alumnado de 1º previsto para 2030/31 |
+| `mayores_cambios(n=10, sentido="bajada")` | Municipios con 100 alumnos de 1.º o más donde más baja (`"bajada"`) o sube (`"subida"`) el alumnado de 1.º previsto para 2030/31 |
 
 `municipio` admite el nombre (`"Fuenlabrada"`, `"las rozas"`) o el código INE (`"28058"`). Las cuatro están marcadas como de solo lectura (`readOnlyHint`).
 
@@ -57,11 +57,11 @@ Sin conexión, añade `"--local"` al final de `args` para leer los JSON de `web/
 
 ## Ejemplo
 
-Pregunta a un asistente con el servidor conectado: *«¿Cuántos niños empezarán 1º de primaria en Fuenlabrada en los próximos cursos?»*. El asistente llama a `prevision_municipio(municipio="Fuenlabrada", nivel="1o")`, que responde esto (salida real de `python mcp_server/demo.py`, con los datos de esta versión; un test comprueba que sigue coincidiendo):
+Pregunta a un asistente con el servidor conectado: *«¿Cuántos niños empezarán 1.º de primaria en Fuenlabrada en los próximos cursos?»*. El asistente llama a `prevision_municipio(municipio="Fuenlabrada", nivel="1o")`, que responde esto (salida real de `python mcp_server/demo.py`, con los datos de esta versión; un test comprueba que sigue coincidiendo):
 
 <!-- ejemplo-demo:inicio -->
 ```text
-Fuenlabrada (código INE 28058, área Sur) · 1º de primaria.
+Fuenlabrada (código INE 28058, área Sur) · 1.º de primaria.
 Último curso con matrícula publicada: 2024/25, con 1.560 alumnos.
 
 Previsión del radar (entre paréntesis, el intervalo del 80 %):
@@ -72,7 +72,7 @@ Previsión del radar (entre paréntesis, el intervalo del 80 %):
 - 2029/30: 1.191 alumnos (1.113–1.318); frente a 2024/25, −23,7 % (−28,7 % a −15,5 %).
 - 2030/31: 1.150 alumnos (1.075–1.277); frente a 2024/25, −26,3 % (−31,1 % a −18,2 %).
 
-Cómo se calcula: nacidos en el municipio seis años antes × su factor (1,02 alumnos de 1º por cada niño nacido aquí, medido en su matrícula de infantil de 2024/25). El intervalo sale de los errores reales del backtest en municipios grandes con la misma antelación.
+Cómo se calcula: nacidos en el municipio seis años antes × su factor (1,016 alumnos de 1.º por cada niño nacido aquí, medido en su matrícula de infantil de 2024/25). El intervalo sale de los errores reales del backtest en municipios grandes con la misma antelación.
 Avisos de fiabilidad: ninguno.
 
 Ficha en la web: https://radar-natalidad-madrid.vercel.app/#municipio=28058

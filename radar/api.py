@@ -259,7 +259,7 @@ def _region(salida: dict, ranking: pd.DataFrame) -> dict:
         "nacidos": [{"anio": a, "nacidos": v} for a, v in sorted(reg["nac"].items())],
         "ranking_1o": {
             "curso": res["ranking"]["curso"],
-            "criterio": f"Municipios con 100 alumnos de 1º o más en {salida['base']}, ordenados por el cambio previsto "
+            "criterio": f"Municipios con 100 alumnos de 1.º o más en {salida['base']}, ordenados por el cambio previsto "
                         f"de {salida['base']} a {res['ranking']['curso']}.",
             "municipios": [{k: (None if pd.isna(v) else int(v) if k in ("alumnos_base", "nacidos") else v) for k, v in fila.items()}
                            for fila in ranking.reset_index().to_dict(orient="records")],
@@ -295,7 +295,7 @@ def exportar_api(salida: dict, P: pd.DataFrame, PI: pd.DataFrame, destino: pathl
     for d in falla.values():
         d.update(horizontes=[2, 4], anio_censo=salida["resumen"]["donde_falla"]["anio_censo"],
                  definicion="Error medio con signo (err_medio) y en valor absoluto (ape_medio), en % del real, de las previsiones "
-                            "de 1º hechas con 2 a 4 cursos de antelación en el backtest. Solo municipios con 50 alumnos de 1º o más.")
+                            "de 1.º hechas con 2 a 4 cursos de antelación en el backtest. Solo municipios con 50 alumnos de 1.º o más.")
     ranking = pd.read_csv(RESULTADOS / "ranking_ultimo_curso.csv", **lee).set_index("cmun")
     # selección y orden del CSV; previsión e intervalo con la precisión de proyeccion_1o_primaria.csv (3 decimales),
     # para que al redondear a enteros salga lo mismo que en la ficha y en la web
@@ -325,7 +325,7 @@ def exportar_api(salida: dict, P: pd.DataFrame, PI: pd.DataFrame, destino: pathl
     descargas = sorted(f["fecha_descarga_utc"] for f in manif["recursos"])
     index = {
         "nombre": "Radar de natalidad municipal · API abierta",
-        "descripcion": "Previsión de alumnos de 1º de primaria e infantil (3 a 5 años) en cada municipio de la Comunidad de "
+        "descripcion": "Previsión de alumnos de 1.º de primaria e infantil (3 a 5 años) en cada municipio de la Comunidad de "
                        "Madrid, con intervalos del 80 % calibrados con un backtest. Ficheros JSON estáticos: sin claves ni registro.",
         "version": VERSION_API, "version_radar": __version__,
         "generado_utc": salida["generado_utc"],
