@@ -55,7 +55,9 @@ class Radar:
             with urllib.request.urlopen(req, timeout=self.timeout) as r:
                 return json.loads(r.read().decode("utf-8"))
         except urllib.error.HTTPError as e:
-            raise ErrorRadar(f"La API del radar respondió {e.code} al pedir {url}.") from e
+            pista = (" Ese despliegue pide autenticación (las previews de Vercel suelen estar protegidas): "
+                     "usa la URL pública o --local.") if e.code in (401, 403) else ""
+            raise ErrorRadar(f"La API del radar respondió {e.code} al pedir {url}.{pista}") from e
         except (urllib.error.URLError, TimeoutError, OSError) as e:
             raise ErrorRadar(f"No se pudo conectar con la API del radar ({url}): {e}. "
                              "Sin conexión, arranca el servidor con --local.") from e
