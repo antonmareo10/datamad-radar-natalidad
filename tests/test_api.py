@@ -1,6 +1,5 @@
 """API abierta estática (radar/api.py): formato y avisos como la web, y JSON generados fieles a resultados/."""
 import json
-import pathlib
 
 import pandas as pd
 import pytest
