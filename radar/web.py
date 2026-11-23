@@ -45,8 +45,10 @@ def exportar(datos: pathlib.Path) -> pathlib.Path:
     sin_geo = sorted(set(B.index) - set(mapa["municipios"]))
     assert not sin_geo, f"municipios sin geometría: {sin_geo}"
 
-    p1 = {m: g.sort_values("t") for m, g in P.groupby("cmun")}
-    pinf = {m: g.sort_values("t") for m, g in PI.groupby("cmun")}
+    # previsiones con el mismo redondeo que resultados/proyeccion_*.csv (Series.round, 3 decimales)
+    r3 = {"prevision": 3, "p10": 3, "p90": 3}
+    p1 = {m: g.sort_values("t") for m, g in P.round(r3).groupby("cmun")}
+    pinf = {m: g.sort_values("t") for m, g in PI.round(r3).groupby("cmun")}
     bt_m = {m: g for m, g in bt[bt[ESPEC_1O].notna() & bt.y.notna()].groupby("cmun")}
     grupo1 = P.drop_duplicates("cmun").set_index("cmun")["grupo"]
     grupo_i = PI.drop_duplicates("cmun").set_index("cmun")["grupo"]
@@ -65,7 +67,7 @@ def exportar(datos: pathlib.Path) -> pathlib.Path:
         if m in Y1.index:
             e["g"] = grupo1.get(m)
             e["y1"] = [_n(M.valor(Y1, m, s), 0) for s in cursos_y]
-            e["p1"] = [[_n(x.prevision), _n(x.p10), _n(x.p90)] for x in p1[m].itertuples()]
+            e["p1"] = [[_n(x.prevision, 3), _n(x.p10, 3), _n(x.p90, 3)] for x in p1[m].itertuples()]
             e["f"] = _n(p1[m].factor.iloc[0], 3)
             if m in bt_m:
                 g = bt_m[m].sort_values(["t", "h"])
@@ -74,7 +76,7 @@ def exportar(datos: pathlib.Path) -> pathlib.Path:
             e["gi"] = grupo_i.get(m)
             e["inf"] = [_n(M.valor(INF2, m, s), 0) for s in cursos_y]
             if m in pinf:
-                e["pi"] = [[_n(x.prevision), _n(x.p10), _n(x.p90)] for x in pinf[m].itertuples()]
+                e["pi"] = [[_n(x.prevision, 3), _n(x.p10, 3), _n(x.p90, 3)] for x in pinf[m].itertuples()]
         munis[m] = e
 
     res = r["resumen"]
