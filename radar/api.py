@@ -22,6 +22,7 @@ import pandas as pd
 
 from . import __version__
 from .config import CAPITAL, MANIFIESTO, REPO, RESULTADOS, URL_WEB, WEB_API
+from .sdm import exportar_sdm
 
 VERSION_API = "1"
 URL_API = f"{URL_WEB}/api/v1"
@@ -310,13 +311,15 @@ def exportar_api(salida: dict, P: pd.DataFrame, PI: pd.DataFrame, destino: pathl
     dir_m.mkdir(parents=True)
 
     munis = salida["municipios"]
-    lista = []
+    lista, fichas = [], {}
     for cm in sorted(munis, key=lambda c: munis[c]["n"]):
         m = munis[cm]
-        _escribir(dir_m / f"{cm}.json", _municipio(cm, m, salida, porP, porPI, falla, f"{URL_WEB}/#municipio={cm}"))
+        fichas[cm] = _municipio(cm, m, salida, porP, porPI, falla, f"{URL_WEB}/#municipio={cm}")
+        _escribir(dir_m / f"{cm}.json", fichas[cm])
         lista.append({"cmun": cm, "municipio": m["n"], "zona": m["z"], "tiene_colegio": bool(m["col"]),
                       "url": f"{URL_API}/municipios/{cm}.json"})
     _escribir(destino / "region.json", _region(salida, ranking))
+    exportar_sdm(fichas, destino / "sdm", URL_API, _escribir)  # las mismas cifras en Smart Data Models (FIWARE)
 
     manif = json.loads(MANIFIESTO.read_text(encoding="utf-8"))
     descargas = sorted(f["fecha_descarga_utc"] for f in manif["recursos"])
@@ -339,7 +342,8 @@ def exportar_api(salida: dict, P: pd.DataFrame, PI: pd.DataFrame, destino: pathl
         },
         "intervalo": INTERVALO,
         "url_base": URL_API + "/",
-        "endpoints": {"index": "index.json", "region": "region.json", "municipio": "municipios/{cmun}.json"},
+        "endpoints": {"index": "index.json", "region": "region.json", "municipio": "municipios/{cmun}.json",
+                      "sdm_observaciones_1o": "sdm/observaciones_1o.json"},
         "documentacion": f"{REPO}/blob/master/docs/API.md",
         "web": URL_WEB, "repositorio": REPO,
         "portal": manif.get("portal"),

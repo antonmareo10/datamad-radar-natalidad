@@ -3,7 +3,7 @@
   "descripcion": "Previsión de alumnos de 1º de primaria e infantil (3 a 5 años) en cada municipio de la Comunidad de Madrid, con intervalos del 80 % calibrados con un backtest. Ficheros JSON estáticos: sin claves ni registro.",
   "version": "1",
   "version_radar": "1.0.0",
-  "generado_utc": "2026-11-23T17:36:22+00:00",
+  "generado_utc": "2026-11-23T22:35:25+00:00",
   "datos": {
     "curso_base": "2024/25",
     "cursos_prevision_1o": ["2025/26", "2026/27", "2027/28", "2028/29", "2029/30", "2030/31"],
@@ -18,7 +18,7 @@
   },
   "intervalo": "Intervalo del 80 %: p10 y p90 son los cuantiles del 10 % y del 90 % de los errores reales del backtest en municipios del mismo grupo de tamaño y con la misma antelación.",
   "url_base": "https://radar-natalidad-madrid.vercel.app/api/v1/",
-  "endpoints": {"index": "index.json", "region": "region.json", "municipio": "municipios/{cmun}.json"},
+  "endpoints": {"index": "index.json", "region": "region.json", "municipio": "municipios/{cmun}.json", "sdm_observaciones_1o": "sdm/observaciones_1o.json"},
   "documentacion": "https://github.com/antonmareo10/datamad-radar-natalidad/blob/master/docs/API.md",
   "web": "https://radar-natalidad-madrid.vercel.app",
   "repositorio": "https://github.com/antonmareo10/datamad-radar-natalidad",

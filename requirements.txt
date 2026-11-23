@@ -1,5 +1,7 @@
 # Cálculo
 pandas>=2.1
 numpy>=1.26
-# Tests
+# Tests (jsonschema y rfc3986-validator: validar las entidades de Smart Data Models)
 pytest>=8
+jsonschema>=4.18
+rfc3986-validator>=0.1
