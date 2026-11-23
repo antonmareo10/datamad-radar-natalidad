@@ -81,3 +81,10 @@ def test_cifras_identicas_a_la_api(observaciones):
             assert o["address"]["addressLocality"] == d["municipio"]
             n += 1
     assert n == len(observaciones)
+
+
+def test_ejemplo_de_la_documentacion_es_real(observaciones):
+    doc = (pathlib.Path(__file__).parent.parent / "docs" / "SMART_DATA_MODELS.md").read_text(encoding="utf-8")
+    ejemplo = json.loads(doc.split("```json", 1)[1].split("```", 1)[0])
+    real = next(o for o in observaciones if o["id"] == ejemplo["id"])
+    assert ejemplo == {k: v for k, v in real.items() if k != "description"}

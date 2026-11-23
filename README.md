@@ -21,6 +21,7 @@ Web: https://radar-natalidad-madrid.vercel.app · API abierta: https://radar-nat
 - Genera una web estática (carpeta [`web/`](web/)) con un mapa por municipio, una ficha con la serie, la previsión y cómo habría acertado el método en ese municipio, y las tablas de error. Funciona sin servidor y sin conexión: basta abrir `web/index.html`.
 - Publica las mismas cifras como API abierta: ficheros JSON estáticos en [`web/api/v1/`](web/api/v1/), sin claves ni servidor. Un índice con las fuentes y las licencias, los totales de la región y un fichero por municipio con la serie, la previsión de 1º y de infantil con sus intervalos, el error del backtest en ese municipio y los avisos de fiabilidad de su ficha. Se generan junto con la web y a partir de los mismos datos; el esquema está en [`docs/API.md`](docs/API.md).
 - Incluye un servidor MCP de solo lectura ([`mcp_server/`](mcp_server/)) para que un asistente de IA, como Claude, consulte el radar con cuatro herramientas: `buscar_municipio`, `prevision_municipio`, `fiabilidad_municipio` y `mayores_cambios`. Lee la API publicada (o los JSON locales, sin conexión) y responde siempre con el intervalo del 80 %.
+- Publica también las previsiones de 1º en el estándar Smart Data Models de FIWARE, como observaciones estadísticas del modelo SDMX `Observation` ([`web/api/v1/sdm/observaciones_1o.json`](web/api/v1/sdm/observaciones_1o.json)), validadas contra su JSON Schema oficial. Qué modelo y por qué, en [`docs/SMART_DATA_MODELS.md`](docs/SMART_DATA_MODELS.md).
 
 ## Resultados (versión del 5-nov-2026)
 
@@ -145,7 +146,7 @@ tests/            tests con datos sintéticos de resultado conocido
 fuentes/          manifiesto de la última descarga (URL, fecha, SHA-256, licencia)
 resultados/       tablas del backtest, proyecciones y resumen.json
 web/              web estática (index.html, app.js, estilo.css, favicon, og.png; datos/radar.js y api/v1/ generados)
-docs/             esquema de la API (API.md), captura para este README y logotipo (docs/marca/)
+docs/             esquema de la API (API.md), Smart Data Models (SMART_DATA_MODELS.md), captura y logotipo (docs/marca/)
 ```
 
 ## Actualización anual y coste

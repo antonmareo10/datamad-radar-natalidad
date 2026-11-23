@@ -8,6 +8,7 @@ Las mismas cifras que enseña la web, en JSON: la previsión de alumnos de 1º d
 - **Cómo se generan:** `python -m radar web` escribe `web/api/v1/` a la vez que `web/datos/radar.js` y a partir del mismo diccionario ([`radar/api.py`](../radar/api.py)), así que la API y la web no pueden dar cifras distintas. Los tests (`tests/test_api.py`) comprueban que coinciden con las tablas de [`resultados/`](../resultados/).
 - **Actualización:** una vez al año, cuando la Consejería publica la matrícula del curso nuevo y el Instituto de Estadística los nacimientos del año. Dentro de `v1` solo se añadirán campos; un cambio incompatible irá a `v2`.
 - **Asistentes de IA:** el servidor MCP de [`mcp_server/`](../mcp_server/) lee esta API.
+- **Smart Data Models (FIWARE):** las previsiones de 1º también se publican como observaciones del modelo SDMX `Observation` de Smart Data Models, listas para plataformas NGSI-LD. Ver [`SMART_DATA_MODELS.md`](SMART_DATA_MODELS.md).
 
 ## Endpoints
 
@@ -16,6 +17,7 @@ Las mismas cifras que enseña la web, en JSON: la previsión de alumnos de 1º d
 | [`index.json`](https://radar-natalidad-madrid.vercel.app/api/v1/index.json) | Metadatos, licencias, fuentes oficiales y lista de municipios con la URL de su fichero |
 | [`region.json`](https://radar-natalidad-madrid.vercel.app/api/v1/region.json) | Totales de la Comunidad de Madrid: serie, previsión con intervalo y ranking de cambios |
 | [`municipios/{cmun}.json`](https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28058.json) | Un municipio: serie observada, previsión de 1º y de infantil con intervalos, error del backtest y avisos de fiabilidad |
+| [`sdm/observaciones_1o.json`](https://radar-natalidad-madrid.vercel.app/api/v1/sdm/observaciones_1o.json) | Las previsiones de 1º en el estándar Smart Data Models (FIWARE): una entidad `Observation` (SDMX) por municipio y curso, con su intervalo. Ver [`SMART_DATA_MODELS.md`](SMART_DATA_MODELS.md) |
 
 `{cmun}` es el código INE del municipio, con 5 dígitos (Madrid, `28079`; Fuenlabrada, `28058`). Hay un fichero por cada uno de los 179 municipios de la región; los 43 sin colegio de primaria tienen `"tiene_colegio": false` y no llevan previsión.
 
@@ -66,7 +68,7 @@ console.log(d.primero_primaria.prevision.at(-1));
 | `datos` | `curso_base`, `cursos_prevision_1o`, `cursos_prevision_infantil`, `ultimo_anio_nacidos` y `descarga_fuentes_utc` (primera y última descarga de las fuentes) |
 | `licencias` | `datos` (CC BY 4.0, con el texto de atribución), `codigo` (MIT) y `datos_de_origen` |
 | `intervalo` | Qué significan `p10` y `p90` |
-| `url_base`, `endpoints` | Dónde está cada recurso |
+| `url_base`, `endpoints` | Dónde está cada recurso (`index`, `region`, `municipio` y `sdm_observaciones_1o`) |
 | `documentacion`, `web`, `repositorio`, `portal` | Enlaces |
 | `fuentes` | Los siete recursos del catálogo de la Comunidad de Madrid, tal como están en [`fuentes/manifiesto.json`](../fuentes/manifiesto.json): `clave`, `dataset`, `titulo`, `recurso`, `editor`, `pagina`, `url` (URL oficial de descarga), `fichero`, `fecha_descarga_utc`, `bytes`, `sha256`, `licencia`, `licencia_titulo`, `modificado_en_portal`, `uso` |
 | `municipios[]` | `cmun`, `municipio`, `zona` (área territorial: Capital, Norte, Sur, Este u Oeste; `null` si no consta), `tiene_colegio`, `url` |

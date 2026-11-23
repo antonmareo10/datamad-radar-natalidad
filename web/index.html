@@ -214,11 +214,12 @@
       <div class="dos-columnas reutiliza">
         <div>
           <h3>API abierta</h3>
-          <p>Tres rutas bajo <code class="url">https://radar-natalidad-madrid.vercel.app/api/v1/</code></p>
+          <p>Rutas bajo <code class="url">https://radar-natalidad-madrid.vercel.app/api/v1/</code></p>
           <dl class="rutas">
             <div><dt><a href="api/v1/index.json"><code>index.json</code></a></dt><dd>Metadatos, licencias, fuentes oficiales y lista de municipios.</dd></div>
             <div><dt><a href="api/v1/region.json"><code>region.json</code></a></dt><dd>Toda la región: serie, previsión con intervalo y ranking de cambios.</dd></div>
             <div><dt><a href="api/v1/municipios/28058.json" id="ruta-municipio"><code>municipios/{código INE}.json</code></a></dt><dd>Un municipio: serie, previsión de 1º y de infantil con intervalos, error del backtest y avisos.</dd></div>
+            <div><dt><a href="api/v1/sdm/observaciones_1o.json"><code>sdm/observaciones_1o.json</code></a></dt><dd>Las previsiones de 1º también en el estándar Smart Data Models (FIWARE): una observación estadística SDMX por municipio y curso, con su intervalo, lista para plataformas NGSI-LD. <a href="https://github.com/antonmareo10/datamad-radar-natalidad/blob/master/docs/SMART_DATA_MODELS.md">Qué modelo y por qué</a>.</dd></div>
           </dl>
           <div class="codigo">
             <div class="codigo-cab"><span>Terminal</span><button type="button" class="copiar" data-copia="cod-curl">Copiar</button></div>
