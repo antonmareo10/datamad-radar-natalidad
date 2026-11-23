@@ -3,7 +3,7 @@
   "descripcion": "Previsión de alumnos de 1º de primaria e infantil (3 a 5 años) en cada municipio de la Comunidad de Madrid, con intervalos del 80 % calibrados con un backtest. Ficheros JSON estáticos: sin claves ni registro.",
   "version": "1",
   "version_radar": "1.0.0",
-  "generado_utc": "2026-11-23T17:22:12+00:00",
+  "generado_utc": "2026-11-23T17:36:22+00:00",
   "datos": {
     "curso_base": "2024/25",
     "cursos_prevision_1o": ["2025/26", "2026/27", "2027/28", "2028/29", "2029/30", "2030/31"],
