@@ -9,7 +9,7 @@ Previsión abierta de cuántos niños entrarán en 1º de primaria y en infantil
 
 Proyecto para DataMad 2026. Código con licencia MIT.
 
-Web: https://radar-natalidad-madrid.vercel.app
+Web: https://radar-natalidad-madrid.vercel.app · API abierta: https://radar-natalidad-madrid.vercel.app/api/v1/ ([documentación](docs/API.md))
 
 ![Mapa del cambio previsto en 1º de primaria y ficha de Fuenlabrada](docs/captura.png)
 
@@ -19,6 +19,8 @@ Web: https://radar-natalidad-madrid.vercel.app
 - Calcula, para los 136 municipios con colegio de primaria, los alumnos previstos de 1º hasta el curso 2030/31 y los de infantil de 2º ciclo hasta 2027/28, con intervalos del 80 %.
 - Pone a prueba el método con un backtest de origen móvil (se prevé como si estuviéramos en un curso pasado, solo con lo que se sabía entonces) y publica el error por tamaño de municipio y por antelación, incluido dónde falla.
 - Genera una web estática (carpeta [`web/`](web/)) con un mapa por municipio, una ficha con la serie, la previsión y cómo habría acertado el método en ese municipio, y las tablas de error. Funciona sin servidor y sin conexión: basta abrir `web/index.html`.
+- Publica las mismas cifras como API abierta: ficheros JSON estáticos en [`web/api/v1/`](web/api/v1/), sin claves ni servidor. Un índice con las fuentes y las licencias, los totales de la región y un fichero por municipio con la serie, la previsión de 1º y de infantil con sus intervalos, el error del backtest en ese municipio y los avisos de fiabilidad de su ficha. Se generan junto con la web y a partir de los mismos datos; el esquema está en [`docs/API.md`](docs/API.md).
+- Incluye un servidor MCP de solo lectura ([`mcp_server/`](mcp_server/)) para que un asistente de IA, como Claude, consulte el radar con cuatro herramientas: `buscar_municipio`, `prevision_municipio`, `fiabilidad_municipio` y `mayores_cambios`. Lee la API publicada (o los JSON locales, sin conexión) y responde siempre con el intervalo del 80 %.
 
 ## Resultados (versión del 5-nov-2026)
 
@@ -124,9 +126,11 @@ pip install -r requirements.txt
 # opcional: carpeta para los ~25 MB de datos descargados (por defecto, ./datos)
 export RADAR_DATOS=/ruta/a/datos   # en PowerShell: $env:RADAR_DATOS = "C:\ruta\a\datos"
 
-python -m radar todo        # descarga (con caché), calcula y regenera la web
-python -m pytest            # tests de los cálculos
+python -m radar todo        # descarga (con caché), calcula y regenera la web y la API
+python -m pytest            # tests de los cálculos, la API y el servidor MCP
 ```
+
+Servidor MCP (opcional): `pip install -r requirements-mcp.txt` y sigue [`mcp_server/README.md`](mcp_server/README.md) para añadirlo a Claude Desktop o Claude Code. `python mcp_server/demo.py` enseña las cuatro herramientas sin conexión.
 
 Órdenes sueltas: `python -m radar descargar [--forzar]`, `python -m radar calcular` y `python -m radar web`. Con los ficheros ya descargados, `todo` tarda unos 16 segundos en un portátil.
 
@@ -135,12 +139,13 @@ Para ver la web, abre `web/index.html` en el navegador. Para enlazar un municipi
 ## Estructura
 
 ```
-radar/            código: fuentes, descarga, carga, modelo, backtest, intervalos, mapa y exportación web
+radar/            código: fuentes, descarga, carga, modelo, backtest, intervalos, mapa, exportación web y API
+mcp_server/       servidor MCP de solo lectura (opcional) y demo sin conexión
 tests/            tests con datos sintéticos de resultado conocido
 fuentes/          manifiesto de la última descarga (URL, fecha, SHA-256, licencia)
 resultados/       tablas del backtest, proyecciones y resumen.json
-web/              web estática (index.html, app.js, estilo.css, favicon, og.png y datos/radar.js generado)
-docs/             captura para este README y logotipo (docs/marca/)
+web/              web estática (index.html, app.js, estilo.css, favicon, og.png; datos/radar.js y api/v1/ generados)
+docs/             esquema de la API (API.md), captura para este README y logotipo (docs/marca/)
 ```
 
 ## Actualización anual y coste
@@ -151,5 +156,5 @@ docs/             captura para este README y logotipo (docs/marca/)
 ## Licencias
 
 - Código: MIT (ver [`LICENSE`](LICENSE)).
-- Tablas derivadas (`resultados/`, `web/datos/radar.js`): CC BY 4.0, citando como fuente original a la Comunidad de Madrid (datos.comunidad.madrid).
+- Tablas derivadas (`resultados/`, `web/datos/radar.js`, `web/api/v1/`): CC BY 4.0, citando como fuente original a la Comunidad de Madrid (datos.comunidad.madrid).
 - Datos de origen: Comunidad de Madrid, licencia Creative Commons Attribution, según los metadatos de cada dataset.
