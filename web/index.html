@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Radar de natalidad municipal</title>
-<meta name="description" content="Previsión abierta de los niños que entrarán en 1º de primaria e infantil en cada municipio de la Comunidad de Madrid, con su error medido en cursos ya cerrados.">
+<meta name="description" content="Previsión abierta de los niños que entrarán en 1.º de primaria e infantil en cada municipio de la Comunidad de Madrid, con su error medido en cursos ya cerrados.">
 <meta name="color-scheme" content="light">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
@@ -12,12 +12,15 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_ES">
 <meta property="og:title" content="Radar de natalidad municipal">
-<meta property="og:description" content="Los niños que empezarán primaria ya han nacido. Previsión abierta de alumnos de 1º de primaria e infantil en cada municipio de la Comunidad de Madrid, con su error medido.">
-<meta property="og:image" content="og.png">
+<meta property="og:description" content="Los niños que empezarán primaria ya han nacido. Previsión abierta de alumnos de 1.º de primaria e infantil en cada municipio de la Comunidad de Madrid, con su error medido.">
+<link rel="canonical" href="https://radar-natalidad-madrid.vercel.app/">
+<meta property="og:url" content="https://radar-natalidad-madrid.vercel.app/">
+<meta property="og:image" content="https://radar-natalidad-madrid.vercel.app/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Logotipo del Radar de natalidad municipal, un 6 azul con un punto rojo dentro, y la frase «Los niños que empezarán primaria ya han nacido».">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://radar-natalidad-madrid.vercel.app/og.png">
 <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
@@ -30,7 +33,7 @@
       <svg class="marca" viewBox="0 0 32 32" width="44" height="44" aria-hidden="true" focusable="false"><circle cx="16" cy="20.25" r="8" fill="none" stroke="#1c5cab" stroke-width="4.5"/><path d="M8.482 17.514C10.603 11.688 16.1 4.1 23.1 3.35" fill="none" stroke="#1c5cab" stroke-width="4.5"/><circle cx="16" cy="20.25" r="2.6" fill="#c2453b"/></svg>
       <h1>Radar de natalidad municipal</h1>
     </div>
-    <p class="entradilla">Los niños que empezarán primaria en <span data-r="cursos_p1.-1"></span> ya han nacido. El radar convierte los nacimientos y la matrícula que publica la Comunidad de Madrid en una previsión de cuántos alumnos entrarán en 1º de primaria y en infantil en cada municipio, con un margen de error medido en cursos que ya han terminado.</p>
+    <p class="entradilla">Los niños que empezarán primaria en <span data-r="cursos_p1.-1">los próximos seis cursos</span> ya han nacido. El radar convierte los nacimientos y la matrícula que publica la Comunidad de Madrid en una previsión de cuántos alumnos entrarán en 1.º de primaria y en infantil en cada municipio, con un margen de error medido en cursos que ya han terminado.</p>
     <nav class="indice" aria-label="Secciones de la página">
       <ul>
         <li><a href="#mapa">Mapa y fichas</a></li>
@@ -58,7 +61,7 @@
       <form class="controles" id="controles" onsubmit="return false">
         <fieldset class="segmentado">
           <legend>Etapa</legend>
-          <label><input type="radio" name="nivel" value="p1" checked><span>1º de primaria</span></label>
+          <label><input type="radio" name="nivel" value="p1" checked><span>1.º de primaria</span></label>
           <label><input type="radio" name="nivel" value="pi"><span>Infantil (3 a 5 años)</span></label>
         </fieldset>
         <div class="campo">
@@ -75,6 +78,8 @@
           <select id="sel-muni"></select>
         </div>
       </form>
+
+      <p class="resumen-mapa" id="resumen-mapa"></p>
 
       <div class="rejilla-mapa">
         <figure class="tarjeta mapa-fig">
@@ -113,22 +118,22 @@
       <h2 id="t-region">La caída de nacimientos ya está llegando a primaria</h2>
       <div class="dos-columnas">
         <div>
-          <p>En <span data-r="nac_ultimo_anio"></span> nacieron en la Comunidad de Madrid <span data-r="nac_ultimo"></span> niños, frente a <span data-r="nac_2008"></span> en 2008. Los nacidos de cada año llegan a 1º de primaria seis cursos después, así que la curva gris anticipa la azul.</p>
-          <p>Para el curso <span data-r="resumen.proyeccion_1o.region.-1.curso"></span> el radar prevé <span data-r="resumen.proyeccion_1o.region.-1.prevision" data-f="int"></span> alumnos de 1º (entre <span data-r="resumen.proyeccion_1o.region.-1.p10" data-f="int"></span> y <span data-r="resumen.proyeccion_1o.region.-1.p90" data-f="int"></span>), un <span data-r="resumen.proyeccion_1o.region.-1.cambio_pct" data-f="pct1abs"></span> menos que en <span data-r="base"></span>. La caída no es igual en todas partes: en la capital, <span data-r="resumen.proyeccion_1o.capital.cambio_pct" data-f="pct1"></span>; en el resto de la región, <span data-r="resumen.proyeccion_1o.resto.cambio_pct" data-f="pct1"></span>; en el área Sur, <span data-r="resumen.proyeccion_1o.por_area_cambio_pct.Sur" data-f="pct1"></span>.</p>
+          <p>En <span data-r="nac_ultimo_anio"></span> nacieron en la Comunidad de Madrid <span data-r="nac_ultimo"></span> niños, frente a <span data-r="nac_2008"></span> en 2008. Los nacidos de cada año llegan a 1.º de primaria seis cursos después, así que la curva gris anticipa la azul.</p>
+          <p>Para el curso <span data-r="resumen.proyeccion_1o.region.-1.curso"></span> el radar prevé <span data-r="resumen.proyeccion_1o.region.-1.prevision" data-f="int"></span> alumnos de 1.º (entre <span data-r="resumen.proyeccion_1o.region.-1.p10" data-f="int"></span> y <span data-r="resumen.proyeccion_1o.region.-1.p90" data-f="int"></span>), un <span data-r="resumen.proyeccion_1o.region.-1.cambio_pct" data-f="pct1abs"></span> menos que en <span data-r="base"></span>. La caída no es igual en todas partes: en la capital, <span data-r="resumen.proyeccion_1o.capital.cambio_pct" data-f="pct1"></span>; en el resto de la región, <span data-r="resumen.proyeccion_1o.resto.cambio_pct" data-f="pct1"></span>; en el área Sur, <span data-r="resumen.proyeccion_1o.por_area_cambio_pct.Sur" data-f="pct1"></span>.</p>
           <p>Comprobación con un dato que el modelo no usa: para <span data-r="resumen.proyeccion_1o.comprobacion_fuera_de_muestra.curso"></span> prevé <span data-r="resumen.proyeccion_1o.comprobacion_fuera_de_muestra.previsto" data-f="int"></span> alumnos y la cifra provisional publicada por el Instituto de Estadística es <span data-r="resumen.proyeccion_1o.comprobacion_fuera_de_muestra.publicado" data-f="int"></span> (<span data-r="resumen.proyeccion_1o.comprobacion_fuera_de_muestra.error_pct" data-f="pct1"></span>). Es un solo punto y además provisional, pero no se ajustó nada para acertarlo.</p>
         </div>
         <figure class="tarjeta grafico-fig">
-          <figcaption class="grafico-titulo">1º de primaria en la Comunidad de Madrid, por curso</figcaption>
+          <figcaption class="grafico-titulo">1.º de primaria en la Comunidad de Madrid, por curso</figcaption>
           <div class="grafico" id="graf-region"></div>
           <details class="desplegable-mini"><summary>Ver los datos en una tabla</summary><div class="tabla-scroll" id="tabla-region"></div></details>
         </figure>
       </div>
-      <h3>Dónde más cambia (municipios con 100 alumnos de 1º o más)</h3>
+      <h3>Dónde más cambia (municipios con 100 alumnos de 1.º o más)</h3>
       <div class="dos-columnas ranking">
         <div><h4>Más caída hasta <span data-r="resumen.ranking.curso"></span></h4><ol id="rk-caen" class="lista-rk"></ol></div>
         <div><h4>Suben o casi no cambian</h4><ol id="rk-suben" class="lista-rk"></ol></div>
       </div>
-      <p class="nota">De los <span data-r="resumen.ranking.municipios"></span> municipios con 100 alumnos de 1º o más, caen <span data-r="resumen.ranking.caen"></span>. En <span data-r="resumen.ranking.caida_segura"></span> la caída es clara incluso en el extremo alto del intervalo; la subida es clara en <span data-r="resumen.ranking.subida_segura"></span>. Las subidas están donde llegan familias, que es justo donde el método tiende a quedarse corto: podrían ser mayores.</p>
+      <p class="nota">De los <span data-r="resumen.ranking.municipios"></span> municipios con 100 alumnos de 1.º o más, caen <span data-r="resumen.ranking.caen"></span>. En <span data-r="resumen.ranking.caida_segura"></span> la caída es clara incluso en el extremo alto del intervalo; la subida es clara en <span data-r="resumen.ranking.subida_segura"></span>. Las subidas están donde llegan familias, que es justo donde el método tiende a quedarse corto: podrían ser mayores.</p>
     </div>
   </section>
 
@@ -139,22 +144,22 @@
       <div class="dos-columnas">
         <div>
           <h3>La idea</h3>
-          <p>Un niño que empieza 1º de primaria en el curso 2030/31 nació en 2024, y los nacimientos de 2024 ya están publicados. Pero no basta con contar nacidos: los nacimientos se registran donde vive la madre y los alumnos donde está el colegio, hay familias que se mudan con niños pequeños y pueblos que escolarizan a los de su comarca. Contando solo nacidos, el error mediano en los municipios grandes es del <span data-r="resumen.backtest_1o.mdape.grande.3.nacidos" data-f="pct1abs"></span> a tres cursos.</p>
-          <p>Por eso cada municipio lleva su propio factor, medido en su matrícula de infantil (3 a 5 años): cuántos alumnos tiene por cada niño nacido allí. Ese factor recoge la llegada y salida de familias y la escolarización entre municipios vecinos. La previsión es nacidos seis años antes × factor del municipio × una corrección regional que iguala la escala de infantil con la de 1º.</p>
+          <p>Un niño que empieza 1.º de primaria en el curso 2030/31 nació en 2024, y los nacimientos de 2024 ya están publicados. Pero no basta con contar nacidos: los nacimientos se registran donde vive la madre y los alumnos donde está el colegio, hay familias que se mudan con niños pequeños y pueblos que escolarizan a los de su comarca. Contando solo nacidos, el error mediano en los municipios grandes es del <span data-r="resumen.backtest_1o.mdape.grande.3.nacidos" data-f="pct1abs"></span> a tres cursos.</p>
+          <p>Por eso cada municipio lleva su propio factor, medido en su matrícula de infantil (3 a 5 años): cuántos alumnos tiene por cada niño nacido allí. Ese factor recoge la llegada y salida de familias y la escolarización entre municipios vecinos. La previsión es nacidos seis años antes × factor del municipio × una corrección regional que iguala la escala de infantil con la de 1.º.</p>
           <p>Las previsiones se ponen a prueba con origen móvil: se calcula como si estuviéramos en un curso pasado, usando solo lo que se sabía entonces, y se compara con lo que pasó después. Ninguna previsión usa datos posteriores a su fecha; hay un test que lo comprueba.</p>
-          <p>Probé diez variantes y me quedé con la de menor error mediano medio a 2-6 cursos en los municipios con 50 alumnos de 1º o más. Ese criterio y tres de las variantes los añadí después de ver los primeros resultados, y la elección se hizo sobre la misma muestra que se mide: sus errores son algo optimistas. Las comprobaciones que no intervinieron en la elección son el dato de <span data-r="resumen.proyeccion_1o.comprobacion_fuera_de_muestra.curso"></span>, la serie regional desde 1999 y la cobertura de los intervalos calculada sin la base que se evalúa.</p>
+          <p>Probé diez variantes y me quedé con la de menor error mediano medio a 2-6 cursos en los municipios con 50 alumnos de 1.º o más. Ese criterio y tres de las variantes los añadí después de ver los primeros resultados, y la elección se hizo sobre la misma muestra que se mide: sus errores son algo optimistas. Las comprobaciones que no intervinieron en la elección son el dato de <span data-r="resumen.proyeccion_1o.comprobacion_fuera_de_muestra.curso"></span>, la serie regional desde 1999 y la cobertura de los intervalos calculada sin la base que se evalúa.</p>
         </div>
         <div>
           <h3>El error, medido</h3>
-          <p>Error mediano en 1º de primaria, en % de los alumnos reales, según con cuántos cursos de antelación se hace la previsión. «Nada cambia» es suponer que el curso que viene habrá los mismos alumnos que este.</p>
+          <p>Error mediano en 1.º de primaria, en % de los alumnos reales, según con cuántos cursos de antelación se hace la previsión. «Nada cambia» es suponer que el curso que viene habrá los mismos alumnos que este.</p>
           <div class="tabla-scroll"><table class="tabla compacta" id="tabla-error"></table></div>
-          <p class="nota">Grupos fijos según los alumnos de 1º en <span data-r="curso_inicial"></span>: grande, 250 o más; mediano, de 50 a 249; pequeño, menos de 50. Cursos contrastados: de <span data-r="curso_inicial"></span> a <span data-r="base"></span>.</p>
+          <p class="nota">Grupos fijos según los alumnos de 1.º en <span data-r="curso_inicial"></span>: grande, 250 o más; mediano, de 50 a 249; pequeño, menos de 50. Cursos contrastados: de <span data-r="curso_inicial"></span> a <span data-r="base"></span>.</p>
         </div>
       </div>
 
       <h3>Dónde falla</h3>
       <ul class="lista-fallos">
-        <li>En los municipios pequeños. Con menos de 50 alumnos de 1º, dos o tres familias mueven mucho el porcentaje: el error mediano es del <span data-r="resumen.backtest_1o.mdape.pequeño.1.radar" data-f="pct1abs"></span> al <span data-r="resumen.backtest_1o.mdape.pequeño.6.radar" data-f="pct1abs"></span>. Por eso sus intervalos son muy anchos (ancho mediano del <span data-r="resumen.ancho_intervalo_ultimo_curso_pct.pequeño" data-f="pctabs"></span> de la previsión en <span data-r="cursos_p1.-1"></span>, frente al <span data-r="resumen.ancho_intervalo_ultimo_curso_pct.grande" data-f="pctabs"></span> en los grandes) y conviene leerlos junto a su zona. En infantil, en los pequeños, el método no mejora a suponer que nada cambia.</li>
+        <li>En los municipios pequeños. Con menos de 50 alumnos de 1.º, dos o tres familias mueven mucho el porcentaje: el error mediano es del <span data-r="resumen.backtest_1o.mdape.pequeño.1.radar" data-f="pct1abs"></span> al <span data-r="resumen.backtest_1o.mdape.pequeño.6.radar" data-f="pct1abs"></span>. Por eso sus intervalos son muy anchos (ancho mediano del <span data-r="resumen.ancho_intervalo_ultimo_curso_pct.pequeño" data-f="pctabs"></span> de la previsión en <span data-r="cursos_p1.-1"></span>, frente al <span data-r="resumen.ancho_intervalo_ultimo_curso_pct.grande" data-f="pctabs"></span> en los grandes) y conviene leerlos junto a su zona. En infantil, en los pequeños, el método no mejora a suponer que nada cambia.</li>
         <li>En los municipios que ganan familias jóvenes. Cuantos más niños de 0 a 4 años tiene censados por cada nacido, más se queda corto (correlación de Spearman de <span data-r="resumen.donde_falla.spearman_error_con_signo_vs_ninos_0_4" data-f="dec"></span> entre esa razón y el error con signo, en <span data-r="resumen.donde_falla.municipios"></span> municipios). En los medianos, a cinco y seis cursos, el sesgo llega al <span data-r="resumen.backtest_1o.sesgo_radar.mediano.6" data-f="pct"></span>.</li>
         <li>En los que escolarizan a niños de toda la comarca, como Buitrago del Lozoya (error medio del <span data-r="peor_error"></span> a 2-4 cursos).</li>
         <li>Cuando cambia el ciclo migratorio. Los intervalos municipales salen de <span data-r="curso_inicial"></span>-<span data-r="base"></span>, años de migración estable. En la serie regional, con la razón alumnos/nacidos congelada, el error mediano llegó, según la antelación, hasta el <span data-r="resumen.region_serie_larga.por_periodo_razon_regional.2009-2015.mdape_max" data-f="pct1abs"></span> en 2009-2015, tras la crisis, cuando se fueron familias; con el ciclo estable de 2016 en adelante no pasó del <span data-r="resumen.region_serie_larga.por_periodo_razon_regional.2016-en adelante.mdape_max" data-f="pct1abs"></span>.</li>
@@ -218,8 +223,8 @@
           <dl class="rutas">
             <div><dt><a href="api/v1/index.json"><code>index.json</code></a></dt><dd>Metadatos, licencias, fuentes oficiales y lista de municipios.</dd></div>
             <div><dt><a href="api/v1/region.json"><code>region.json</code></a></dt><dd>Toda la región: serie, previsión con intervalo y ranking de cambios.</dd></div>
-            <div><dt><a href="api/v1/municipios/28058.json" id="ruta-municipio"><code>municipios/{código INE}.json</code></a></dt><dd>Un municipio: serie, previsión de 1º y de infantil con intervalos, error del backtest y avisos.</dd></div>
-            <div><dt><a href="api/v1/sdm/observaciones_1o.json"><code>sdm/observaciones_1o.json</code></a></dt><dd>Las previsiones de 1º también en el estándar Smart Data Models (FIWARE): una observación estadística SDMX por municipio y curso, con su intervalo, lista para plataformas NGSI-LD. <a href="https://github.com/antonmareo10/datamad-radar-natalidad/blob/master/docs/SMART_DATA_MODELS.md">Qué modelo y por qué</a>.</dd></div>
+            <div><dt><a href="api/v1/municipios/28058.json" id="ruta-municipio"><code>municipios/{código INE}.json</code></a></dt><dd>Un municipio: serie, previsión de 1.º y de infantil con intervalos, error del backtest y avisos.</dd></div>
+            <div><dt><a href="api/v1/sdm/observaciones_1o.json"><code>sdm/observaciones_1o.json</code></a></dt><dd>Las previsiones de 1.º también en el estándar Smart Data Models (FIWARE): una observación estadística SDMX por municipio y curso, con su intervalo, lista para plataformas NGSI-LD. <a href="https://github.com/antonmareo10/datamad-radar-natalidad/blob/master/docs/SMART_DATA_MODELS.md">Qué modelo y por qué</a>.</dd></div>
           </dl>
           <div class="codigo">
             <div class="codigo-cab"><span>Terminal</span><button type="button" class="copiar" data-copia="cod-curl">Copiar</button></div>
@@ -238,9 +243,9 @@
           <p>Con el servidor <code>radar-natalidad</code>, Claude o cualquier asistente compatible con MCP consulta el radar y contesta con la cifra, su intervalo y los avisos de la ficha. Es de solo lectura y lee esta misma API.</p>
           <ul class="herramientas">
             <li><code>buscar_municipio(texto)</code> encuentra un municipio por nombre o código INE.</li>
-            <li><code>prevision_municipio(municipio, nivel)</code> da la previsión de 1º o de infantil, curso a curso, con su intervalo.</li>
+            <li><code>prevision_municipio(municipio, nivel)</code> da la previsión de 1.º o de infantil, curso a curso, con su intervalo.</li>
             <li><code>fiabilidad_municipio(municipio)</code> cuenta cuánto ha acertado el método en ese municipio y en los de su tamaño.</li>
-            <li><code>mayores_cambios(n, sentido)</code> lista dónde más baja o sube 1º de primaria.</li>
+            <li><code>mayores_cambios(n, sentido)</code> lista dónde más baja o sube 1.º de primaria.</li>
           </ul>
           <p>Para añadirlo a Claude Code, desde una copia del repositorio con <code>pip install -r requirements-mcp.txt</code>:</p>
           <div class="codigo">
@@ -261,7 +266,7 @@
           </div>
           <figure class="ejemplo-mcp">
             <figcaption>Ejemplo con datos reales</figcaption>
-            <p class="pregunta">«¿Cuántos niños empezarán 1º de primaria en Fuenlabrada?»</p>
+            <p class="pregunta">«¿Cuántos niños empezarán 1.º de primaria en Fuenlabrada?»</p>
             <p class="llamada">El asistente llama a <code>prevision_municipio(municipio="Fuenlabrada", nivel="1o")</code>, que responde, entre otras líneas:</p>
             <pre class="respuesta-mcp" id="ejemplo-mcp"></pre>
           </figure>

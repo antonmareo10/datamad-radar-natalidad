@@ -1,6 +1,8 @@
 /* Radar de natalidad municipal · lógica de la página. Sin librerías: funciona abriendo index.html. */
 (function () {
   "use strict";
+  if (/[?&]demo(?:[=&]|$)/.test(location.search)) document.documentElement.classList.add("demo");  // letra grande para proyector
+  const DEMO = document.documentElement.classList.contains("demo");
   const R = window.RADAR;
   if (!R) {
     document.getElementById("cifras").innerHTML = '<p class="aviso">No se encuentra <code>datos/radar.js</code>. Genéralo con <code>python -m radar web</code>.</p>';
@@ -18,6 +20,8 @@
   const f0 = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 0, useGrouping: "always" });
   const f1 = new Intl.NumberFormat("es-ES", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
   const f2 = new Intl.NumberFormat("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const f3 = new Intl.NumberFormat("es-ES", { minimumFractionDigits: 3, maximumFractionDigits: 3 });
+  const ordinal = s => String(s).replace(/(\d)º/g, "$1.º");  // «1.º», como en las diapositivas
   const MENOS = "−", NBSP = " ";
   const ent = v => (v == null || isNaN(v) ? "—" : f0.format(Math.round(v)).replace("-", MENOS));
   const signo = v => (v > 0.0001 ? "+" : v < -0.0001 ? MENOS : "");
@@ -80,9 +84,9 @@
     const menos = P.real_base - ult.prevision;
     const html = [
       `<div class="cifra"><span class="cifra-valor">${ent(menos)} <span class="cifra-unidad">alumnos menos</span></span>
-       <span class="cifra-texto">en 1º de primaria en ${esc(ult.curso)} que en ${esc(P.base)} (${ent(P.real_base)}), un ${pctAbs(ult.cambio_pct, 1)} menos. Intervalo del 80 %: entre ${ent(P.real_base - ult.p90)} y ${ent(P.real_base - ult.p10)} menos.</span></div>`,
+       <span class="cifra-texto">en 1.º de primaria en ${esc(ult.curso)} que en ${esc(P.base)} (${ent(P.real_base)}), un ${pctAbs(ult.cambio_pct, 1)} menos. Intervalo del 80 %: entre ${ent(P.real_base - ult.p90)} y ${ent(P.real_base - ult.p10)} menos.</span></div>`,
       `<div class="cifra"><span class="cifra-valor">${pctAbs(bt[5].radar, 1)} <span class="cifra-unidad">de error mediano</span></span>
-       <span class="cifra-texto">al prever 1º de primaria con cinco cursos de antelación en los municipios grandes, contrastado con cursos ya cerrados. Suponer que nada cambia falla un ${pctAbs(bt[5].ingenuo, 1)}.</span></div>`,
+       <span class="cifra-texto">al prever 1.º de primaria con cinco cursos de antelación en los municipios grandes, contrastado con cursos ya cerrados. Suponer que nada cambia falla un ${pctAbs(bt[5].ingenuo, 1)}.</span></div>`,
       c ? `<div class="cifra"><span class="cifra-valor">${ent(c.previsto)} <span class="cifra-unidad">previstos</span></span>
        <span class="cifra-texto">para ${esc(c.curso)} sin usar ese dato. La cifra ${c.provisional ? "provisional " : ""}publicada es ${ent(c.publicado)}: una diferencia del ${pct(c.error_pct, 1)}.</span></div>` : "",
     ];
@@ -94,9 +98,9 @@
 
   const GRUPO_TXT = {
     "Madrid capital": "su intervalo usa los errores de los municipios grandes",
-    grande: "municipio grande: 250 alumnos de 1º o más en " + curso(CY[0]),
-    mediano: "municipio mediano: de 50 a 249 alumnos de 1º en " + curso(CY[0]),
-    pequeño: "municipio pequeño: menos de 50 alumnos de 1º en " + curso(CY[0]),
+    grande: "municipio grande: 250 alumnos de 1.º o más en " + curso(CY[0]),
+    mediano: "municipio mediano: de 50 a 249 alumnos de 1.º en " + curso(CY[0]),
+    pequeño: "municipio pequeño: menos de 50 alumnos de 1.º en " + curso(CY[0]),
   };
 
   // valor que colorea el mapa para un municipio y el estado actual
@@ -107,7 +111,8 @@
     if (!prev || !real) return null;
     const p = prev[i], base = real[real.length - 1];
     if (!p || p[0] == null || !base) return null;
-    return { p: p[0], lo: p[1], hi: p[2], base, cambio: (p[0] / base - 1) * 100, ancho: (p[2] - p[1]) / p[0] * 100 };
+    return { p: p[0], lo: p[1], hi: p[2], base, cambio: (p[0] / base - 1) * 100, ancho: (p[2] - p[1]) / p[0] * 100,
+      claro: p[2] < base ? "baja" : p[1] > base ? "sube" : null };  // el intervalo del 80 % entero por debajo o por encima
   }
 
   // ------------------------------------------------------------------ escalas de color
@@ -149,11 +154,11 @@
   function textoTip(cm) {
     const m = MUN[cm];
     const d = dato(m);
-    const etapa = estado.nivel === "p1" ? "1º de primaria" : "Infantil 3-5";
+    const etapa = estado.nivel === "p1" ? "1.º de primaria" : "Infantil 3-5";
     const c = estado.nivel === "p1" ? R.cursos_p1[estado.iP1] : R.cursos_pi[estado.iPI];
-    if (!d) return `<strong>${esc(m.n)}</strong><span class="t-sec">${m.col ? "Sin alumnado de infantil de 2º ciclo" : "Sin colegio de primaria"}</span>`;
+    if (!d) return `<strong>${esc(m.n)}</strong><span class="t-sec">${m.col ? "Sin alumnado de infantil de 2.º ciclo" : "Sin colegio de primaria"}</span>`;
     return `<strong>${esc(m.n)}</strong>${etapa}, ${esc(c)}: ${ent(d.p)} <span class="t-sec">(${ent(d.lo)}–${ent(d.hi)})</span><br>` +
-      (estado.modo === "cambio" ? `Cambio frente a ${esc(R.base)}: ${pct(d.cambio)}` : `Ancho del intervalo: ${pctAbs(d.ancho)} de la previsión`);
+      (estado.modo === "cambio" ? `Cambio frente a ${esc(R.base)}: ${pct(d.cambio)}<br><span class="t-sec">${d.claro === "baja" ? "Bajada clara: todo el intervalo queda por debajo" : d.claro === "sube" ? "Subida clara: todo el intervalo queda por encima" : "El intervalo incluye que no cambie"}</span>` : `Ancho del intervalo: ${pctAbs(d.ancho)} de la previsión`);
   }
   let tocando = false;
   svg.addEventListener("pointerdown", e => { tocando = e.pointerType === "touch"; });
@@ -181,9 +186,9 @@
 
   function pintarMapa() {
     Object.entries(caminos).forEach(([cm, p]) => {
-      const m = MUN[cm], g = estado.nivel === "p1" ? m.g : m.gi;
+      const m = MUN[cm], d = dato(m);
       p.setAttribute("fill", colorDe(m));
-      p.setAttribute("fill-opacity", estado.modo === "cambio" && g === "pequeño" && dato(m) ? "0.42" : "1");
+      p.setAttribute("fill-opacity", estado.modo === "cambio" && d && !d.claro ? "0.42" : "1");
     });
     const sel = caminos[estado.sel];
     halo.setAttribute("d", sel ? sel.getAttribute("d") : "");
@@ -191,19 +196,32 @@
     // leyenda
     const esc_ = estado.modo === "cambio" ? DIV : ANCHO;
     const c = estado.nivel === "p1" ? R.cursos_p1[estado.iP1] : R.cursos_pi[estado.iPI];
-    const etapa = estado.nivel === "p1" ? "1º de primaria" : "infantil de 3 a 5 años";
+    const etapa = estado.nivel === "p1" ? "1.º de primaria" : "infantil de 3 a 5 años";
     const titulo = estado.modo === "cambio"
       ? `Cambio previsto en ${etapa}, ${c} frente a ${R.base}`
       : `Ancho del intervalo del 80 % en ${etapa}, ${c}, en % de la previsión (más oscuro, más incierto)`;
     document.getElementById("leyenda").innerHTML = `<span class="ley-titulo">${esc(titulo)}</span>` +
       esc_.colores.map((col, i) => `<span class="ley-item"><span class="sw" style="background:${col}"></span>${esc(esc_.etiquetas[i])}</span>`).join("") +
-      `<span class="ley-item"><span class="sw rayado"></span>${estado.nivel === "p1" ? "sin colegio de primaria" : "sin infantil de 2º ciclo"}</span>` +
-      (estado.modo === "cambio" ? `<span class="ley-item"><span class="sw" style="background:${DIV.colores[1]};opacity:.42"></span>color atenuado: municipio pequeño, intervalo muy ancho</span>` : "");
+      `<span class="ley-item"><span class="sw rayado"></span>${estado.nivel === "p1" ? "sin colegio de primaria" : "sin infantil de 2.º ciclo"}</span>` +
+      (estado.modo === "cambio" ? `<span class="ley-item"><span class="sw" style="background:${DIV.colores[1]};opacity:.42"></span>color atenuado: el intervalo del 80 % incluye que no cambie</span>` : "");
     const sinCol = Object.values(MUN).filter(m => !dato(m)).length;
     document.getElementById("nota-mapa").textContent = estado.modo === "cambio"
-      ? `Los municipios pequeños salen atenuados porque su intervalo es muy ancho; «Incertidumbre» lo muestra para todos. ${sinCol} municipios no tienen ${estado.nivel === "p1" ? "colegio de primaria" : "alumnado de infantil de 2º ciclo"}; sus niños se escolarizan en los vecinos.`
+      ? `Color lleno: el cambio es claro, porque todo el intervalo del 80 % queda a un lado del curso ${R.base}. Atenuado: el intervalo incluye que no cambie; «Incertidumbre» enseña su ancho. ${sinCol} municipios no tienen ${estado.nivel === "p1" ? "colegio de primaria" : "alumnado de infantil de 2.º ciclo"}; sus niños se escolarizan en los vecinos.`
       : "El intervalo sale de los errores reales del pasado en municipios de tamaño parecido y con la misma antelación.";
     $("#mapa-desc").textContent = titulo + ". La misma información está en la tabla de municipios, debajo del mapa.";
+    resumenMapa(c, etapa);
+  }
+
+  // resumen en una frase de lo que enseña el mapa: cuántos bajan, en cuántos la bajada es clara, cuánta incertidumbre
+  function resumenMapa(c, etapa) {
+    const ds = Object.values(MUN).map(m => dato(m)).filter(Boolean), n = ds.length;
+    const cuenta = f => ds.filter(f).length, donde = estado.nivel === "p1" ? "con colegio" : "con alumnado de infantil";
+    const el = document.getElementById("resumen-mapa");
+    if (!el) return;
+    el.innerHTML = estado.modo === "cambio"
+      ? `${esc(etapa[0].toUpperCase() + etapa.slice(1))} en ${esc(c)}: baja en <strong class="baja">${cuenta(d => d.cambio < 0)} de ${n}</strong> municipios ${donde}. ` +
+        `La bajada es clara en <strong class="baja">${cuenta(d => d.claro === "baja")}</strong>, porque incluso el extremo alto del intervalo del 80 % queda por debajo de ${esc(R.base)}; la subida es clara en <strong>${cuenta(d => d.claro === "sube")}</strong>.`
+      : `Intervalo del 80 % en ${esc(c)}: mide menos del 20 % de la previsión en <strong>${cuenta(d => d.ancho < 20)}</strong> de los ${n} municipios ${donde} y el 80 % o más en <strong>${cuenta(d => d.ancho >= 80)}</strong>. Cuanto más oscuro, más incierto.`;
   }
 
   // ------------------------------------------------------------------ controles
@@ -251,7 +269,7 @@
       if (W === ancho) return;
       ancho = W;
       const H = Math.round(Math.max(210, Math.min(290, W * 0.56)));
-      const mg = { l: 48, r: 12, t: 12, b: 28 };
+      const mg = { l: DEMO ? 58 : 48, r: DEMO ? 18 : 12, t: 12, b: DEMO ? 32 : 28 };
       const xs = [cfg.x0, cfg.x1];
       let ymax = 0;
       cfg.series.forEach(s => s.pts.forEach(p => { if (p[1] != null) ymax = Math.max(ymax, p[1]); }));
@@ -271,9 +289,15 @@
       const pasoX = W < 420 ? (nx > 20 ? 10 : 4) : (nx > 20 ? 5 : 2);
       s += '<g class="eje">';
       s += `<line x1="${mg.l}" x2="${W - mg.r}" y1="${sy(0)}" y2="${sy(0)}"/>`;
-      for (let x = Math.ceil(xs[0] / pasoX) * pasoX; x <= xs[1]; x += pasoX) {
-        s += `<line x1="${sx(x)}" x2="${sx(x)}" y1="${sy(0)}" y2="${sy(0) + 4}"/><text x="${sx(x)}" y="${H - 8}" text-anchor="middle">${cursoCorto(x)}</text>`;
+      const marcas = [];
+      for (let x = Math.ceil(xs[0] / pasoX) * pasoX; x <= xs[1]; x += pasoX) marcas.push(x);
+      if (marcas[marcas.length - 1] !== xs[1]) {  // el último curso siempre lleva etiqueta
+        if (marcas.length && sx(xs[1]) - sx(marcas[marcas.length - 1]) < (DEMO ? 46 : 36)) marcas.pop();
+        marcas.push(xs[1]);
       }
+      marcas.forEach(x => {
+        s += `<line x1="${sx(x)}" x2="${sx(x)}" y1="${sy(0)}" y2="${sy(0) + 4}"/><text x="${sx(x)}" y="${H - 8}" text-anchor="middle">${cursoCorto(x)}</text>`;
+      });
       s += "</g>";
       if (cfg.hoy != null) {
         const xh = sx(cfg.hoy + 0.5);
@@ -342,8 +366,8 @@
       partes.push(`<h4>Nacimientos por año</h4><div class="grafico" id="g-nac"></div>`);
       el.innerHTML = partes.join("");
       grafico(document.getElementById("g-nac"), {
-        x0: NAC0 + 6, x1: ultNac + 6, aria: `Nacidos en ${m.n} por año, desplazados al curso en que entrarían en 1º de primaria`,
-        series: [{ nombre: "Nacidos seis años antes (curso en que entrarían en 1º)", nombreTip: "Nacidos seis años antes", color: "#6f6c64", marc: true, fino: true, pts: m.nac.map((v, k) => [NAC0 + k + 6, v]) }],
+        x0: NAC0 + 6, x1: ultNac + 6, aria: `Nacidos en ${m.n} por año, desplazados al curso en que entrarían en 1.º de primaria`,
+        series: [{ nombre: "Nacidos seis años antes (curso en que entrarían en 1.º)", nombreTip: "Nacidos seis años antes", color: "#6f6c64", marc: true, fino: true, pts: m.nac.map((v, k) => [NAC0 + k + 6, v]) }],
       });
       return;
     }
@@ -351,7 +375,7 @@
     const kpi = (etq, d, base, cursoTxt) => d ? `<div class="kpi"><span class="kpi-etq">${esc(etq)} · ${esc(cursoTxt)}</span><span class="kpi-valor">${ent(d.p)}</span>
       <span class="kpi-rango">entre ${ent(d.lo)} y ${ent(d.hi)} (intervalo del 80${NBSP}%)</span>
       <span class="kpi-cambio ${d.cambio < -0.5 ? "baja" : d.cambio > 0.5 ? "sube" : ""}">${pct(d.cambio)} frente a ${esc(R.base)} (${ent(base)})</span></div>` : "";
-    partes.push(`<div class="kpis">${kpi("1º de primaria", d1, d1 && d1.base, R.cursos_p1[estado.iP1])}${kpi("Infantil de 3 a 5 años", di, di && di.base, R.cursos_pi[estado.iPI])}</div>`);
+    partes.push(`<div class="kpis">${kpi("1.º de primaria", d1, d1 && d1.base, R.cursos_p1[estado.iP1])}${kpi("Infantil de 3 a 5 años", di, di && di.base, R.cursos_pi[estado.iPI])}</div>`);
     if (m.g === "pequeño") {
       const md = R.resumen.backtest_1o.mdape["pequeño"];
       partes.push(`<div class="aviso"><p>Municipio pequeño: con tan pocos alumnos, dos o tres familias cambian mucho el porcentaje. En este grupo el error mediano del método va del ${pctAbs(md[1].radar, 1)} al ${pctAbs(md[6].radar, 1)}, y por eso el intervalo es ancho. Conviene leerlo junto a los municipios de su zona.</p></div>`);
@@ -363,9 +387,9 @@
       if (med > 15) partes.push(`<div class="aviso"><p>Aquí el radar ha fallado bastante en el pasado: error mediano del ${pctAbs(med, 1)} en sus ${propios.length} previsiones hechas con dos o más cursos de antelación, y en media ${media < 0 ? "se quedó corto" : "se pasó"} (${pct(media, 1)}). El intervalo es el de su grupo de tamaño y no recoge ese sesgo propio: tómalo con cautela.</p></div>`);
     }
     if (cm === CAP) partes.push(`<p>No se puede bajar a los distritos: el catálogo regional no publica nacimientos por distrito, aunque sí el alumnado.</p>`);
-    partes.push(`<h4>1º de primaria: alumnos y nacidos seis años antes</h4><div class="grafico" id="g-1o"></div>
+    partes.push(`<h4>1.º de primaria: alumnos y nacidos seis años antes</h4><div class="grafico" id="g-1o"></div>
       <details class="desplegable-mini"><summary>Ver los datos en una tabla</summary><div class="tabla-scroll" id="t-1o"></div></details>`);
-    partes.push(`<p>Factor del municipio: ${f2.format(m.f)} alumnos de 1º por cada niño nacido aquí, medido en su matrícula de infantil de ${R.base}. Por encima de 1, el municipio escolariza a más niños de los que nacen en él.</p>`);
+    partes.push(`<p>Factor del municipio: ${f3.format(m.f)} alumnos de 1.º por cada niño nacido aquí, medido en su matrícula de infantil de ${R.base}. Por encima de 1, el municipio escolariza a más niños de los que nacen en él.</p>`);
     // backtest del municipio
     const bt = (m.bt || []).filter(r => r[0] + r[1] === BASE && r[2] > 0).sort((a, b) => a[0] - b[0]);
     if (bt.length) {
@@ -375,7 +399,7 @@
         const er = (r[3] / r[2] - 1) * 100, en = (r[4] / r[2] - 1) * 100;
         return `<tr><td>${curso(r[0])}</td><td>${r[1]}</td><td>${ent(r[3])}</td><td>${pct(er, 1)}</td><td>${ent(r[4])}</td><td>${pct(en, 1)}</td></tr>`;
       }).join("");
-      partes.push(`<h4>¿Cómo habría acertado?</h4><p>Previsiones para ${curso(BASE)}, cuando hubo ${ent(bt[0][2])} alumnos de 1º, hechas en cursos anteriores con los datos de cada momento.</p>
+      partes.push(`<h4>¿Cómo habría acertado?</h4><p>Previsiones para ${curso(BASE)}, cuando hubo ${ent(bt[0][2])} alumnos de 1.º, hechas en cursos anteriores con los datos de cada momento.</p>
         <div class="tabla-scroll"><table class="tabla compacta"><thead><tr><th>Hecha en</th><th>Cursos antes</th><th>Radar</th><th>Error</th><th>Nada cambia</th><th>Error</th></tr></thead><tbody>${filas}</tbody></table></div>
         <p class="nota">En el grupo de ${g === "Madrid capital" ? "la capital" : "municipios " + g + "s"}, el error mediano del radar a 3 y 5 cursos es del ${pctAbs(mdg[3].radar, 1)} y el ${mdg[5] ? pctAbs(mdg[5].radar, 1) : "—"}; suponiendo que nada cambia, del ${pctAbs(mdg[3].ingenuo, 1)} y el ${mdg[5] ? pctAbs(mdg[5].ingenuo, 1) : "—"}.</p>`);
     }
@@ -392,15 +416,15 @@
     }
     el.innerHTML = partes.join("");
 
-    // gráfico 1º
+    // gráfico 1.º
     const x0 = NAC0 + 6, x1 = BASE + R.cursos_p1.length;
     const reales = CY.map((s, k) => [s, m.y1[k]]);
     const prev = m.p1.map((p, k) => [BASE + 1 + k, p[0], p[1], p[2]]);
     grafico(document.getElementById("g-1o"), {
-      x0, x1, hoy: BASE, aria: `Alumnos de 1º de primaria en ${m.n}: reales de ${curso(CY[0])} a ${curso(BASE)} y previstos hasta ${curso(x1)}, junto a los nacidos seis años antes`,
+      x0, x1, hoy: BASE, aria: `Alumnos de 1.º de primaria en ${m.n}: reales de ${curso(CY[0])} a ${curso(BASE)} y previstos hasta ${curso(x1)}, junto a los nacidos seis años antes`,
       series: [
         { nombre: "Nacidos seis años antes", color: "#8a877e", fino: true, marc: true, pts: m.nac.map((v, k) => [NAC0 + k + 6, v]) },
-        { nombre: "Alumnos de 1º", color: "#2a78d6", marc: true, pts: reales },
+        { nombre: "Alumnos de 1.º", color: "#2a78d6", marc: true, pts: reales },
         { nombre: "Previsión", color: "#2a78d6", disc: true, pts: [[BASE, m.y1[m.y1.length - 1]]].concat(prev.map(p => [p[0], p[1]])), nombreTip: "Previsión" },
       ],
       banda: { nombre: "Intervalo del 80 %", color: "rgba(42,120,214,0.16)", pts: prev.map(p => [p[0], p[2], p[3]]) },
@@ -410,7 +434,7 @@
       const k = s - CY[0], j = s - BASE - 1, n = m.nac[s - 6 - NAC0];
       filasT.push(`<tr><td>${curso(s)}</td><td>${ent(n)}</td><td>${k >= 0 && k < CY.length ? ent(m.y1[k]) : ""}</td><td>${j >= 0 ? ent(m.p1[j][0]) : ""}</td><td>${j >= 0 ? ent(m.p1[j][1]) + "–" + ent(m.p1[j][2]) : ""}</td></tr>`);
     }
-    document.getElementById("t-1o").innerHTML = `<table class="tabla compacta"><thead><tr><th>Curso</th><th>Nacidos 6 años antes</th><th>Alumnos de 1º</th><th>Previsión</th><th>Intervalo del 80 %</th></tr></thead><tbody>${filasT.join("")}</tbody></table>`;
+    document.getElementById("t-1o").innerHTML = `<table class="tabla compacta"><thead><tr><th>Curso</th><th>Nacidos 6 años antes</th><th>Alumnos de 1.º</th><th>Previsión</th><th>Intervalo del 80 %</th></tr></thead><tbody>${filasT.join("")}</tbody></table>`;
 
     if (m.pi) {
       const xi1 = BASE + R.cursos_pi.length;
@@ -439,7 +463,7 @@
   // ------------------------------------------------------------------ tabla de municipios
   function tablaMunicipios() {
     const t = document.getElementById("tabla-municipios");
-    const etapa = estado.nivel === "p1" ? "1º de primaria" : "infantil de 3 a 5 años";
+    const etapa = estado.nivel === "p1" ? "1.º de primaria" : "infantil de 3 a 5 años";
     const c = estado.nivel === "p1" ? R.cursos_p1[estado.iP1] : R.cursos_pi[estado.iPI];
     $("#tabla-caption").textContent = `${etapa[0].toUpperCase() + etapa.slice(1)}: alumnos en ${R.base} y previsión para ${c}. Municipios con alumnado.`;
     const cols = [["nombre", "Municipio"], ["zona", "Área"], ["base", `Alumnos ${R.base}`], ["p", `Previsión ${c}`], ["int", "Intervalo del 80 %"], ["cambio", "Cambio"]];
@@ -479,10 +503,10 @@
     const prev = G.p1.map((p, k) => [BASE + 1 + k, p[1], p[2], p[3]]);
     const x0 = ys[0], x1 = BASE + G.p1.length;
     grafico(document.getElementById("graf-region"), {
-      x0, x1, hoy: BASE, aria: `Alumnos de 1º de primaria en la Comunidad de Madrid de ${curso(x0)} a ${curso(BASE)}, previsión hasta ${curso(x1)} y nacidos seis años antes`,
+      x0, x1, hoy: BASE, aria: `Alumnos de 1.º de primaria en la Comunidad de Madrid de ${curso(x0)} a ${curso(BASE)}, previsión hasta ${curso(x1)} y nacidos seis años antes`,
       series: [
         { nombre: "Nacidos seis años antes", color: "#8a877e", fino: true, marc: true, pts: Object.keys(G.nac).map(Number).filter(a => a + 6 >= x0).map(a => [a + 6, G.nac[a]]) },
-        { nombre: "Alumnos de 1º (hueco: provisional)", nombreTip: "Alumnos de 1º", color: "#2a78d6", marc: true, huecos: G.provisionales, pts: ys.map(s => [s, G.y1[s]]) },
+        { nombre: "Alumnos de 1.º (hueco: provisional)", nombreTip: "Alumnos de 1.º", color: "#2a78d6", marc: true, huecos: G.provisionales, pts: ys.map(s => [s, G.y1[s]]) },
         { nombre: "Previsión", color: "#2a78d6", disc: true, pts: [[BASE, G.suma_municipios_base]].concat(prev.map(p => [p[0], p[1]])) },
       ],
       banda: { nombre: "Intervalo del 80 %", color: "rgba(42,120,214,0.16)", pts: prev.map(p => [p[0], p[2], p[3]]) },
@@ -492,7 +516,7 @@
       const j = s - BASE - 1;
       filas.push(`<tr><td>${curso(s)}</td><td>${ent(G.nac[s - 6])}</td><td>${G.y1[s] != null ? ent(G.y1[s]) + (G.provisionales.includes(s) ? " (prov.)" : "") : ""}</td><td>${j >= 0 ? ent(prev[j][1]) : ""}</td><td>${j >= 0 ? ent(prev[j][2]) + "–" + ent(prev[j][3]) : ""}</td></tr>`);
     }
-    document.getElementById("tabla-region").innerHTML = `<table class="tabla compacta"><thead><tr><th>Curso</th><th>Nacidos 6 años antes</th><th>Alumnos de 1º</th><th>Previsión</th><th>Intervalo del 80 %</th></tr></thead><tbody>${filas.join("")}</tbody></table>`;
+    document.getElementById("tabla-region").innerHTML = `<table class="tabla compacta"><thead><tr><th>Curso</th><th>Nacidos 6 años antes</th><th>Alumnos de 1.º</th><th>Previsión</th><th>Intervalo del 80 %</th></tr></thead><tbody>${filas.join("")}</tbody></table>`;
     const nombreA = n => Object.keys(MUN).find(cm => MUN[cm].n === n);
     const item = r => { const cm = nombreA(r.municipio); return `<li><button type="button" data-cm="${cm}">${esc(r.municipio)}</button> <span class="rk-cifra">${ent(r.base)} → ${ent(r.prevision)} (${pct(r.cambio_pct)})</span></li>`; };
     document.getElementById("rk-caen").innerHTML = R.resumen.ranking.mas_caen.map(item).join("");
@@ -525,7 +549,7 @@
   // ------------------------------------------------------------------ fuentes
   (function fuentes() {
     const h = `<thead><tr><th scope="col" class="txt">Dataset</th><th scope="col" class="txt">Editor</th><th scope="col" class="txt">Para qué</th><th scope="col" class="txt">Descarga</th><th scope="col" class="txt">Licencia</th></tr></thead><tbody>` +
-      R.fuentes.map(f => `<tr><td class="txt"><a href="${esc(f.pagina)}">${esc(f.titulo)}</a>${f.recurso && f.recurso !== f.titulo ? `<br><span class="nota">${esc(f.recurso)}</span>` : ""}</td><td class="txt">${esc(f.editor)}</td><td class="txt">${esc(f.uso)}</td><td class="txt"><a href="${esc(f.url)}" aria-label="Descargar el fichero oficial: ${esc(f.recurso || f.titulo)}">${/\.zip$/i.test(f.url) ? "ZIP" : "CSV"}</a><br><span class="nota">${esc(fechaCorta(f.fecha_descarga_utc))}</span></td><td class="txt"><abbr title="${esc(f.licencia_titulo || "")}">${/attribution/i.test(f.licencia_titulo || "") ? "CC BY" : esc(f.licencia_titulo || "")}</abbr></td></tr>`).join("") + "</tbody>";
+      R.fuentes.map(f => `<tr><td class="txt"><a href="${esc(f.pagina)}">${esc(f.titulo)}</a>${f.recurso && f.recurso !== f.titulo ? `<br><span class="nota">${esc(f.recurso)}</span>` : ""}</td><td class="txt">${esc(f.editor)}</td><td class="txt">${esc(ordinal(f.uso))}</td><td class="txt"><a href="${esc(f.url)}" aria-label="Descargar el fichero oficial: ${esc(f.recurso || f.titulo)}">${/\.zip$/i.test(f.url) ? "ZIP" : "CSV"}</a><br><span class="nota">${esc(fechaCorta(f.fecha_descarga_utc))}</span></td><td class="txt"><abbr title="${esc(f.licencia_titulo || "")}">${/attribution/i.test(f.licencia_titulo || "") ? "CC BY" : esc(f.licencia_titulo || "")}</abbr></td></tr>`).join("") + "</tbody>";
     document.getElementById("tabla-fuentes").innerHTML = h;
   })();
 
@@ -592,7 +616,7 @@
     if (!el || !m || !m.p1) return;
     const base = m.y1[m.y1.length - 1], c = v => pct((v / base - 1) * 100, 1);
     const linea = k => { const p = m.p1[k]; return `- ${R.cursos_p1[k]}: ${ent(p[0])} alumnos (${ent(p[1])}–${ent(p[2])}); frente a ${R.base}, ${c(p[0])} (${c(p[1])} a ${c(p[2])}).`; };
-    el.textContent = [`${m.n} (código INE ${cm}, área ${m.z}) · 1º de primaria.`,
+    el.textContent = [`${m.n} (código INE ${cm}, área ${m.z}) · 1.º de primaria.`,
       `Último curso con matrícula publicada: ${R.base}, con ${ent(base)} alumnos.`, "",
       "Previsión del radar (entre paréntesis, el intervalo del 80 %):", linea(0), "…", linea(m.p1.length - 1)].join("\n");
   })();

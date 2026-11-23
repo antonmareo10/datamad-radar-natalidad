@@ -1,4 +1,8 @@
 /* Radar de natalidad municipal · hoja de estilo (sin dependencias externas: funciona sin conexión) */
+@font-face {  /* Public Sans (SIL Open Font License, fuentes/OFL-PublicSans.txt), la misma letra que las diapositivas */
+  font-family: "Public Sans"; src: url("fuentes/PublicSans.woff2") format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
 :root {
   color-scheme: light;
   --fondo: #f7f6f2;
@@ -19,7 +23,7 @@
   --aviso-borde: #e0b25a;
   --radio: 10px;
   --sombra-foco: 0 0 0 3px #fdfdfc, 0 0 0 5px #1c5cab;
-  --fuente: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fuente: "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -43,6 +47,7 @@ p { margin: 0 0 1em; max-width: 72ch; }
 
 .contenedor { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 16px; }
 @media (min-width: 720px) { .contenedor { padding: 0 28px; } }
+@media (min-width: 1500px) { .contenedor { max-width: 1400px; } }  /* pantallas grandes y proyectores de 1080 p */
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .saltar { position: absolute; left: 12px; top: -48px; background: var(--tinta); color: #fff; padding: 8px 14px; border-radius: 6px; z-index: 10; }
 .saltar:focus { top: 12px; }
@@ -112,6 +117,9 @@ p { margin: 0 0 1em; max-width: 72ch; }
 @media (min-width: 960px) { .mapa-fig { position: sticky; top: 12px; } }
 .mapa-caja { position: relative; }
 #svg-mapa { width: 100%; height: auto; max-height: 76vh; margin: 0 auto; touch-action: manipulation; }
+/* pantallas bajas (proyector de 720 p, también con zoom): mapa, leyenda y nota caben a la vez */
+@media (min-width: 960px) and (max-height: 820px) { #svg-mapa { max-height: 60vh; } }
+@media (min-width: 960px) and (max-height: 620px) { #svg-mapa { max-height: 62vh; } .mapa-fig .nota { display: none; } }  /* la leyenda ya dice qué es el atenuado */
 #svg-mapa path.m { stroke: #fdfdfc; stroke-width: 0.7; vector-effect: non-scaling-stroke; cursor: pointer; transition: fill 160ms ease; }
 #svg-mapa path.m:hover { stroke: var(--tinta); stroke-width: 1.4; }
 #svg-mapa path.sel { fill: none; stroke: var(--tinta); stroke-width: 2.6; vector-effect: non-scaling-stroke; pointer-events: none; }
@@ -129,6 +137,15 @@ p { margin: 0 0 1em; max-width: 72ch; }
 .leyenda .sw { width: 14px; height: 14px; border-radius: 3px; border: 1px solid rgba(0, 0, 0, 0.12); flex: none; }
 .leyenda .sw.rayado { background: repeating-linear-gradient(45deg, #f1efea 0 3px, #c8c5bc 3px 4.5px); }
 .mapa-fig .nota { margin: 8px 0 0; }
+.resumen-mapa { font-size: 1.08rem; line-height: 1.5; max-width: 80ch; margin: 0 0 14px; color: var(--tinta-2); }
+.resumen-mapa strong { color: var(--tinta); font-weight: 700; }
+.resumen-mapa .baja { color: #a8302a; }
+/* modo demo (?demo): letra más grande para enseñar la web en un proyector */
+html.demo { font-size: 20px; }
+html.demo .leyenda, html.demo .leyenda-graf, html.demo .tooltip { font-size: 1rem; }
+html.demo .grafico text { font-size: 14px; }
+html.demo .nota, html.demo .tabla { font-size: 0.95rem; }
+@media (min-width: 960px) and (max-height: 820px) { html.demo #svg-mapa { max-height: 50vh; } html.demo .mapa-fig .nota { display: none; } }
 
 .ficha { padding: 18px 18px 8px; min-height: 420px; }
 .ficha h3 { margin: 0 0 4px; font-size: 1.5rem; letter-spacing: -0.015em; }
@@ -217,7 +234,7 @@ abbr[title] { text-decoration: none; }
 .rutas a:hover code { text-decoration: underline; text-underline-offset: 2px; }
 .codigo { background: var(--tinta); color: #f1efea; border-radius: 8px; margin: 0 0 14px; overflow: hidden; }
 .codigo-cab { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 6px 8px 0 14px; font-size: 0.78rem; color: #b9b6ad; }
-.codigo pre { margin: 0; padding: 6px 14px 14px; overflow-x: auto; font: 0.86rem/1.55 ui-monospace, "Cascadia Mono", Consolas, monospace; }
+.codigo pre { margin: 0; padding: 6px 14px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 0.86rem/1.55 ui-monospace, "Cascadia Mono", Consolas, monospace; }
 .codigo code { background: none; padding: 0; color: inherit; font: inherit; }
 .copiar {
   font: inherit; font-size: 0.8rem; font-weight: 600; color: #f1efea; background: transparent; cursor: pointer;
@@ -232,7 +249,7 @@ abbr[title] { text-decoration: none; }
 }
 .respuesta-cab strong { color: var(--tinta); font-weight: 650; }
 .respuesta {
-  max-height: 360px; overflow: auto; margin: 0; padding: 12px 14px;
+  max-height: 360px; overflow: auto; margin: 0; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere;
   font: 0.8rem/1.5 ui-monospace, "Cascadia Mono", Consolas, monospace; color: var(--tinta);
 }
 .respuesta[aria-busy="true"] { opacity: 0.6; }
