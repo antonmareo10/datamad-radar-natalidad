@@ -233,6 +233,7 @@
     try { history.replaceState(null, "", "#municipio=" + cm); } catch (e) { /* file:// en algunos navegadores */ }
     pintarMapa();
     ficha();
+    reutiliza();
     if (anunciar) document.getElementById("anuncio").textContent = "Ficha de " + MUN[cm].n + " actualizada.";
   }
 
@@ -348,7 +349,7 @@
     }
     const d1 = dato(m, "p1"), di = dato(m, "pi");
     const kpi = (etq, d, base, cursoTxt) => d ? `<div class="kpi"><span class="kpi-etq">${esc(etq)} · ${esc(cursoTxt)}</span><span class="kpi-valor">${ent(d.p)}</span>
-      <span class="kpi-rango">entre ${ent(d.lo)} y ${ent(d.hi)} (intervalo del 80 %)</span>
+      <span class="kpi-rango">entre ${ent(d.lo)} y ${ent(d.hi)} (intervalo del 80${NBSP}%)</span>
       <span class="kpi-cambio ${d.cambio < -0.5 ? "baja" : d.cambio > 0.5 ? "sube" : ""}">${pct(d.cambio)} frente a ${esc(R.base)} (${ent(base)})</span></div>` : "";
     partes.push(`<div class="kpis">${kpi("1º de primaria", d1, d1 && d1.base, R.cursos_p1[estado.iP1])}${kpi("Infantil de 3 a 5 años", di, di && di.base, R.cursos_pi[estado.iPI])}</div>`);
     if (m.g === "pequeño") {
@@ -528,10 +529,83 @@
     document.getElementById("tabla-fuentes").innerHTML = h;
   })();
 
+  // ------------------------------------------------------------------ reutiliza: API abierta y MCP
+  const API_URL = "https://radar-natalidad-madrid.vercel.app/api/v1/";
+  const respuesta = document.getElementById("respuesta"), respEstado = document.getElementById("respuesta-estado");
+  let respuestaActiva = false;  // se activa al llegar a la sección; desde entonces sigue al municipio elegido
+  function reutiliza() {
+    if (!respuesta) return;
+    const cm = estado.sel, ruta = `municipios/${cm}.json`;
+    $("#cod-curl").textContent = `curl ${API_URL}${ruta}`;
+    $("#ruta-municipio").setAttribute("href", "api/v1/" + ruta);
+    $("#respuesta-abrir").setAttribute("href", "api/v1/" + ruta);
+    $("#probar-nombre").textContent = MUN[cm].n;
+    if (respuestaActiva && respuesta.dataset.cm !== cm) cargarRespuesta();
+  }
+  async function cargarRespuesta() {
+    const cm = estado.sel, ruta = `api/v1/municipios/${cm}.json`;
+    respuestaActiva = true;
+    respuesta.setAttribute("aria-busy", "true");
+    try {
+      const r = await fetch(ruta, { headers: { Accept: "application/json" } });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      const txt = await r.text();
+      JSON.parse(txt);
+      if (cm !== estado.sel) return;  // llegó tarde: ya se eligió otro municipio
+      respuesta.textContent = txt;
+      respuesta.dataset.cm = cm;
+      respuesta.hidden = false;
+      respuesta.scrollTop = 0;
+      respEstado.textContent = `HTTP ${r.status}, ${f1.format(new Blob([txt]).size / 1024)} KB: el fichero tal cual lo recibe cualquier programa. Cambia al elegir otro municipio en el mapa.`;
+    } catch (e) {
+      respuesta.hidden = true;
+      delete respuesta.dataset.cm;
+      respEstado.innerHTML = `No se ha podido leer <code>${esc(ruta)}</code> desde esta copia de la web (${esc(e.message)}). ` +
+        `Si la has abierto como fichero local, el navegador bloquea la lectura: <a href="${API_URL}municipios/${cm}.json">ábrela en la web publicada</a>.`;
+    } finally {
+      respuesta.removeAttribute("aria-busy");
+    }
+  }
+  if (respuesta) {
+    const sec = document.getElementById("reutiliza");
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(es => { if (es.some(x => x.isIntersecting)) { io.disconnect(); cargarRespuesta(); } }, { rootMargin: "300px 0px" });
+      io.observe(sec);
+    } else cargarRespuesta();
+  }
+  document.querySelectorAll(".copiar").forEach(b => b.addEventListener("click", async () => {
+    const el = document.getElementById(b.dataset.copia);
+    let ok = false;
+    try { await navigator.clipboard.writeText(el.textContent); ok = true; } catch (e) {
+      const r = document.createRange(); r.selectNodeContents(el);
+      const s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      try { ok = document.execCommand("copy"); } catch (e2) { ok = false; }
+    }
+    b.textContent = ok ? "Copiado" : "Selecciónalo y cópialo";
+    document.getElementById("anuncio").textContent = ok ? "Copiado al portapapeles." : "No se pudo copiar: el texto queda seleccionado.";
+    clearTimeout(b._t);
+    b._t = setTimeout(() => { b.textContent = "Copiar"; }, 2200);
+  }));
+  // ejemplo de respuesta de prevision_municipio, con las mismas cifras y el mismo formato que el servidor MCP
+  (function ejemploMcp() {
+    const el = document.getElementById("ejemplo-mcp"), cm = "28058", m = MUN[cm];
+    if (!el || !m || !m.p1) return;
+    const base = m.y1[m.y1.length - 1], c = v => pct((v / base - 1) * 100, 1);
+    const linea = k => { const p = m.p1[k]; return `- ${R.cursos_p1[k]}: ${ent(p[0])} alumnos (${ent(p[1])}–${ent(p[2])}); frente a ${R.base}, ${c(p[0])} (${c(p[1])} a ${c(p[2])}).`; };
+    el.textContent = [`${m.n} (código INE ${cm}, área ${m.z}) · 1º de primaria.`,
+      `Último curso con matrícula publicada: ${R.base}, con ${ent(base)} alumnos.`, "",
+      "Previsión del radar (entre paréntesis, el intervalo del 80 %):", linea(0), "…", linea(m.p1.length - 1)].join("\n");
+  })();
+
   // ------------------------------------------------------------------ arranque
   const m = /municipio=(\d{5})/.exec(location.hash);
   if (m && MUN[m[1]]) estado.sel = m[1];
   opcionesCurso();
   selMuni.value = estado.sel;
   actualizar();
+  reutiliza();
+  window.addEventListener("hashchange", () => {  // enlaces internos del tipo #municipio=28058
+    const h = /municipio=(\d{5})/.exec(location.hash);
+    if (h && MUN[h[1]] && h[1] !== estado.sel) seleccionar(h[1], true);
+  });
 })();

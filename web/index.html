@@ -37,6 +37,7 @@
         <li><a href="#region">Toda la región</a></li>
         <li><a href="#metodo">Método y error</a></li>
         <li><a href="#uso">Para quién</a></li>
+        <li><a href="#reutiliza">API y MCP</a></li>
         <li><a href="#datos">Datos y licencias</a></li>
       </ul>
     </nav>
@@ -178,7 +179,7 @@
         </div>
         <div class="tarjeta">
           <h3>Reutilizadores</h3>
-          <p>Periodistas, AMPAs, centros privados y concertados o consultoras pueden usar las tablas y el código sin pedir permiso: todo es abierto y se puede rehacer desde cero con una orden.</p>
+          <p>Periodistas, AMPAs, centros privados y concertados o consultoras pueden usar las tablas y el código sin pedir permiso: todo es abierto y se puede rehacer desde cero con una orden. Las cifras también se pueden leer desde otros programas con la <a href="#reutiliza">API abierta y el servidor MCP</a>.</p>
         </div>
       </div>
       <div class="dos-columnas">
@@ -186,7 +187,7 @@
           <h3>Cómo se actualiza cada año</h3>
           <ol class="pasos">
             <li>Cuando la Consejería publica la matrícula del curso nuevo (la del curso <span data-r="base"></span> se actualizó en el catálogo el <span data-r="fecha_primaria"></span>) y el Instituto de Estadística los nacimientos del año (los de <span data-r="nac_ultimo_anio"></span>, el <span data-r="fecha_nacidos"></span>), se ejecuta <code>python -m radar todo</code>.</li>
-            <li>El programa vuelve a descargar los ficheros oficiales, deja constancia de la URL, la fecha y la huella SHA-256 de cada uno, mueve la base al último curso, añade un curso más al backtest y regenera las previsiones, los intervalos y esta web.</li>
+            <li>El programa vuelve a descargar los ficheros oficiales, deja constancia de la URL, la fecha y la huella SHA-256 de cada uno, mueve la base al último curso, añade un curso más al backtest y regenera las previsiones, los intervalos, esta web y su API.</li>
             <li>La web es un único directorio de ficheros estáticos: se publica copiándolo a cualquier servidor, incluido el del propio portal de datos abiertos.</li>
           </ol>
         </div>
@@ -204,7 +205,72 @@
     </div>
   </section>
 
-  <section id="datos" class="bloque" aria-labelledby="t-datos">
+  <section id="reutiliza" class="bloque" aria-labelledby="t-reutiliza">
+    <div class="contenedor">
+      <p class="kicker">Reutiliza los datos</p>
+      <h2 id="t-reutiliza">API abierta y servidor MCP: las mismas cifras, para tus programas y tu asistente de IA</h2>
+      <p class="lead">Todo lo que enseña esta web está también en ficheros JSON: la previsión de cada municipio con su intervalo del 80 %, el error del backtest y los avisos de fiabilidad de su ficha. Sin claves ni registro, con licencia CC BY 4.0 y generados por el mismo programa que la web, así que nunca dan cifras distintas.</p>
+
+      <div class="dos-columnas reutiliza">
+        <div>
+          <h3>API abierta</h3>
+          <p>Tres rutas bajo <code class="url">https://radar-natalidad-madrid.vercel.app/api/v1/</code></p>
+          <dl class="rutas">
+            <div><dt><a href="api/v1/index.json"><code>index.json</code></a></dt><dd>Metadatos, licencias, fuentes oficiales y lista de municipios.</dd></div>
+            <div><dt><a href="api/v1/region.json"><code>region.json</code></a></dt><dd>Toda la región: serie, previsión con intervalo y ranking de cambios.</dd></div>
+            <div><dt><a href="api/v1/municipios/28058.json" id="ruta-municipio"><code>municipios/{código INE}.json</code></a></dt><dd>Un municipio: serie, previsión de 1º y de infantil con intervalos, error del backtest y avisos.</dd></div>
+          </dl>
+          <div class="codigo">
+            <div class="codigo-cab"><span>Terminal</span><button type="button" class="copiar" data-copia="cod-curl">Copiar</button></div>
+            <pre><code id="cod-curl">curl https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28079.json</code></pre>
+          </div>
+          <figure class="respuesta-caja">
+            <figcaption class="respuesta-cab"><span>Respuesta para <strong id="probar-nombre">Madrid</strong>, el municipio elegido en el mapa</span><a id="respuesta-abrir" href="api/v1/municipios/28079.json">Abrir el JSON</a></figcaption>
+            <pre class="respuesta" id="respuesta" tabindex="0" aria-label="Respuesta JSON de la API" hidden></pre>
+            <p class="nota" id="respuesta-estado">La respuesta se carga al llegar a esta sección y cambia al elegir otro municipio.</p>
+          </figure>
+          <p><a href="https://github.com/antonmareo10/datamad-radar-natalidad/blob/master/docs/API.md">Documentación de la API: esquema completo y ejemplos</a></p>
+          <p class="nota">Si reutilizas las cifras, cita «Radar de natalidad municipal, a partir de datos abiertos de la Comunidad de Madrid (datos.comunidad.madrid)». Datos con licencia CC BY 4.0 y código con licencia MIT.</p>
+        </div>
+        <div>
+          <h3>Servidor MCP para asistentes de IA</h3>
+          <p>Con el servidor <code>radar-natalidad</code>, Claude o cualquier asistente compatible con MCP consulta el radar y contesta con la cifra, su intervalo y los avisos de la ficha. Es de solo lectura y lee esta misma API.</p>
+          <ul class="herramientas">
+            <li><code>buscar_municipio(texto)</code> encuentra un municipio por nombre o código INE.</li>
+            <li><code>prevision_municipio(municipio, nivel)</code> da la previsión de 1º o de infantil, curso a curso, con su intervalo.</li>
+            <li><code>fiabilidad_municipio(municipio)</code> cuenta cuánto ha acertado el método en ese municipio y en los de su tamaño.</li>
+            <li><code>mayores_cambios(n, sentido)</code> lista dónde más baja o sube 1º de primaria.</li>
+          </ul>
+          <p>Para añadirlo a Claude Code, desde una copia del repositorio con <code>pip install -r requirements-mcp.txt</code>:</p>
+          <div class="codigo">
+            <div class="codigo-cab"><span>Terminal</span><button type="button" class="copiar" data-copia="cod-claude">Copiar</button></div>
+            <pre><code id="cod-claude">claude mcp add radar-natalidad -- python /ruta/al/repo/mcp_server/server.py</code></pre>
+          </div>
+          <p>En Claude Desktop, dentro de su fichero de configuración:</p>
+          <div class="codigo">
+            <div class="codigo-cab"><span>claude_desktop_config.json</span><button type="button" class="copiar" data-copia="cod-desktop">Copiar</button></div>
+            <pre><code id="cod-desktop">{
+  "mcpServers": {
+    "radar-natalidad": {
+      "command": "python",
+      "args": ["/ruta/al/repo/mcp_server/server.py"]
+    }
+  }
+}</code></pre>
+          </div>
+          <figure class="ejemplo-mcp">
+            <figcaption>Ejemplo con datos reales</figcaption>
+            <p class="pregunta">«¿Cuántos niños empezarán 1º de primaria en Fuenlabrada?»</p>
+            <p class="llamada">El asistente llama a <code>prevision_municipio(municipio="Fuenlabrada", nivel="1o")</code>, que responde, entre otras líneas:</p>
+            <pre class="respuesta-mcp" id="ejemplo-mcp"></pre>
+          </figure>
+          <p><a href="https://github.com/antonmareo10/datamad-radar-natalidad/blob/master/mcp_server/README.md">Instalación del servidor MCP y ejemplo completo</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="datos" class="bloque alterno" aria-labelledby="t-datos">
     <div class="contenedor">
       <p class="kicker">Datos y licencias</p>
       <h2 id="t-datos">De dónde sale cada cifra</h2>

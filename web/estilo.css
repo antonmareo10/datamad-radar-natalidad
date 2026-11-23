@@ -54,8 +54,8 @@ p { margin: 0 0 1em; max-width: 72ch; }
 .marca { width: 44px; height: 44px; flex: none; }
 .cabecera h1 { font-size: clamp(2.1rem, 6vw, 3.6rem); font-weight: 750; letter-spacing: -0.025em; margin-bottom: 0; min-width: 0; }
 .entradilla { font-size: clamp(1.05rem, 2.2vw, 1.25rem); color: var(--tinta-2); max-width: 62ch; }
-.indice ul { list-style: none; padding: 0; margin: 20px 0 0; display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.95rem; }
-.indice a { color: var(--tinta-2); text-decoration: none; border-bottom: 1px solid var(--linea); padding-bottom: 2px; }
+.indice ul { list-style: none; padding: 0; margin: 14px 0 0; display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.95rem; }
+.indice a { display: inline-block; color: var(--tinta-2); text-decoration: none; border-bottom: 1px solid var(--linea); padding: 6px 0 2px; }
 .indice a:hover { color: var(--acento); border-color: var(--acento); }
 
 /* ---------------------------------------------------------------- cifras */
@@ -202,6 +202,54 @@ abbr[title] { text-decoration: none; }
 .pasos li { margin-bottom: 0.5em; }
 .sube { color: #1c5cab; }
 .baja { color: #a8302a; }
+
+/* ---------------------------------------------------------------- reutiliza: API abierta y MCP */
+.reutiliza { margin-top: 8px; }
+.reutiliza h3 { margin-top: 0.3em; }
+.url { overflow-wrap: anywhere; }
+.rutas { margin: 0 0 18px; border-top: 1px solid var(--linea); }
+.rutas > div { display: grid; grid-template-columns: minmax(0, 14em) minmax(0, 1fr); gap: 2px 16px; padding: 10px 0; border-bottom: 1px solid var(--linea-suave); }
+@media (max-width: 560px) { .rutas > div { grid-template-columns: minmax(0, 1fr); } }
+.rutas dt, .rutas dd { margin: 0; }
+.rutas dd { color: var(--tinta-2); font-size: 0.95rem; }
+.rutas a { text-decoration: none; overflow-wrap: anywhere; }
+.rutas a code { color: var(--acento); background: var(--acento-suave); }
+.rutas a:hover code { text-decoration: underline; text-underline-offset: 2px; }
+.codigo { background: var(--tinta); color: #f1efea; border-radius: 8px; margin: 0 0 14px; overflow: hidden; }
+.codigo-cab { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 6px 8px 0 14px; font-size: 0.78rem; color: #b9b6ad; }
+.codigo pre { margin: 0; padding: 6px 14px 14px; overflow-x: auto; font: 0.86rem/1.55 ui-monospace, "Cascadia Mono", Consolas, monospace; }
+.codigo code { background: none; padding: 0; color: inherit; font: inherit; }
+.copiar {
+  font: inherit; font-size: 0.8rem; font-weight: 600; color: #f1efea; background: transparent; cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 6px; padding: 3px 10px; min-height: 30px;
+}
+.copiar:hover { background: rgba(255, 255, 255, 0.1); }
+.copiar:focus-visible { box-shadow: 0 0 0 2px var(--tinta), 0 0 0 4px #86b6ef; }
+.respuesta-caja { margin: 0 0 16px; background: var(--superficie); border: 1px solid var(--linea); border-radius: 8px; overflow: hidden; }
+.respuesta-cab {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 14px;
+  padding: 9px 14px; font-size: 0.88rem; color: var(--tinta-2); background: #faf9f6; border-bottom: 1px solid var(--linea-suave);
+}
+.respuesta-cab strong { color: var(--tinta); font-weight: 650; }
+.respuesta {
+  max-height: 360px; overflow: auto; margin: 0; padding: 12px 14px;
+  font: 0.8rem/1.5 ui-monospace, "Cascadia Mono", Consolas, monospace; color: var(--tinta);
+}
+.respuesta[aria-busy="true"] { opacity: 0.6; }
+.respuesta-caja .nota { margin: 0; padding: 8px 14px 10px; font-size: 0.85rem; border-top: 1px solid var(--linea-suave); }
+.respuesta[hidden] + .nota { border-top: 0; }
+.herramientas { padding-left: 1.2em; margin: 0 0 1.2em; }
+.herramientas li { margin-bottom: 0.5em; }
+.herramientas code { font-weight: 600; }
+.ejemplo-mcp { margin: 20px 0 14px; padding: 14px 16px 16px; background: var(--acento-suave); border-left: 3px solid var(--acento); border-radius: 0 8px 8px 0; }
+.ejemplo-mcp figcaption { font-size: 0.85rem; font-weight: 650; color: var(--acento-fuerte); margin-bottom: 6px; }
+.ejemplo-mcp .pregunta { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.4em; }
+.ejemplo-mcp .llamada { font-size: 0.92rem; color: var(--tinta-2); margin-bottom: 0.6em; }
+.ejemplo-mcp .llamada code { overflow-wrap: anywhere; }
+.respuesta-mcp {
+  margin: 0; padding: 10px 12px; background: var(--superficie); border: 1px solid #c9d9ef; border-radius: 6px;
+  font: 0.8rem/1.55 ui-monospace, "Cascadia Mono", Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere;
+}
 
 .pie { border-top: 1px solid var(--linea); padding: 22px 0 36px; color: var(--tinta-3); font-size: 0.9rem; }
 .pie a { overflow-wrap: anywhere; }
