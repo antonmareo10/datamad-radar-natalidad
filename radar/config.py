@@ -6,6 +6,9 @@ RAIZ = pathlib.Path(__file__).resolve().parent.parent
 MANIFIESTO = RAIZ / "fuentes" / "manifiesto.json"
 RESULTADOS = RAIZ / "resultados"
 WEB_DATOS = RAIZ / "web" / "datos"
+WEB_API = RAIZ / "web" / "api" / "v1"   # API abierta estática (radar/api.py)
+URL_WEB = "https://radar-natalidad-madrid.vercel.app"
+REPO = "https://github.com/antonmareo10/datamad-radar-natalidad"
 
 CAPITAL = "28079"          # código INE de Madrid capital
 EDAD_1O = 6                # un niño de 1º en el curso s/s+1 cumple 6 años en s: nació en s-6

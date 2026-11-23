@@ -1,0 +1,33 @@
+{
+  "cmun": "28135",
+  "municipio": "Santa María de la Alameda",
+  "zona": "Oeste",
+  "tiene_colegio": false,
+  "poblacion": {"anio": 2025, "habitantes": 1584},
+  "base": "2024/25",
+  "ficha_web": "https://radar-natalidad-madrid.vercel.app/#municipio=28135",
+  "nacidos": [
+    {"anio": 2008, "nacidos": 14},
+    {"anio": 2009, "nacidos": 9},
+    {"anio": 2010, "nacidos": 10},
+    {"anio": 2011, "nacidos": 14},
+    {"anio": 2012, "nacidos": 9},
+    {"anio": 2013, "nacidos": 10},
+    {"anio": 2014, "nacidos": 12},
+    {"anio": 2015, "nacidos": 6},
+    {"anio": 2016, "nacidos": 10},
+    {"anio": 2017, "nacidos": 11},
+    {"anio": 2018, "nacidos": 5},
+    {"anio": 2019, "nacidos": 6},
+    {"anio": 2020, "nacidos": 18},
+    {"anio": 2021, "nacidos": 5},
+    {"anio": 2022, "nacidos": 11},
+    {"anio": 2023, "nacidos": 4},
+    {"anio": 2024, "nacidos": 13}
+  ],
+  "fiabilidad": {
+    "avisos": [
+      {"tipo": "sin_colegio", "etapa": null, "texto": "No tiene colegio de primaria: sus niños se escolarizan en municipios vecinos y cuentan en las previsiones de esos municipios. En 2024 nacieron aquí 13 niños."}
+    ]
+  }
+}

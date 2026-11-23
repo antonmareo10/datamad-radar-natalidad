@@ -1,0 +1,105 @@
+{
+  "cmun": "28136",
+  "municipio": "Santorcaz",
+  "zona": "Este",
+  "tiene_colegio": true,
+  "poblacion": {"anio": 2025, "habitantes": 1011},
+  "base": "2024/25",
+  "ficha_web": "https://radar-natalidad-madrid.vercel.app/#municipio=28136",
+  "nacidos": [
+    {"anio": 2008, "nacidos": 7},
+    {"anio": 2009, "nacidos": 12},
+    {"anio": 2010, "nacidos": 8},
+    {"anio": 2011, "nacidos": 7},
+    {"anio": 2012, "nacidos": 9},
+    {"anio": 2013, "nacidos": 5},
+    {"anio": 2014, "nacidos": 8},
+    {"anio": 2015, "nacidos": 4},
+    {"anio": 2016, "nacidos": 4},
+    {"anio": 2017, "nacidos": 4},
+    {"anio": 2018, "nacidos": 6},
+    {"anio": 2019, "nacidos": 4},
+    {"anio": 2020, "nacidos": 3},
+    {"anio": 2021, "nacidos": 8},
+    {"anio": 2022, "nacidos": 3},
+    {"anio": 2023, "nacidos": 10},
+    {"anio": 2024, "nacidos": 4}
+  ],
+  "senal_llegada_familias": {"anio_censo": 2025, "ninos_0_4": 35, "ninos_0_4_por_100_nacidos": 125, "nacidos_desde": 2020, "nacidos_hasta": 2024, "lectura": "Llegan familias con niños pequeños. En municipios así el método tiende a quedarse corto: el dato real puede acercarse al extremo alto del intervalo."},
+  "primero_primaria": {
+    "grupo": "pequeño",
+    "alumnos_base": 19,
+    "factor": 3.409,
+    "tipo_factor": "infantil 3-5 corregido",
+    "serie_observada": [
+      {"curso": "2018/19", "t": 2018, "alumnos": null},
+      {"curso": "2019/20", "t": 2019, "alumnos": null},
+      {"curso": "2020/21", "t": 2020, "alumnos": null},
+      {"curso": "2021/22", "t": 2021, "alumnos": null},
+      {"curso": "2022/23", "t": 2022, "alumnos": 22},
+      {"curso": "2023/24", "t": 2023, "alumnos": 21},
+      {"curso": "2024/25", "t": 2024, "alumnos": 19}
+    ],
+    "prevision": [
+      {"curso": "2025/26", "t": 2025, "h": 1, "nacidos": 4, "prevision": 13.635, "p10": 9.358, "p90": 19.541, "cambio_pct": -28.2, "cambio_p10": -50.7, "cambio_p90": 2.8, "n_residuos": 584},
+      {"curso": "2026/27", "t": 2026, "h": 2, "nacidos": 3, "prevision": 10.227, "p10": 7.08, "p90": 14.779, "cambio_pct": -46.2, "cambio_p10": -62.7, "cambio_p90": -22.2, "n_residuos": 795},
+      {"curso": "2027/28", "t": 2027, "h": 3, "nacidos": 8, "prevision": 27.271, "p10": 18.341, "p90": 40.229, "cambio_pct": 43.5, "cambio_p10": -3.5, "cambio_p90": 111.7, "n_residuos": 634},
+      {"curso": "2028/29", "t": 2028, "h": 4, "nacidos": 3, "prevision": 10.227, "p10": 6.502, "p90": 16.29, "cambio_pct": -46.2, "cambio_p10": -65.8, "cambio_p90": -14.3, "n_residuos": 475},
+      {"curso": "2029/30", "t": 2029, "h": 5, "nacidos": 10, "prevision": 34.089, "p10": 20.416, "p90": 56.128, "cambio_pct": 79.4, "cambio_p10": 7.5, "cambio_p90": 195.4, "n_residuos": 317},
+      {"curso": "2030/31", "t": 2030, "h": 6, "nacidos": 4, "prevision": 13.635, "p10": 7.909, "p90": 22.603, "cambio_pct": -28.2, "cambio_p10": -58.4, "cambio_p90": 19.0, "n_residuos": 159}
+    ]
+  },
+  "infantil_3_5": {
+    "grupo": "pequeño",
+    "alumnos_base": 50,
+    "factor": 3.333,
+    "serie_observada": [
+      {"curso": "2018/19", "t": 2018, "alumnos": null},
+      {"curso": "2019/20", "t": 2019, "alumnos": null},
+      {"curso": "2020/21", "t": 2020, "alumnos": null},
+      {"curso": "2021/22", "t": 2021, "alumnos": null},
+      {"curso": "2022/23", "t": 2022, "alumnos": 57},
+      {"curso": "2023/24", "t": 2023, "alumnos": 51},
+      {"curso": "2024/25", "t": 2024, "alumnos": 50}
+    ],
+    "prevision": [
+      {"curso": "2025/26", "t": 2025, "h": 1, "nacidos_3_cohortes": 14, "prevision": 46.667, "p10": 37.437, "p90": 61.806, "cambio_pct": -6.7, "cambio_p10": -25.1, "cambio_p90": 23.6, "n_residuos": 487},
+      {"curso": "2026/27", "t": 2026, "h": 2, "nacidos_3_cohortes": 21, "prevision": 70.0, "p10": 54.519, "p90": 96.774, "cambio_pct": 40.0, "cambio_p10": 9.0, "cambio_p90": 93.5, "n_residuos": 663},
+      {"curso": "2027/28", "t": 2027, "h": 3, "nacidos_3_cohortes": 17, "prevision": 56.667, "p10": 42.598, "p90": 81.536, "cambio_pct": 13.3, "cambio_p10": -14.8, "cambio_p90": 63.1, "n_residuos": 397}
+    ]
+  },
+  "fiabilidad": {
+    "grupo": "pequeño",
+    "error_mediano_grupo_pct": {
+      "1": {"radar": 14.7, "ingenuo": 19.0, "nacidos": 32.0, "n": 318},
+      "2": {"radar": 14.8, "ingenuo": 18.2, "nacidos": 27.8, "n": 264},
+      "3": {"radar": 15.8, "ingenuo": 22.7, "nacidos": 27.6, "n": 211},
+      "4": {"radar": 18.0, "ingenuo": 22.5, "nacidos": 27.4, "n": 158},
+      "5": {"radar": 22.8, "ingenuo": 25.0, "nacidos": 25.0, "n": 105},
+      "6": {"radar": 22.5, "ingenuo": 24.0, "nacidos": 23.0, "n": 52}
+    },
+    "sesgo_grupo_pct": {"1": -1.6, "2": -1.5, "3": -2.1, "4": 1.1, "5": -0.4, "6": 2.3},
+    "grupo_intervalos": "pequeño",
+    "cobertura_intervalos_grupo_pct": 79.1,
+    "ancho_intervalo_ultimo_curso_pct": 107.8,
+    "error_propio": null,
+    "donde_falla": null,
+    "previsiones_pasadas": [
+      {"b": 2022, "curso_base": "2022/23", "h": 1, "t": 2023, "curso": "2023/24", "y": 21, "prevision": 16.9, "p_naive": 22, "error_pct": -19.5, "error_naive_pct": 4.8},
+      {"b": 2023, "curso_base": "2023/24", "h": 1, "t": 2024, "curso": "2024/25", "y": 19, "prevision": 24.5, "p_naive": 21, "error_pct": 28.9, "error_naive_pct": 10.5},
+      {"b": 2022, "curso_base": "2022/23", "h": 2, "t": 2024, "curso": "2024/25", "y": 19, "prevision": 25.3, "p_naive": 22, "error_pct": 33.2, "error_naive_pct": 15.8}
+    ],
+    "avisos": [
+      {"tipo": "municipio_pequeno", "etapa": "1o", "texto": "Municipio pequeño: con tan pocos alumnos, dos o tres familias cambian mucho el porcentaje. En este grupo el error mediano del método va del 14,7 % al 22,5 %, y por eso el intervalo es ancho. Conviene leerlo junto a los municipios de su zona."},
+      {"tipo": "infantil_pequeno", "etapa": "infantil", "texto": "En infantil, en los municipios pequeños, el método no mejora a suponer que nada cambia: tómalo como orientativo."}
+    ],
+    "infantil": {
+      "grupo": "pequeño",
+      "error_mediano_grupo_pct": {
+        "1": {"radar": 10.0, "ingenuo": 9.1, "n": 266},
+        "2": {"radar": 13.3, "ingenuo": 13.3, "n": 221},
+        "3": {"radar": 19.3, "ingenuo": 15.1, "n": 176}
+      }
+    }
+  }
+}

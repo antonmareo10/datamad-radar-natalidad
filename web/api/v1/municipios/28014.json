@@ -1,0 +1,129 @@
+{
+  "cmun": "28014",
+  "municipio": "Arganda del Rey",
+  "zona": "Este",
+  "tiene_colegio": true,
+  "poblacion": {"anio": 2025, "habitantes": 60419},
+  "base": "2024/25",
+  "ficha_web": "https://radar-natalidad-madrid.vercel.app/#municipio=28014",
+  "nacidos": [
+    {"anio": 2008, "nacidos": 801},
+    {"anio": 2009, "nacidos": 780},
+    {"anio": 2010, "nacidos": 780},
+    {"anio": 2011, "nacidos": 722},
+    {"anio": 2012, "nacidos": 775},
+    {"anio": 2013, "nacidos": 661},
+    {"anio": 2014, "nacidos": 628},
+    {"anio": 2015, "nacidos": 652},
+    {"anio": 2016, "nacidos": 599},
+    {"anio": 2017, "nacidos": 564},
+    {"anio": 2018, "nacidos": 553},
+    {"anio": 2019, "nacidos": 514},
+    {"anio": 2020, "nacidos": 416},
+    {"anio": 2021, "nacidos": 489},
+    {"anio": 2022, "nacidos": 479},
+    {"anio": 2023, "nacidos": 448},
+    {"anio": 2024, "nacidos": 406}
+  ],
+  "senal_llegada_familias": {"anio_censo": 2025, "ninos_0_4": 2409, "ninos_0_4_por_100_nacidos": 108, "nacidos_desde": 2020, "nacidos_hasta": 2024, "lectura": "Llegan familias con niños pequeños. En municipios así el método tiende a quedarse corto: el dato real puede acercarse al extremo alto del intervalo."},
+  "primero_primaria": {
+    "grupo": "grande",
+    "alumnos_base": 653,
+    "factor": 1.142,
+    "tipo_factor": "infantil 3-5 corregido",
+    "serie_observada": [
+      {"curso": "2018/19", "t": 2018, "alumnos": 793},
+      {"curso": "2019/20", "t": 2019, "alumnos": 708},
+      {"curso": "2020/21", "t": 2020, "alumnos": 672},
+      {"curso": "2021/22", "t": 2021, "alumnos": 764},
+      {"curso": "2022/23", "t": 2022, "alumnos": 656},
+      {"curso": "2023/24", "t": 2023, "alumnos": 653},
+      {"curso": "2024/25", "t": 2024, "alumnos": 653}
+    ],
+    "prevision": [
+      {"curso": "2025/26", "t": 2025, "h": 1, "nacidos": 514, "prevision": 587.137, "p10": 555.279, "p90": 635.334, "cambio_pct": -10.1, "cambio_p10": -15.0, "cambio_p90": -2.7, "n_residuos": 407},
+      {"curso": "2026/27", "t": 2026, "h": 2, "nacidos": 416, "prevision": 475.192, "p10": 449.351, "p90": 516.597, "cambio_pct": -27.2, "cambio_p10": -31.2, "cambio_p90": -20.9, "n_residuos": 555},
+      {"curso": "2027/28", "t": 2027, "h": 3, "nacidos": 489, "prevision": 558.579, "p10": 526.091, "p90": 608.248, "cambio_pct": -14.5, "cambio_p10": -19.4, "cambio_p90": -6.9, "n_residuos": 444},
+      {"curso": "2028/29", "t": 2028, "h": 4, "nacidos": 479, "prevision": 547.157, "p10": 512.411, "p90": 603.295, "cambio_pct": -16.2, "cambio_p10": -21.5, "cambio_p90": -7.6, "n_residuos": 333},
+      {"curso": "2029/30", "t": 2029, "h": 5, "nacidos": 448, "prevision": 511.746, "p10": 478.155, "p90": 566.328, "cambio_pct": -21.6, "cambio_p10": -26.8, "cambio_p90": -13.3, "n_residuos": 222},
+      {"curso": "2030/31", "t": 2030, "h": 6, "nacidos": 406, "prevision": 463.769, "p10": 433.294, "p90": 514.744, "cambio_pct": -29.0, "cambio_p10": -33.6, "cambio_p90": -21.2, "n_residuos": 111}
+    ]
+  },
+  "infantil_3_5": {
+    "grupo": "grande",
+    "alumnos_base": 1585,
+    "factor": 1.117,
+    "serie_observada": [
+      {"curso": "2018/19", "t": 2018, "alumnos": 2029},
+      {"curso": "2019/20", "t": 2019, "alumnos": 2002},
+      {"curso": "2020/21", "t": 2020, "alumnos": 1966},
+      {"curso": "2021/22", "t": 2021, "alumnos": 1864},
+      {"curso": "2022/23", "t": 2022, "alumnos": 1793},
+      {"curso": "2023/24", "t": 2023, "alumnos": 1675},
+      {"curso": "2024/25", "t": 2024, "alumnos": 1585}
+    ],
+    "prevision": [
+      {"curso": "2025/26", "t": 2025, "h": 1, "nacidos_3_cohortes": 1384, "prevision": 1545.906, "p10": 1494.034, "p90": 1619.772, "cambio_pct": -2.5, "cambio_p10": -5.7, "cambio_p90": 2.2, "n_residuos": 352},
+      {"curso": "2026/27", "t": 2026, "h": 2, "nacidos_3_cohortes": 1416, "prevision": 1581.649, "p10": 1517.553, "p90": 1675.492, "cambio_pct": -0.2, "cambio_p10": -4.3, "cambio_p90": 5.7, "n_residuos": 480},
+      {"curso": "2027/28", "t": 2027, "h": 3, "nacidos_3_cohortes": 1333, "prevision": 1488.939, "p10": 1416.797, "p90": 1601.175, "cambio_pct": -6.1, "cambio_p10": -10.6, "cambio_p90": 1.0, "n_residuos": 288}
+    ]
+  },
+  "fiabilidad": {
+    "grupo": "grande",
+    "error_mediano_grupo_pct": {
+      "1": {"radar": 3.7, "ingenuo": 4.5, "nacidos": 11.5, "n": 216},
+      "2": {"radar": 3.0, "ingenuo": 6.7, "nacidos": 11.6, "n": 180},
+      "3": {"radar": 3.6, "ingenuo": 8.3, "nacidos": 12.5, "n": 144},
+      "4": {"radar": 4.7, "ingenuo": 11.7, "nacidos": 13.6, "n": 108},
+      "5": {"radar": 4.3, "ingenuo": 16.1, "nacidos": 13.6, "n": 72},
+      "6": {"radar": 6.5, "ingenuo": 21.6, "nacidos": 14.4, "n": 36}
+    },
+    "sesgo_grupo_pct": {"1": 0.0, "2": 0.0, "3": -0.2, "4": -0.3, "5": -0.2, "6": -1.3},
+    "grupo_intervalos": "grande",
+    "cobertura_intervalos_grupo_pct": 76.7,
+    "ancho_intervalo_ultimo_curso_pct": 17.6,
+    "error_propio": {"n": 15, "mediana_abs_pct": 3.4, "media_pct": -3.7},
+    "donde_falla": {
+      "grupo": "grande",
+      "err_medio": -2.59,
+      "ape_medio": 3.25,
+      "ninos_0_4_por_100_nacidos": 107.75,
+      "alumnos_1o_por_nacido_inicial": 1.02,
+      "horizontes": [2, 4],
+      "anio_censo": 2021,
+      "definicion": "Error medio con signo (err_medio) y en valor absoluto (ape_medio), en % del real, de las previsiones de 1º hechas con 2 a 4 cursos de antelación en el backtest. Solo municipios con 50 alumnos de 1º o más."
+    },
+    "previsiones_pasadas": [
+      {"b": 2018, "curso_base": "2018/19", "h": 1, "t": 2019, "curso": "2019/20", "y": 708, "prevision": 705.8, "p_naive": 793, "error_pct": -0.3, "error_naive_pct": 12.0},
+      {"b": 2019, "curso_base": "2019/20", "h": 1, "t": 2020, "curso": "2020/21", "y": 672, "prevision": 693.5, "p_naive": 708, "error_pct": 3.2, "error_naive_pct": 5.4},
+      {"b": 2018, "curso_base": "2018/19", "h": 2, "t": 2020, "curso": "2020/21", "y": 672, "prevision": 670.6, "p_naive": 793, "error_pct": -0.2, "error_naive_pct": 18.0},
+      {"b": 2020, "curso_base": "2020/21", "h": 1, "t": 2021, "curso": "2021/22", "y": 764, "prevision": 736.2, "p_naive": 672, "error_pct": -3.6, "error_naive_pct": -12.0},
+      {"b": 2019, "curso_base": "2019/20", "h": 2, "t": 2021, "curso": "2021/22", "y": 764, "prevision": 720.0, "p_naive": 708, "error_pct": -5.8, "error_naive_pct": -7.3},
+      {"b": 2018, "curso_base": "2018/19", "h": 3, "t": 2021, "curso": "2021/22", "y": 764, "prevision": 696.2, "p_naive": 793, "error_pct": -8.9, "error_naive_pct": 3.8},
+      {"b": 2021, "curso_base": "2021/22", "h": 1, "t": 2022, "curso": "2022/23", "y": 656, "prevision": 690.5, "p_naive": 764, "error_pct": 5.3, "error_naive_pct": 16.5},
+      {"b": 2020, "curso_base": "2020/21", "h": 2, "t": 2022, "curso": "2022/23", "y": 656, "prevision": 676.4, "p_naive": 672, "error_pct": 3.1, "error_naive_pct": 2.4},
+      {"b": 2019, "curso_base": "2019/20", "h": 3, "t": 2022, "curso": "2022/23", "y": 656, "prevision": 661.5, "p_naive": 708, "error_pct": 0.8, "error_naive_pct": 7.9},
+      {"b": 2018, "curso_base": "2018/19", "h": 4, "t": 2022, "curso": "2022/23", "y": 656, "prevision": 639.6, "p_naive": 793, "error_pct": -2.5, "error_naive_pct": 20.9},
+      {"b": 2022, "curso_base": "2022/23", "h": 1, "t": 2023, "curso": "2023/24", "y": 653, "prevision": 643.2, "p_naive": 656, "error_pct": -1.5, "error_naive_pct": 0.5},
+      {"b": 2021, "curso_base": "2021/22", "h": 2, "t": 2023, "curso": "2023/24", "y": 653, "prevision": 650.1, "p_naive": 764, "error_pct": -0.4, "error_naive_pct": 17.0},
+      {"b": 2020, "curso_base": "2020/21", "h": 3, "t": 2023, "curso": "2023/24", "y": 653, "prevision": 636.8, "p_naive": 672, "error_pct": -2.5, "error_naive_pct": 2.9},
+      {"b": 2019, "curso_base": "2019/20", "h": 4, "t": 2023, "curso": "2023/24", "y": 653, "prevision": 622.8, "p_naive": 708, "error_pct": -4.6, "error_naive_pct": 8.4},
+      {"b": 2018, "curso_base": "2018/19", "h": 5, "t": 2023, "curso": "2023/24", "y": 653, "prevision": 602.2, "p_naive": 793, "error_pct": -7.8, "error_naive_pct": 21.4},
+      {"b": 2023, "curso_base": "2023/24", "h": 1, "t": 2024, "curso": "2024/25", "y": 653, "prevision": 649.2, "p_naive": 653, "error_pct": -0.6, "error_naive_pct": 0.0},
+      {"b": 2022, "curso_base": "2022/23", "h": 2, "t": 2024, "curso": "2024/25", "y": 653, "prevision": 630.7, "p_naive": 656, "error_pct": -3.4, "error_naive_pct": 0.5},
+      {"b": 2021, "curso_base": "2021/22", "h": 3, "t": 2024, "curso": "2024/25", "y": 653, "prevision": 637.5, "p_naive": 764, "error_pct": -2.4, "error_naive_pct": 17.0},
+      {"b": 2020, "curso_base": "2020/21", "h": 4, "t": 2024, "curso": "2024/25", "y": 653, "prevision": 624.4, "p_naive": 672, "error_pct": -4.4, "error_naive_pct": 2.9},
+      {"b": 2019, "curso_base": "2019/20", "h": 5, "t": 2024, "curso": "2024/25", "y": 653, "prevision": 610.7, "p_naive": 708, "error_pct": -6.5, "error_naive_pct": 8.4},
+      {"b": 2018, "curso_base": "2018/19", "h": 6, "t": 2024, "curso": "2024/25", "y": 653, "prevision": 590.5, "p_naive": 793, "error_pct": -9.6, "error_naive_pct": 21.4}
+    ],
+    "avisos": [],
+    "infantil": {
+      "grupo": "grande",
+      "error_mediano_grupo_pct": {
+        "1": {"radar": 1.7, "ingenuo": 4.5, "n": 186},
+        "2": {"radar": 2.8, "ingenuo": 9.7, "n": 155},
+        "3": {"radar": 3.5, "ingenuo": 15.0, "n": 124}
+      }
+    }
+  }
+}

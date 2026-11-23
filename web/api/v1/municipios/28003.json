@@ -1,0 +1,33 @@
+{
+  "cmun": "28003",
+  "municipio": "Alameda del Valle",
+  "zona": null,
+  "tiene_colegio": false,
+  "poblacion": {"anio": 2025, "habitantes": 267},
+  "base": "2024/25",
+  "ficha_web": "https://radar-natalidad-madrid.vercel.app/#municipio=28003",
+  "nacidos": [
+    {"anio": 2008, "nacidos": 1},
+    {"anio": 2009, "nacidos": 0},
+    {"anio": 2010, "nacidos": 2},
+    {"anio": 2011, "nacidos": 0},
+    {"anio": 2012, "nacidos": 3},
+    {"anio": 2013, "nacidos": 2},
+    {"anio": 2014, "nacidos": 1},
+    {"anio": 2015, "nacidos": 3},
+    {"anio": 2016, "nacidos": 2},
+    {"anio": 2017, "nacidos": 0},
+    {"anio": 2018, "nacidos": 0},
+    {"anio": 2019, "nacidos": 1},
+    {"anio": 2020, "nacidos": 2},
+    {"anio": 2021, "nacidos": 0},
+    {"anio": 2022, "nacidos": 1},
+    {"anio": 2023, "nacidos": 1},
+    {"anio": 2024, "nacidos": 0}
+  ],
+  "fiabilidad": {
+    "avisos": [
+      {"tipo": "sin_colegio", "etapa": null, "texto": "No tiene colegio de primaria: sus niños se escolarizan en municipios vecinos y cuentan en las previsiones de esos municipios. En 2024 nacieron aquí 0 niños."}
+    ]
+  }
+}

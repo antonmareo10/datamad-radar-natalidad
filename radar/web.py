@@ -1,4 +1,5 @@
-"""Exporta lo que necesita la web estática a web/datos/radar.js (un único fichero, sin servidor).
+"""Exporta lo que necesita la web estática a web/datos/radar.js (un único fichero, sin servidor) y la API
+abierta en JSON a web/api/v1/ (radar/api.py), las dos a partir del mismo diccionario.
 
 Se usa un .js con `window.RADAR = {...}` y no un .json para que la página funcione abriéndola
 directamente desde la carpeta (file://), donde los navegadores bloquean fetch().
@@ -14,6 +15,7 @@ import numpy as np
 
 from . import cargar as C
 from . import modelo as M
+from .api import exportar_api
 from .calcular import calcular, ruta
 from .config import CAPITAL, ESPEC_1O, MANIFIESTO, WEB_DATOS
 from .geo import construir_mapa
@@ -106,4 +108,5 @@ def exportar(datos: pathlib.Path) -> pathlib.Path:
     txt = json.dumps(salida, ensure_ascii=False, separators=(",", ":"), default=float)
     out.write_text("/* Generado por `python -m radar web`. No editar a mano. */\nwindow.RADAR=" + txt + ";\n", encoding="utf-8")
     print(f"web: {out} ({out.stat().st_size / 1024:.0f} KB, {len(munis)} municipios)")
+    exportar_api(salida, P, PI)
     return out
