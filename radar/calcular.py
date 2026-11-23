@@ -105,8 +105,9 @@ def calcular(datos: pathlib.Path) -> dict:
     resumen["donde_falla"] = {
         "municipios": int(len(pm)),
         "anio_censo": b0,
-        "spearman_error_con_signo_vs_ninos_0_4": round(float(ok["err_medio"].corr(ok["ninos_0_4_por_100_nacidos"], method="spearman")), 2),
-        "spearman_error_absoluto_vs_ninos_0_4": round(float(ok["ape_medio"].corr(ok["ninos_0_4_por_100_nacidos"], method="spearman")), 2),
+        # Spearman = Pearson sobre rangos medios; así no hace falta scipy (pandas lo pide para method="spearman")
+        "spearman_error_con_signo_vs_ninos_0_4": round(float(ok["err_medio"].rank().corr(ok["ninos_0_4_por_100_nacidos"].rank())), 2),
+        "spearman_error_absoluto_vs_ninos_0_4": round(float(ok["ape_medio"].rank().corr(ok["ninos_0_4_por_100_nacidos"].rank())), 2),
         "por_area_mediana_ape": {z: round(float(v), 1) for z, v in pm.groupby("zona")["ape_medio"].median().items()},
         "peores": [dict(municipio=r.municipio, error_medio_pct=round(float(r.err_medio), 1))
                    for r in pm.sort_values("ape_medio", ascending=False).head(8).itertuples()],
