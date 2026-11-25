@@ -5,11 +5,15 @@
 
 # Radar de natalidad municipal
 
-Previsión abierta de cuántos niños entrarán en 1.º de primaria y en infantil (3 a 5 años) en cada municipio de la Comunidad de Madrid durante los próximos cursos, con un intervalo de incertidumbre que sale de los errores reales del método en cursos ya cerrados. Todo se calcula con datos del catálogo de datos abiertos de la Comunidad de Madrid y se puede rehacer desde cero con una orden.
+Previsión abierta de cuántos niños entrarán en 1.º de primaria (hasta 2030/31) y en infantil de 3 a 5 años (hasta 2027/28) en cada uno de los 136 municipios con colegio de la Comunidad de Madrid, con un intervalo del 80 % que sale de los errores reales del método en cursos ya cerrados. Todo se calcula con datos del catálogo de datos abiertos de la Comunidad de Madrid y se puede rehacer desde cero con una orden. Resultado: unas 340 aulas de 1.º de primaria menos en 2030/31 (6.812 alumnos menos que en 2024/25, un 11,6 % menos).
 
-Proyecto para DataMad 2026. Código con licencia MIT.
+**Para quién:** concejalías de Educación de los ayuntamientos y la Consejería de Educación, que planifican aulas, plazas y profesorado con varios cursos de margen, y quien reutiliza datos públicos. Aún sin usuarios ni clientes: es un prototipo.
 
-Web: https://radar-natalidad-madrid.vercel.app · API abierta: https://radar-natalidad-madrid.vercel.app/api/v1/ ([documentación](docs/API.md))
+**Probado en cursos ya cerrados:** 4,3 % de error mediano a cinco cursos en los 36 municipios grandes, frente al 16,1 % de suponer que nada cambia; los intervalos del 80 %, calculados sin la base que se evalúa, contienen al real en el 78,2 % de los casos; para 2025/26, sin usar ese dato, prevé 56.969 alumnos de 1.º y la cifra provisional publicada es 56.482 (+0,9 %).
+
+Web: https://radar-natalidad-madrid.vercel.app · API abierta: https://radar-natalidad-madrid.vercel.app/api/v1/ ([documentación](docs/API.md)) · Resumen en texto plano: https://radar-natalidad-madrid.vercel.app/llms.txt
+
+Proyecto para DataMad 2026 de Antonio González Fernández. Código con licencia MIT; tablas derivadas CC BY 4.0.
 
 ![Mapa del cambio previsto en 1.º de primaria y ficha de Fuenlabrada](docs/captura.png)
 
