@@ -27,6 +27,49 @@
 <meta name="twitter:description" content="Unas 340 aulas de 1.º de primaria menos en la Comunidad de Madrid en 2030/31, y ya sabemos dónde. Previsión abierta por municipio, con su error medido.">
 <meta name="twitter:image" content="https://radar-natalidad-madrid.vercel.app/og.png?v=2">
 <meta name="twitter:image:alt" content="Mapa del cambio previsto en 1.º de primaria por municipio de la Comunidad de Madrid y la frase «Los niños de 2030 ya han nacido».">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Dataset",
+      "@id": "https://radar-natalidad-madrid.vercel.app/#dataset",
+      "name": "Radar de natalidad municipal",
+      "description": "Previsión abierta de los niños que entrarán en 1.º de primaria e infantil en cada municipio de la Comunidad de Madrid, con su error medido en cursos ya cerrados. Unas 340 aulas de 1.º de primaria menos en 2030/31: 6.812 alumnos menos que en 2024/25, un 11,6 % menos. 4,3 % de error mediano a cinco cursos en los 36 municipios grandes, frente al 16,1 % de suponer que nada cambia. Hecha solo con datos del catálogo de datos abiertos de la Comunidad de Madrid.",
+      "url": "https://radar-natalidad-madrid.vercel.app/",
+      "inLanguage": "es-ES",
+      "keywords": ["DATAMAD 2026", "datos abiertos", "Comunidad de Madrid", "natalidad", "matrícula", "1.º de primaria", "infantil", "previsión", "municipios"],
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isAccessibleForFree": true,
+      "creator": { "@id": "https://radar-natalidad-madrid.vercel.app/#autor" },
+      "spatialCoverage": { "@type": "Place", "name": "Comunidad de Madrid" },
+      "temporalCoverage": "Curso base 2024/25; previsión de 1.º de primaria hasta 2030/31 y de infantil hasta 2027/28",
+      "variableMeasured": ["Alumnos previstos de 1.º de primaria por municipio, con intervalo del 80 %", "Alumnos previstos de infantil (3 a 5 años) por municipio, con intervalo del 80 %"],
+      "isBasedOn": { "@type": "DataCatalog", "name": "Catálogo de datos abiertos de la Comunidad de Madrid", "url": "https://datos.comunidad.madrid" },
+      "distribution": [
+        { "@type": "DataDownload", "name": "API abierta: índice, licencias y fuentes", "encodingFormat": "application/json", "contentUrl": "https://radar-natalidad-madrid.vercel.app/api/v1/index.json" },
+        { "@type": "DataDownload", "name": "API abierta: toda la región", "encodingFormat": "application/json", "contentUrl": "https://radar-natalidad-madrid.vercel.app/api/v1/region.json" }
+      ]
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      "@id": "https://radar-natalidad-madrid.vercel.app/#codigo",
+      "name": "Radar de natalidad municipal",
+      "description": "Código que descarga los datos del catálogo de la Comunidad de Madrid, calcula las previsiones y sus intervalos, mide el error en cursos ya cerrados y genera esta web, su API y un servidor MCP. Se rehace desde cero con python -m radar todo.",
+      "codeRepository": "https://github.com/antonmareo10/datamad-radar-natalidad",
+      "programmingLanguage": "Python",
+      "license": "https://opensource.org/licenses/MIT",
+      "author": { "@id": "https://radar-natalidad-madrid.vercel.app/#autor" },
+      "inLanguage": "es-ES"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://radar-natalidad-madrid.vercel.app/#autor",
+      "name": "Antonio González Fernández"
+    }
+  ]
+}
+</script>
 <script>/* precarga la letra en la web publicada; en la copia sin internet (file://) el navegador la bloquearía */ if (location.protocol !== "file:") { var l = document.createElement("link"); l.rel = "preload"; l.as = "font"; l.type = "font/woff2"; l.crossOrigin = "anonymous"; l.href = "fuentes/PublicSans.woff2"; document.head.appendChild(l); }</script>
 <link rel="stylesheet" href="estilo.css">
 </head>
