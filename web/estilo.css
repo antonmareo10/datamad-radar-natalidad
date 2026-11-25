@@ -330,3 +330,14 @@ abbr[title] { text-decoration: none; }
 .pie a { overflow-wrap: anywhere; }
 .aviso-noscript { padding: 12px; }
 #ficha-acierto, #ficha, #mapa { scroll-margin-top: 14px; }
+/* móvil: la tabla «¿Cómo habría acertado?» de la ficha cabe entera, sin desplazamiento lateral */
+@media (max-width: 480px) {
+  .ficha { padding: 16px 12px 8px; }
+  .ficha .tabla.compacta { font-size: 0.78rem; }
+  .ficha .tabla.compacta th, .ficha .tabla.compacta td { padding: 6px 3px; }
+}
+@media (max-width: 380px) {
+  .ficha { padding: 14px 8px 8px; }
+  .ficha .tabla.compacta { font-size: 0.74rem; }
+  .ficha .tabla.compacta th, .ficha .tabla.compacta td { padding: 6px 2px; }
+}
