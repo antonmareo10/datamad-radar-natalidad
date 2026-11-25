@@ -59,6 +59,8 @@
   const derivados = {
     anio_ancla: BASE + R.cursos_p1.length,  // los de 1.º en 2030/31 cumplen 6 años en 2030: nacieron en 2024
     alumnos_menos: ent(alumnosMenos),
+    menos_lo: ent(P1.real_base - ultP1.p90),  // intervalo del 80 % de esa caída, en alumnos
+    menos_hi: ent(P1.real_base - ultP1.p10),
     aulas_menos: ent(Math.round(alumnosMenos / 20 / 10) * 10),  // a 20 alumnos por aula, redondeado a decenas («unas 340»)
     nac_ultimo_anio: ultNac,
     nac_ultimo: ent(R.region.nac[ultNac]),
@@ -81,6 +83,13 @@
     else if (f === "dec") v = (v < 0 ? MENOS : "") + f2.format(Math.abs(v));
     el.textContent = v == null ? "—" : v;
   });
+
+  // barras de la portada: error mediano a cinco cursos, a escala del mayor
+  (function barras() {
+    const els = [...document.querySelectorAll("[data-barra]")], vals = els.map(el => +get(R, el.dataset.barra));
+    const max = Math.max(...vals.filter(v => v > 0));
+    if (max > 0) els.forEach((el, i) => { if (vals[i] >= 0) el.style.setProperty("--p", (vals[i] / max).toFixed(4)); });
+  })();
 
   // ------------------------------------------------------------------ cifras de cabecera
   (function cifras() {
@@ -693,7 +702,7 @@
     const cCap = centro([CAP]), cSur = centro(Object.keys(MUN).filter(cm => MUN[cm].z === "Sur" && cajas[cm])), cFue = centro(["28058"]);
     let h = "";
     if (cCap) h += texto(cCap[0] + 6, cCap[1] - 8, "Capital", pct(P.capital.cambio_pct), "middle");
-    if (cSur) h += texto(cSur[0] + 70, cSur[1] + 175, "Área Sur", pct(P.por_area_cambio_pct.Sur), "start");
+    if (cSur) h += texto(cSur[0] + 70, cSur[1] + 175, "Sur", pct(P.por_area_cambio_pct.Sur), "start");
     if (cFue && MUN["28058"]) {
       h += `<circle class="e-punto" cx="${cFue[0]}" cy="${cFue[1]}" r="9" data-cm="28058"/>`;
       h += texto(cFue[0] - 18, cFue[1] + 10, "Fuenlabrada", "", "end", "e-fue", "28058");
