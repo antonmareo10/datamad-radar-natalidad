@@ -329,7 +329,7 @@ abbr[title] { text-decoration: none; }
 .pie { border-top: 1px solid var(--linea); padding: 22px 0 36px; color: var(--tinta-3); font-size: 0.9rem; }
 .pie a { overflow-wrap: anywhere; }
 .aviso-noscript { padding: 12px; }
-#ficha-acierto, #ficha, #mapa { scroll-margin-top: 14px; }
+#ficha-acierto, #ficha, #mapa, .rejilla-mapa { scroll-margin-top: 14px; }
 /* móvil: la tabla «¿Cómo habría acertado?» de la ficha cabe entera, sin desplazamiento lateral */
 @media (max-width: 480px) {
   .ficha { padding: 16px 12px 8px; }

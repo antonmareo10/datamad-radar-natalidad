@@ -633,7 +633,7 @@
   function irA(cm, destino) {  // elige el municipio y lleva a su ficha (o a su tabla de acierto)
     seleccionar(cm, true);
     const objetivo = destino === "acierto" ? document.getElementById("ficha-acierto")
-      : ESCRITORIO.matches ? document.getElementById("mapa") : document.getElementById("ficha");
+      : ESCRITORIO.matches ? document.querySelector(".rejilla-mapa") : document.getElementById("ficha");  // en escritorio, mapa y ficha a la vez
     (objetivo || document.getElementById("mapa")).scrollIntoView({ behavior: "smooth", block: "start" });
   }
   document.querySelectorAll("[data-ir]").forEach(a => a.addEventListener("click", e => {
