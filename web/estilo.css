@@ -1,7 +1,7 @@
 /* Radar de natalidad municipal · hoja de estilo (sin dependencias externas: funciona sin conexión) */
 @font-face {  /* Public Sans (SIL Open Font License, fuentes/OFL-PublicSans.txt), la misma letra que las diapositivas */
   font-family: "Public Sans"; src: url("fuentes/PublicSans.woff2") format("woff2");
-  font-weight: 100 900; font-style: normal; font-display: swap;
+  font-weight: 100 900; font-style: normal; font-display: optional;  /* precargada: si llega a tiempo se usa; si no, la del sistema, sin saltos de texto */
 }
 :root {
   color-scheme: light;
