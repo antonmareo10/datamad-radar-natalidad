@@ -54,7 +54,12 @@
   const ultNac = nacAnios[nacAnios.length - 1];
   const peor = (R.resumen.donde_falla.peores || []).find(p => /Buitrago/.test(p.municipio));
   const fuente = clave => R.fuentes.find(f => f.clave === clave) || {};
+  const P1 = R.resumen.proyeccion_1o, ultP1 = P1.region[P1.region.length - 1];
+  const alumnosMenos = P1.real_base - ultP1.prevision;  // 1.º de primaria: último curso real menos el último previsto
   const derivados = {
+    anio_ancla: BASE + R.cursos_p1.length,  // los de 1.º en 2030/31 cumplen 6 años en 2030: nacieron en 2024
+    alumnos_menos: ent(alumnosMenos),
+    aulas_menos: ent(Math.round(alumnosMenos / 20 / 10) * 10),  // a 20 alumnos por aula, redondeado a decenas («unas 340»)
     nac_ultimo_anio: ultNac,
     nac_ultimo: ent(R.region.nac[ultNac]),
     nac_2008: ent(R.region.nac[2008]),
@@ -84,9 +89,9 @@
     const menos = P.real_base - ult.prevision;
     const html = [
       `<div class="cifra"><span class="cifra-valor">${ent(menos)} <span class="cifra-unidad">alumnos menos</span></span>
-       <span class="cifra-texto">en 1.º de primaria en ${esc(ult.curso)} que en ${esc(P.base)} (${ent(P.real_base)}), un ${pctAbs(ult.cambio_pct, 1)} menos. Intervalo del 80 %: entre ${ent(P.real_base - ult.p90)} y ${ent(P.real_base - ult.p10)} menos.</span></div>`,
+       <span class="cifra-texto">en 1.º de primaria en ${esc(ult.curso)} que en ${esc(P.base)} (${ent(P.real_base)}), un ${pctAbs(ult.cambio_pct, 1)} menos. Intervalo del 80${NBSP}%: entre ${ent(P.real_base - ult.p90)} y ${ent(P.real_base - ult.p10)} menos.</span></div>`,
       `<div class="cifra"><span class="cifra-valor">${pctAbs(bt[5].radar, 1)} <span class="cifra-unidad">de error mediano</span></span>
-       <span class="cifra-texto">al prever 1.º de primaria con cinco cursos de antelación en los municipios grandes, contrastado con cursos ya cerrados. Suponer que nada cambia falla un ${pctAbs(bt[5].ingenuo, 1)}.</span></div>`,
+       <span class="cifra-texto">al prever 1.º de primaria con cinco cursos de antelación en los ${R.resumen.backtest_1o.municipios_por_grupo.grande} municipios grandes, contrastado con cursos ya cerrados. Suponer que nada cambia falla un ${pctAbs(bt[5].ingenuo, 1)}.</span></div>`,
       c ? `<div class="cifra"><span class="cifra-valor">${ent(c.previsto)} <span class="cifra-unidad">previstos</span></span>
        <span class="cifra-texto">para ${esc(c.curso)} sin usar ese dato. La cifra ${c.provisional ? "provisional " : ""}publicada es ${ent(c.publicado)}: una diferencia del ${pct(c.error_pct, 1)}.</span></div>` : "",
     ];
@@ -147,7 +152,8 @@
   });
   const halo = document.createElementNS(SVGNS, "path"); halo.setAttribute("class", "sel-halo");
   const marco = document.createElementNS(SVGNS, "path"); marco.setAttribute("class", "sel");
-  svg.appendChild(halo); svg.appendChild(marco);
+  const encima = document.createElementNS(SVGNS, "path"); encima.setAttribute("class", "hov");  // contorno del municipio bajo el puntero, por encima de los vecinos
+  svg.appendChild(halo); svg.appendChild(marco); svg.appendChild(encima);
 
   const tip = document.getElementById("tooltip");
   const caja = document.getElementById("mapa-caja");
@@ -164,7 +170,8 @@
   svg.addEventListener("pointerdown", e => { tocando = e.pointerType === "touch"; });
   svg.addEventListener("pointermove", e => {
     const cm = e.target.dataset && e.target.dataset.cm;
-    if (!cm || e.pointerType === "touch") { tip.hidden = true; return; }
+    if (!cm || e.pointerType === "touch") { tip.hidden = true; encima.setAttribute("d", ""); return; }
+    if (encima.dataset.cm !== cm) { encima.setAttribute("d", caminos[cm].getAttribute("d")); encima.dataset.cm = cm; }
     tip.innerHTML = textoTip(cm);
     tip.hidden = false;
     const r = caja.getBoundingClientRect();
@@ -174,7 +181,7 @@
     if (y + h > r.height) y = e.clientY - r.top - h - 14;
     tip.style.left = Math.max(0, x) + "px"; tip.style.top = Math.max(0, y) + "px";
   });
-  svg.addEventListener("pointerleave", () => { tip.hidden = true; });
+  svg.addEventListener("pointerleave", () => { tip.hidden = true; encima.setAttribute("d", ""); delete encima.dataset.cm; });
   svg.addEventListener("click", e => {
     const cm = e.target.dataset && e.target.dataset.cm;
     if (!cm) return;
@@ -399,7 +406,7 @@
         const er = (r[3] / r[2] - 1) * 100, en = (r[4] / r[2] - 1) * 100;
         return `<tr><td>${curso(r[0])}</td><td>${r[1]}</td><td>${ent(r[3])}</td><td>${pct(er, 1)}</td><td>${ent(r[4])}</td><td>${pct(en, 1)}</td></tr>`;
       }).join("");
-      partes.push(`<h4>¿Cómo habría acertado?</h4><p>Previsiones para ${curso(BASE)}, cuando hubo ${ent(bt[0][2])} alumnos de 1.º, hechas en cursos anteriores con los datos de cada momento.</p>
+      partes.push(`<h4 id="ficha-acierto">¿Cómo habría acertado?</h4><p>Previsiones para ${curso(BASE)}, cuando hubo ${ent(bt[0][2])} alumnos de 1.º, hechas en cursos anteriores con los datos de cada momento.</p>
         <div class="tabla-scroll"><table class="tabla compacta"><thead><tr><th>Hecha en</th><th>Cursos antes</th><th>Radar</th><th>Error</th><th>Nada cambia</th><th>Error</th></tr></thead><tbody>${filas}</tbody></table></div>
         <p class="nota">En el grupo de ${g === "Madrid capital" ? "la capital" : "municipios " + g + "s"}, el error mediano del radar a 3 y 5 cursos es del ${pctAbs(mdg[3].radar, 1)} y el ${mdg[5] ? pctAbs(mdg[5].radar, 1) : "—"}; suponiendo que nada cambia, del ${pctAbs(mdg[3].ingenuo, 1)} y el ${mdg[5] ? pctAbs(mdg[5].ingenuo, 1) : "—"}.</p>`);
     }
@@ -549,7 +556,7 @@
   // ------------------------------------------------------------------ fuentes
   (function fuentes() {
     const h = `<thead><tr><th scope="col" class="txt">Dataset</th><th scope="col" class="txt">Editor</th><th scope="col" class="txt">Para qué</th><th scope="col" class="txt">Descarga</th><th scope="col" class="txt">Licencia</th></tr></thead><tbody>` +
-      R.fuentes.map(f => `<tr><td class="txt"><a href="${esc(f.pagina)}">${esc(f.titulo)}</a>${f.recurso && f.recurso !== f.titulo ? `<br><span class="nota">${esc(f.recurso)}</span>` : ""}</td><td class="txt">${esc(f.editor)}</td><td class="txt">${esc(ordinal(f.uso))}</td><td class="txt"><a href="${esc(f.url)}" aria-label="Descargar el fichero oficial: ${esc(f.recurso || f.titulo)}">${/\.zip$/i.test(f.url) ? "ZIP" : "CSV"}</a><br><span class="nota">${esc(fechaCorta(f.fecha_descarga_utc))}</span></td><td class="txt"><abbr title="${esc(f.licencia_titulo || "")}">${/attribution/i.test(f.licencia_titulo || "") ? "CC BY" : esc(f.licencia_titulo || "")}</abbr></td></tr>`).join("") + "</tbody>";
+      R.fuentes.map(f => `<tr><td class="txt"><a href="${esc(f.pagina)}">${esc(f.titulo)}</a>${f.recurso && f.recurso !== f.titulo ? `<br><span class="nota">${esc(f.recurso)}</span>` : ""}</td><td class="txt">${esc(f.editor)}</td><td class="txt">${esc(ordinal(f.uso))}</td><td class="txt"><a href="${esc(f.url)}" aria-label="${/\.zip$/i.test(f.url) ? "ZIP" : "CSV"}: descargar el fichero oficial ${esc(f.recurso || f.titulo)}">${/\.zip$/i.test(f.url) ? "ZIP" : "CSV"}</a><br><span class="nota">${esc(fechaCorta(f.fecha_descarga_utc))}</span></td><td class="txt"><abbr title="${esc(f.licencia_titulo || "")}">${/attribution/i.test(f.licencia_titulo || "") ? "CC BY" : esc(f.licencia_titulo || "")}</abbr></td></tr>`).join("") + "</tbody>";
     document.getElementById("tabla-fuentes").innerHTML = h;
   })();
 
@@ -621,6 +628,80 @@
       "Previsión del radar (entre paréntesis, el intervalo del 80 %):", linea(0), "…", linea(m.p1.length - 1)].join("\n");
   })();
 
+  // ------------------------------------------------------------------ portada: mapa resumen y accesos directos
+  const ESCRITORIO = window.matchMedia("(min-width: 960px)");
+  function irA(cm, destino) {  // elige el municipio y lleva a su ficha (o a su tabla de acierto)
+    seleccionar(cm, true);
+    const objetivo = destino === "acierto" ? document.getElementById("ficha-acierto")
+      : ESCRITORIO.matches ? document.getElementById("mapa") : document.getElementById("ficha");
+    (objetivo || document.getElementById("mapa")).scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  document.querySelectorAll("[data-ir]").forEach(a => a.addEventListener("click", e => {
+    e.preventDefault();
+    irA(a.dataset.ir, a.dataset.destino);
+  }));
+  (function portada() {
+    const sv = document.getElementById("svg-portada");
+    if (!sv) return;
+    sv.setAttribute("viewBox", R.mapa.viewBox);
+    const g = document.createElementNS(SVGNS, "g"), cajas = {};
+    sv.appendChild(g);
+    const nivelP1 = { iP1: R.cursos_p1.length - 1 };
+    Object.keys(R.mapa.d).forEach(cm => {
+      const p = document.createElementNS(SVGNS, "path"), m = MUN[cm];
+      const pr = m.p1 && m.p1[nivelP1.iP1], base = m.y1 && m.y1[m.y1.length - 1];
+      p.setAttribute("d", R.mapa.d[cm]);
+      p.setAttribute("class", "m");
+      p.dataset.cm = cm;
+      if (pr && pr[0] != null && base) {
+        const cambio = (pr[0] / base - 1) * 100, claro = pr[2] < base || pr[1] > base;
+        p.setAttribute("fill", DIV.colores[clase(cambio, DIV.cortes)]);
+        if (!claro) p.setAttribute("fill-opacity", "0.42");
+      } else p.setAttribute("fill", "url(#rayado-p)");
+      const t = document.createElementNS(SVGNS, "title");
+      t.textContent = m.n + (pr && base ? `: ${pct((pr[0] / base - 1) * 100)} en 1.º de primaria` : "");
+      p.appendChild(t);
+      g.appendChild(p);
+      cajas[cm] = p;
+    });
+    const defsP = document.createElementNS(SVGNS, "defs");
+    defsP.innerHTML = '<pattern id="rayado-p" patternUnits="userSpaceOnUse" width="7" height="7" patternTransform="rotate(45)"><rect width="7" height="7" fill="#f1efea"/><line x1="0" y1="0" x2="0" y2="7" stroke="#c8c5bc" stroke-width="2.4"/></pattern>';
+    sv.insertBefore(defsP, g);
+    const hov = document.createElementNS(SVGNS, "path"); hov.setAttribute("class", "hov");
+    sv.appendChild(hov);
+    sv.addEventListener("pointermove", e => {
+      const cm = e.target.dataset && e.target.dataset.cm;
+      hov.setAttribute("d", cm && e.pointerType !== "touch" ? R.mapa.d[cm] : "");
+    });
+    sv.addEventListener("pointerleave", () => hov.setAttribute("d", ""));
+    sv.addEventListener("click", e => {
+      const cm = e.target.closest("[data-cm]");
+      if (cm) irA(cm.dataset.cm, "ficha");
+    });
+    // etiquetas directas: la capital, el área Sur y Fuenlabrada
+    const centro = cms => {
+      let x = 0, y = 0, n = 0;
+      cms.forEach(cm => { const b = cajas[cm].getBBox(); if (!b.width) return; x += b.x + b.width / 2; y += b.y + b.height / 2; n++; });
+      return n ? [x / n, y / n] : null;
+    };
+    const etiquetas = document.createElementNS(SVGNS, "g");
+    etiquetas.setAttribute("class", "etiquetas");
+    etiquetas.setAttribute("aria-hidden", "true");
+    const texto = (x, y, l1, l2, ancla_, cls, cm) =>
+      `<text x="${x}" y="${y}" text-anchor="${ancla_}" class="${cls || ""}"${cm ? ` data-cm="${cm}"` : ""}><tspan class="e-nombre" x="${x}">${esc(l1)}</tspan>${l2 ? `<tspan class="e-cifra" x="${x}" dy="1.05em">${esc(l2)}</tspan>` : ""}</text>`;
+    const P = R.resumen.proyeccion_1o;
+    const cCap = centro([CAP]), cSur = centro(Object.keys(MUN).filter(cm => MUN[cm].z === "Sur" && cajas[cm])), cFue = centro(["28058"]);
+    let h = "";
+    if (cCap) h += texto(cCap[0] + 6, cCap[1] - 8, "Capital", pct(P.capital.cambio_pct), "middle");
+    if (cSur) h += texto(cSur[0] + 70, cSur[1] + 175, "Área Sur", pct(P.por_area_cambio_pct.Sur), "start");
+    if (cFue && MUN["28058"]) {
+      h += `<circle class="e-punto" cx="${cFue[0]}" cy="${cFue[1]}" r="9" data-cm="28058"/>`;
+      h += texto(cFue[0] - 18, cFue[1] + 10, "Fuenlabrada", "", "end", "e-fue", "28058");
+    }
+    etiquetas.innerHTML = h;
+    sv.appendChild(etiquetas);
+  })();
+
   // ------------------------------------------------------------------ arranque
   const m = /municipio=(\d{5})/.exec(location.hash);
   if (m && MUN[m[1]]) estado.sel = m[1];
@@ -628,6 +709,7 @@
   selMuni.value = estado.sel;
   actualizar();
   reutiliza();
+  document.documentElement.classList.add("listo");
   window.addEventListener("hashchange", () => {  // enlaces internos del tipo #municipio=28058
     const h = /municipio=(\d{5})/.exec(location.hash);
     if (h && MUN[h[1]] && h[1] !== estado.sel) seleccionar(h[1], true);

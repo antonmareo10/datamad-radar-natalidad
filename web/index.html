@@ -21,19 +21,40 @@
 <meta property="og:image:alt" content="Logotipo del Radar de natalidad municipal, un 6 azul con un punto rojo dentro, y la frase «Los niños que empezarán primaria ya han nacido».">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://radar-natalidad-madrid.vercel.app/og.png">
+<link rel="preload" href="fuentes/PublicSans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
 <a class="saltar" href="#principal">Saltar al contenido</a>
 
 <header class="cabecera">
-  <div class="contenedor">
-    <p class="antetitulo">DataMad 2026 · Datos abiertos de la Comunidad de Madrid</p>
-    <div class="titulo-marca">
-      <svg class="marca" viewBox="0 0 32 32" width="44" height="44" aria-hidden="true" focusable="false"><circle cx="16" cy="20.25" r="8" fill="none" stroke="#1c5cab" stroke-width="4.5"/><path d="M8.482 17.514C10.603 11.688 16.1 4.1 23.1 3.35" fill="none" stroke="#1c5cab" stroke-width="4.5"/><circle cx="16" cy="20.25" r="2.6" fill="#c2453b"/></svg>
-      <h1>Radar de natalidad municipal</h1>
+  <div class="contenedor heroe">
+    <div class="heroe-ancla">
+      <div class="titulo-marca">
+        <svg class="marca" viewBox="0 0 32 32" width="40" height="40" aria-hidden="true" focusable="false"><circle cx="16" cy="20.25" r="8" fill="none" stroke="#1c5cab" stroke-width="4.5"/><path d="M8.482 17.514C10.603 11.688 16.1 4.1 23.1 3.35" fill="none" stroke="#1c5cab" stroke-width="4.5"/><circle cx="16" cy="20.25" r="2.6" fill="#c2453b"/></svg>
+        <div>
+          <h1>Radar de natalidad municipal</h1>
+          <p class="antetitulo">DataMad 2026 · Datos abiertos de la Comunidad de Madrid</p>
+        </div>
+      </div>
+      <p class="ancla">Los niños de <span data-r="anio_ancla">2030</span> ya han nacido.</p>
+      <p class="aulas"><span class="aulas-cifra">Unas <span data-r="aulas_menos">340</span> aulas</span> <span class="aulas-texto">de 1.º de primaria menos en la Comunidad de Madrid en <span data-r="cursos_p1.-1">2030/31</span>, y ya sabemos dónde.</span></p>
+      <p class="aulas-cuenta">Son <span data-r="alumnos_menos">6.812</span> alumnos de 1.º menos que en <span data-r="base">2024/25</span>, a 20 por aula. En la capital, <strong class="baja" data-r="resumen.proyeccion_1o.capital.cambio_pct" data-f="pct">−6 %</strong>; en el área Sur, <strong class="baja" data-r="resumen.proyeccion_1o.por_area_cambio_pct.Sur" data-f="pct">−21 %</strong>.</p>
+      <div class="acciones">
+        <a class="boton" href="#municipio=28058" data-ir="28058" data-destino="ficha">Ver Fuenlabrada<span aria-hidden="true">→</span></a>
+        <a class="boton boton-sec" href="#municipio=28058" data-ir="28058" data-destino="acierto">¿Cómo habría acertado?</a>
+      </div>
     </div>
-    <p class="entradilla">Los niños que empezarán primaria en <span data-r="cursos_p1.-1">los próximos seis cursos</span> ya han nacido. El radar convierte los nacimientos y la matrícula que publica la Comunidad de Madrid en una previsión de cuántos alumnos entrarán en 1.º de primaria y en infantil en cada municipio, con un margen de error medido en cursos que ya han terminado.</p>
+    <figure class="heroe-mapa">
+      <div class="portada-caja">
+        <svg id="svg-portada" viewBox="0 0 1000 1094" role="img" aria-labelledby="portada-titulo"><title id="portada-titulo">Mapa del cambio previsto en 1.º de primaria por municipio. Toca un municipio para ver su ficha.</title></svg>
+      </div>
+      <figcaption class="portada-pie">
+        <span class="portada-escala" aria-hidden="true"><i style="background:#8f2a24"></i><i style="background:#c2453b"></i><i style="background:#e2786b"></i><i style="background:#f3b6ab"></i><i style="background:#e6e4dd"></i><i style="background:#c3dbf7"></i><i style="background:#86b6ef"></i><i style="background:#3987e5"></i></span>
+        <span>1.º de primaria, <span data-r="cursos_p1.-1">2030/31</span> frente a <span data-r="base">2024/25</span>: <b class="baja">rojo, baja</b>; <b class="sube">azul, sube</b>; atenuado, el intervalo incluye que no cambie. Toca un municipio para ver su ficha.</span>
+      </figcaption>
+    </figure>
+    <p class="entradilla">El radar convierte los nacimientos y la matrícula que publica la Comunidad de Madrid en una previsión de cuántos alumnos entrarán en 1.º de primaria y en infantil en cada municipio, con un margen de error medido en cursos que ya han terminado.</p>
     <nav class="indice" aria-label="Secciones de la página">
       <ul>
         <li><a href="#mapa">Mapa y fichas</a></li>
@@ -50,7 +71,12 @@
 <main id="principal">
   <noscript><p class="contenedor aviso">La página necesita JavaScript para dibujar el mapa y las fichas. Las tablas completas están en la carpeta <code>resultados/</code> del repositorio.</p></noscript>
 
-  <section class="contenedor cifras" aria-label="Cifras principales" id="cifras"></section>
+  <section class="contenedor cifras" aria-label="Cifras principales" id="cifras">
+    <div class="cifra"><span class="cifra-valor">6.812 <span class="cifra-unidad">alumnos menos</span></span>
+    <span class="cifra-texto">en 1.º de primaria en 2030/31 que en 2024/25 (58.859), un 11,6&nbsp;% menos. Intervalo del 80&nbsp;%: entre 1.388 y 12.314 menos.</span></div><div class="cifra"><span class="cifra-valor">4,3&nbsp;% <span class="cifra-unidad">de error mediano</span></span>
+    <span class="cifra-texto">al prever 1.º de primaria con cinco cursos de antelación en los 36 municipios grandes, contrastado con cursos ya cerrados. Suponer que nada cambia falla un 16,1&nbsp;%.</span></div><div class="cifra"><span class="cifra-valor">56.969 <span class="cifra-unidad">previstos</span></span>
+    <span class="cifra-texto">para 2025/26 sin usar ese dato. La cifra provisional publicada es 56.482: una diferencia del +0,9&nbsp;%.</span></div>
+  </section>
 
   <section id="mapa" class="bloque" aria-labelledby="t-mapa">
     <div class="contenedor">
@@ -84,7 +110,7 @@
       <div class="rejilla-mapa">
         <figure class="tarjeta mapa-fig">
           <div class="mapa-caja" id="mapa-caja">
-            <svg id="svg-mapa" role="img" aria-labelledby="mapa-titulo mapa-desc">
+            <svg id="svg-mapa" viewBox="0 0 1000 1094" role="img" aria-labelledby="mapa-titulo mapa-desc">
               <title id="mapa-titulo">Mapa de los municipios de la Comunidad de Madrid</title>
               <desc id="mapa-desc">Coroplético del cambio previsto por municipio. La misma información está en la tabla de municipios, debajo del mapa.</desc>
             </svg>
