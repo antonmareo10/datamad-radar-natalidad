@@ -103,7 +103,7 @@
       });
     }
   }
-  const tarjetaFija = () => { if (proximoVisto) proximo.classList.toggle("fuera", window.scrollY < window.innerHeight * 0.9 || doc.classList.contains("menu-abierto")); };
+  const tarjetaFija = () => { if (proximoVisto) proximo.classList.toggle("fuera", window.scrollY < cab.offsetHeight - 60 || doc.classList.contains("menu-abierto")); };
   if (!MOV) { if (proximoVisto) { window.addEventListener("scroll", tarjetaFija, { passive: true }); tarjetaFija(); } return; }
 
   // ================================================================== a partir de aquí, solo con movimiento
@@ -187,6 +187,25 @@
     svgP.insertBefore(g, $(".etiquetas", svgP) || null);
     surG = g;
   }
+  // la cifra del área Sur sale de su tarjeta y viaja hasta su sitio en el mapa: el ojo la sigue de un paso al siguiente
+  let surLlego = false;
+  function volarSur() {
+    const fin = () => { if (surLlego) tramoMapa.classList.add("sur-fin"); };
+    try {
+      const o = $(".paso-sur strong"), t = svgP && $$(".etiquetas text", svgP).find(x => x.textContent.trim().indexOf("Sur") === 0);
+      const dst = t && $(".e-cifra", t);
+      if (!o || !dst || !o.animate) return fin();
+      const a = o.getBoundingClientRect(), b = dst.getBoundingClientRect();
+      if (!a.height || !b.height || a.bottom < 0 || a.top > window.innerHeight) return fin();
+      const v = document.createElement("span"), cs = getComputedStyle(o);
+      v.textContent = o.textContent; v.setAttribute("aria-hidden", "true");
+      v.style.cssText = `position:fixed;left:${a.left}px;top:${a.top}px;z-index:20;pointer-events:none;white-space:nowrap;transform-origin:0 0;font:${cs.font};letter-spacing:${cs.letterSpacing};color:${cs.color};line-height:${a.height}px`;
+      document.body.appendChild(v);
+      const k = b.height / a.height;
+      const an = v.animate([{ transform: "translate(0,0) scale(1)" }, { transform: `translate(${(b.left - a.left).toFixed(1)}px,${(b.top - a.top).toFixed(1)}px) scale(${k.toFixed(3)})` }], { duration: 720, easing: "cubic-bezier(.5,0,.2,1)" });
+      an.onfinish = an.oncancel = () => { if (v.parentNode) v.parentNode.removeChild(v); fin(); };
+    } catch (err) { fin(); }
+  }
   function medir() {
     const ancho = PIN && window.matchMedia("(min-width: 900px) and (min-height: 620px)").matches;
     cab.classList.remove("pin"); if (tramoMapa) tramoMapa.classList.remove("pin", "sur-fin");
@@ -251,7 +270,8 @@
       if (lineaB) lineaB.style.transform = `translate3d(${(-150 + p * 55).toFixed(2)}vw,0,0)`;
       const s = entre((vh * 0.72 - tarjetas[2].getBoundingClientRect().top) / (vh * 0.5));
       if (surG) surG.style.setProperty("--s", s.toFixed(3));
-      tramoMapa.classList.toggle("sur-fin", s > 0.92);
+      if (s > 0.92) { if (!surLlego) { surLlego = true; volarSur(); } }
+      else { surLlego = false; tramoMapa.classList.remove("sur-fin"); }
     }
     if (guiado !== false) {
       const p = entre((vh * 0.85 - rejGrande.getBoundingClientRect().top) / (vh * 0.65));

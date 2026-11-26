@@ -756,3 +756,4 @@ html.mov .aula-sillas:not(.re) .silla { animation: llegar 420ms ease-out calc(38
 .cursor.sobre { width: 48px; height: 48px; margin: -24px 0 0 -24px; background: rgba(255, 143, 122, 0.14); }
 @media print { .cursor, .menu, .proximo, .curvas { display: none !important; } html.mov .barra-fija { position: static; } html.mov .cabecera { padding-top: 0; } }
 @media (max-width: 599px) { .proximo { left: 10px; bottom: 10px; } .proximo a { padding: 8px 2px 9px 11px; } .proximo-etq { font-size: 0.58rem; } .proximo-txt { font-size: 0.88rem; } .proximo button { width: 30px; height: 30px; } }
+@media (min-width: 900px) and (min-height: 620px) and (max-height: 800px) { html.mov .aula { max-width: 380px; } html.mov .aula-sillas { width: 36vh; max-width: 100%; margin: 0 auto; } html.mov .heroe { padding-bottom: 14px; } html.mov .tm { margin-top: 10px; } }
