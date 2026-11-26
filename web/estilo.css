@@ -349,6 +349,17 @@ html.demo .nota, html.demo .tabla { font-size: 0.95rem; }
 .leyenda-graf i.disc { border-top-style: dashed; }
 .leyenda-graf i.banda { height: 10px; border: 0; border-radius: 2px; }
 .grafico .tooltip { white-space: nowrap; }
+/* gráfico de abanico: serie observada, previsión con su banda del 80 %, «hoy» y etiquetas directas */
+.grafico .hoy-fuerte { font-weight: 700; fill: var(--tinta-2); }
+.grafico .fin-valor { font-size: 15px; font-weight: 800; fill: var(--tinta); }
+.grafico .fin-rango-txt { font-size: 10.5px; fill: var(--tinta-3); }
+.grafico .fin-curso { font-size: 11px; font-weight: 650; fill: var(--tinta-3); }
+.grafico .fin-rango { stroke: #2a78d6; stroke-width: 2; stroke-linecap: round; opacity: 0.55; }
+.leyenda-fan { margin: 2px 0 6px; font-size: 0.86rem; line-height: 1.45; color: var(--tinta-2); max-width: 60ch; }
+.leyenda-fan .k-azul { color: #1c5cab; font-weight: 700; }
+.leyenda-fan .k-banda { background: rgba(42, 120, 214, 0.2); padding: 0 4px; border-radius: 3px; }
+.leyenda-fan .k-gris { color: #6f6c64; font-weight: 600; }
+html.demo .grafico .fin-valor { font-size: 18px; } html.demo .leyenda-fan { font-size: 0.9rem; }
 
 /* ---------------------------------------------------------------- tablas */
 .tabla-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }

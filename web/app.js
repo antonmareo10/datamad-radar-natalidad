@@ -285,7 +285,7 @@
       if (W === ancho) return;
       ancho = W;
       const H = Math.round(Math.max(210, Math.min(290, W * 0.56)));
-      const mg = { l: DEMO ? 58 : 48, r: DEMO ? 18 : 12, t: 12, b: DEMO ? 32 : 28 };
+      const mg = { l: DEMO ? 58 : 48, r: cfg.directo ? (DEMO ? 128 : 104) : (DEMO ? 18 : 12), t: cfg.directo ? 26 : 12, b: DEMO ? 32 : 28 };
       const xs = [cfg.x0, cfg.x1];
       let ymax = 0;
       cfg.series.forEach(s => s.pts.forEach(p => { if (p[1] != null) ymax = Math.max(ymax, p[1]); }));
@@ -317,12 +317,14 @@
       s += "</g>";
       if (cfg.hoy != null) {
         const xh = sx(cfg.hoy + 0.5);
-        s += `<line class="hoy" x1="${xh}" x2="${xh}" y1="${mg.t}" y2="${sy(0)}"/><text class="hoy-txt" x="${xh + 5}" y="${mg.t + 10}">previsión</text>`;
+        s += cfg.directo
+          ? `<line class="hoy" x1="${xh}" x2="${xh}" y1="${mg.t - 12}" y2="${sy(0)}"/><text class="hoy-txt hoy-fuerte" x="${xh - 5}" y="${mg.t - 14}" text-anchor="end">hoy</text><text class="hoy-txt" x="${xh + 5}" y="${mg.t - 14}">previsión →</text>`
+          : `<line class="hoy" x1="${xh}" x2="${xh}" y1="${mg.t}" y2="${sy(0)}"/><text class="hoy-txt" x="${xh + 5}" y="${mg.t + 10}">previsión</text>`;
       }
       if (cfg.banda && cfg.banda.pts.length) {
         const b = cfg.banda.pts.filter(p => p[1] != null);
         const d = "M" + b.map(p => `${sx(p[0])},${sy(p[2])}`).join("L") + "L" + b.slice().reverse().map(p => `${sx(p[0])},${sy(p[1])}`).join("L") + "Z";
-        s += `<path d="${d}" fill="${cfg.banda.color}" stroke="none"/>`;
+        s += `<path class="banda" d="${d}" fill="${cfg.banda.color}" stroke="none"/>`;
       }
       cfg.series.forEach(se => {
         const pts = se.pts.filter(p => p[1] != null);
@@ -333,12 +335,24 @@
           s += `<circle cx="${sx(p[0])}" cy="${sy(p[1])}" r="${se.fino ? 2.6 : 3.4}" fill="${hueco ? "#fdfdfc" : se.color}" stroke="${hueco ? se.color : "#fdfdfc"}" stroke-width="${hueco ? 1.6 : 1.2}"/>`;
         });
       });
+      if (cfg.directo) {
+        const prevS = cfg.series.find(se => se.disc), bandaF = cfg.banda && cfg.banda.pts.filter(p => p[1] != null).slice(-1)[0];
+        const fin = prevS && prevS.pts.filter(p => p[1] != null).slice(-1)[0];
+        if (fin && bandaF && fin[0] === bandaF[0]) {
+          const xf = sx(fin[0]), yf = sy(fin[1]);
+          s += `<circle cx="${xf}" cy="${yf}" r="4.2" fill="${prevS.color}" stroke="#fdfdfc" stroke-width="1.5"/>`;
+          s += `<line class="fin-rango" x1="${xf + 9}" x2="${xf + 9}" y1="${sy(bandaF[2])}" y2="${sy(bandaF[1])}"/>`;
+          s += `<text class="fin-valor" x="${xf + 15}" y="${yf + 5}">${ent(fin[1])}</text>`;
+          s += `<text class="fin-rango-txt" x="${xf + 15}" y="${yf + 20}">${ent(bandaF[1])}–${ent(bandaF[2])}</text>`;
+          s += `<text class="fin-curso" x="${xf + 15}" y="${yf - 12}">${cursoCorto(fin[0])}</text>`;
+        }
+      }
       s += `<line class="cruz" x1="0" x2="0" y1="${mg.t}" y2="${sy(0)}" visibility="hidden"/>`;
       s += `<rect class="capa-hover" x="${mg.l}" y="${mg.t}" width="${W - mg.l - mg.r}" height="${sy(0) - mg.t}" fill="transparent"/>`;
       s += "</svg>";
       const ley = cfg.series.filter(x => x.nombre).map(se => `<span><i class="${se.disc ? "disc" : ""}" style="border-color:${se.color}"></i>${esc(se.nombre)}</span>`).join("") +
         (cfg.banda ? `<span><i class="banda" style="background:${cfg.banda.color}"></i>${esc(cfg.banda.nombre)}</span>` : "");
-      el.innerHTML = `<div class="leyenda-graf">${ley}</div>${s}<div class="tooltip" hidden></div>`;
+      el.innerHTML = (cfg.directo ? `<p class="leyenda-fan"><span class="k-azul">Alumnos de 1.º</span>, reales y previstos, con la <span class="k-banda">banda del 80${NBSP}%</span> medida con errores de cursos ya cerrados; <span class="k-gris">en gris, los nacidos seis años antes</span>.</p>` : `<div class="leyenda-graf">${ley}</div>`) + `${s}<div class="tooltip" hidden></div>`;
       const svgEl = el.querySelector("svg"), cruz = el.querySelector(".cruz"), tt = el.querySelector(".tooltip"), capaH = el.querySelector(".capa-hover");
       const mover = e => {
         const r = svgEl.getBoundingClientRect();
@@ -443,7 +457,7 @@
         { nombre: "Alumnos de 1.º", color: "#2a78d6", marc: true, pts: reales },
         { nombre: "Previsión", color: "#2a78d6", disc: true, pts: [[BASE, m.y1[m.y1.length - 1]]].concat(prev.map(p => [p[0], p[1]])), nombreTip: "Previsión" },
       ],
-      banda: { nombre: "Intervalo del 80 %", color: "rgba(42,120,214,0.16)", pts: prev.map(p => [p[0], p[2], p[3]]) },
+      banda: { nombre: "Intervalo del 80 %", color: "rgba(42,120,214,0.2)", pts: prev.map(p => [p[0], p[2], p[3]]) }, directo: true,
     });
     const filasT = [];
     for (let s = x0; s <= x1; s++) {
