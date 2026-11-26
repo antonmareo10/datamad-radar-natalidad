@@ -820,8 +820,11 @@
       if (!enP1) cursoTxt.textContent = estado.nivel === "p1" ? R.cursos_p1[estado.iP1] : R.cursos_pi[estado.iPI];
     };
     rotulo(N);
+    // con scroll guiado (movimiento.js, pantallas anchas) el curso avanza al bajar; ahí no se reproduce solo
+    const GUIADO = document.documentElement.classList.contains("mov-pin");
+    window.radarTiempo = { N, fotograma, libre: () => !tocado && !reloj && estado.nivel === "p1" && estado.modo === "cambio", anima: si => svg.classList.toggle("anima", si), fin: () => parar(true) };
     // se reproduce solo una vez, al llegar al mapa (nunca en ?demo ni con movimiento reducido)
-    if (!DEMO && !QUIETO.matches && "IntersectionObserver" in window) {
+    if (!GUIADO && !DEMO && !QUIETO.matches && "IntersectionObserver" in window) {
       const io = new IntersectionObserver(ents => {
         if (!ents.some(e => e.isIntersecting)) return;
         io.disconnect();

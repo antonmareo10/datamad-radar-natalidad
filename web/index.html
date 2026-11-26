@@ -71,23 +71,37 @@
 }
 </script>
 <script>/* precarga la letra en la web publicada; en la copia sin internet (file://) el navegador la bloquearía */ if (location.protocol !== "file:") { var l = document.createElement("link"); l.rel = "preload"; l.as = "font"; l.type = "font/woff2"; l.crossOrigin = "anonymous"; l.href = "fuentes/PublicSans.woff2"; document.head.appendChild(l); }</script>
+<script>/* movimiento: nunca en ?demo ni con «reducir movimiento»; sin esta clase la página queda quieta y completa */ (function () { var d = document.documentElement, q = function (s) { return window.matchMedia && window.matchMedia(s).matches; }; if (/[?&]demo(?:[=&]|$)/.test(location.search) || q("(prefers-reduced-motion: reduce)")) return; d.classList.add("mov"); if (q("(min-width: 900px) and (min-height: 620px)")) d.classList.add("mov-pin"); })();</script>
 <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
 <a class="saltar" href="#principal">Saltar al contenido</a>
 
-<header class="cabecera pizarra">
-  <div class="contenedor barra">
-    <a class="titulo-marca" href="#principal">
-      <svg class="marca" viewBox="0 0 32 32" width="32" height="32" aria-hidden="true" focusable="false"><circle cx="16" cy="20.25" r="8" fill="none" stroke="currentColor" stroke-width="4.5"/><path d="M8.482 17.514C10.603 11.688 16.1 4.1 23.1 3.35" fill="none" stroke="currentColor" stroke-width="4.5"/><circle cx="16" cy="20.25" r="2.6" fill="#ff8f7a"/></svg>
-      <span class="marca-texto"><span class="marca-nombre">Radar de natalidad municipal</span><span class="antetitulo">Proyecto para DATAMAD 2026 con datos abiertos de la Comunidad de Madrid</span></span>
-    </a>
-    <nav class="barra-nav" aria-label="Atajos">
-      <a href="#mapa">Mapa</a><a href="#metodo">Método</a><a href="#reutiliza">API y MCP</a><a href="#datos">Datos</a>
-    </nav>
+<header class="cabecera pizarra" data-cap="sillas">
+  <div class="barra-fija" id="barra">
+    <div class="contenedor barra">
+      <a class="titulo-marca" href="#principal">
+        <svg class="marca" viewBox="0 0 32 32" width="32" height="32" aria-hidden="true" focusable="false"><circle cx="16" cy="20.25" r="8" fill="none" stroke="currentColor" stroke-width="4.5"/><path d="M8.482 17.514C10.603 11.688 16.1 4.1 23.1 3.35" fill="none" stroke="currentColor" stroke-width="4.5"/><circle cx="16" cy="20.25" r="2.6" fill="#ff8f7a"/></svg>
+        <span class="marca-texto"><span class="marca-nombre">Radar de natalidad municipal</span><span class="antetitulo">Proyecto para DATAMAD 2026 con datos abiertos de la Comunidad de Madrid</span></span>
+      </a>
+      <label class="capitulo"><span class="sr-only">Ir a un capítulo</span>
+        <select id="capitulo" autocomplete="off">
+          <option value="sillas" data-ir-a="principal">Las sillas</option>
+          <option value="municipio" data-ir-a="tm">Tu municipio</option>
+          <option value="funciona" data-ir-a="t-fiable">Cómo funciona</option>
+          <option value="prueba" data-ir-a="t-prueba">La prueba</option>
+          <option value="mapa" data-ir-a="mapa">El mapa</option>
+          <option value="datos" data-ir-a="reutiliza">Datos y API</option>
+        </select>
+      </label>
+      <div class="barra-acc">
+        <a class="pildora" href="#tm" data-foco="tm-buscar">Mira tu municipio</a>
+        <button type="button" class="menu-boton" id="menu-boton" aria-expanded="false" aria-controls="menu" aria-label="Abrir el menú"><span aria-hidden="true"></span><span aria-hidden="true"></span></button>
+      </div>
+    </div>
   </div>
   <div class="contenedor heroe">
-    <h1 class="titular">En 2030, en el sur de Madrid, de cada 20&nbsp;sillas de primero, 4&nbsp;estarán vacías.</h1>
+    <h1 class="titular"><span class="pal" style="--w:0"><span>En</span></span> <span class="pal" style="--w:1"><span>2030,</span></span> <span class="pal" style="--w:2"><span>en</span></span> <span class="pal" style="--w:3"><span>el</span></span> <span class="pal" style="--w:4"><span>sur</span></span> <span class="pal" style="--w:5"><span>de</span></span> <span class="pal" style="--w:6"><span>Madrid,</span></span> <span class="pal" style="--w:7"><span>de</span></span> <span class="pal" style="--w:8"><span>cada</span></span> <span class="pal" style="--w:9"><span>20&nbsp;sillas</span></span> <span class="pal" style="--w:10"><span>de</span></span> <span class="pal" style="--w:11"><span>primero,</span></span> <span class="pal clave" style="--w:12"><span>4&nbsp;estarán</span></span> <span class="pal clave" style="--w:13"><span>vacías.</span></span></h1>
     <p class="heroe-sub">Previsión abierta de alumnos de 1.º en los <span data-r="resumen.proyeccion_1o.municipios_con_colegio">136</span> municipios con colegio hasta <span data-r="cursos_p1.-1">2030/31</span>, con su error medido. Solo datos abiertos de la Comunidad de Madrid.</p>
     <figure class="aula">
       <svg class="aula-sillas" viewBox="0 0 272 286" width="272" height="286" role="img" aria-labelledby="aula-titulo">
@@ -113,6 +127,7 @@
           <g class="silla" transform="translate(170 222)"><g class="nino"><circle cx="20" cy="11" r="8"/><path d="M5 37C5 26 11 21 20 21S35 26 35 37Z"/></g><rect class="respaldo" x="3" y="27" width="34" height="15" rx="3"/><rect class="asiento" x="1" y="44" width="38" height="4" rx="2"/><path class="patas" d="M6 48v9M34 48v9"/></g>
           <g class="silla" transform="translate(224 222)"><g class="nino"><circle cx="20" cy="11" r="8"/><path d="M5 37C5 26 11 21 20 21S35 26 35 37Z"/></g><rect class="respaldo" x="3" y="27" width="34" height="15" rx="3"/><rect class="asiento" x="1" y="44" width="38" height="4" rx="2"/><path class="patas" d="M6 48v9M34 48v9"/></g>
       </svg>
+      <button type="button" class="mira" id="mira" aria-pressed="true">Ver 2030</button>
       <figcaption class="aula-pie" aria-hidden="true"><span class="ley-nino">un alumno</span><span class="ley-vacia" id="tm-ley"><span>una silla vacía en <span data-r="cursos_p1.-1">2030/31</span></span></span></figcaption>
       <form class="tm" id="tm" role="search" action="#" autocomplete="off">
         <label class="tm-etq" for="tm-buscar">¿Y en tu municipio?</label>
@@ -129,8 +144,23 @@
       <a class="boton" href="#municipio=28058" data-ir="28058" data-destino="ficha">Ver Fuenlabrada</a>
       <a class="boton boton-sec" href="#municipio=28058" data-ir="28058" data-destino="acierto">¿Cómo habría acertado?</a>
     </div>
+    <p class="baja-pista" aria-hidden="true"><span></span>Baja y mira la clase en 2030</p>
   </div>
 </header>
+
+<div class="menu pizarra" id="menu" role="dialog" aria-modal="true" aria-label="Menú" hidden>
+  <nav class="contenedor" aria-label="Secciones de la página">
+    <ul class="menu-lista">
+      <li style="--k:0"><a href="#tm" data-foco="tm-buscar">Tu municipio</a></li>
+      <li style="--k:1"><a href="#mapa">El mapa 2025→2030</a></li>
+      <li style="--k:2"><a href="#metodo">Cómo funciona</a></li>
+      <li style="--k:3"><a href="#municipio=28058" data-ir="28058" data-destino="acierto">¿Cómo habría acertado?</a></li>
+      <li style="--k:4"><a href="#reutiliza">API, MCP y datos</a></li>
+      <li style="--k:5"><a href="#quien">Quién lo hace</a></li>
+    </ul>
+    <p class="menu-pie">Proyecto para DATAMAD 2026 con datos abiertos de la Comunidad de Madrid</p>
+  </nav>
+</div>
 
 <main id="principal">
   <noscript><p class="contenedor aviso">La página necesita JavaScript para dibujar el mapa y las fichas. Las tablas completas están en la carpeta <code>resultados/</code> del repositorio.</p></noscript>
@@ -138,14 +168,23 @@
   <section class="tramo tramo-mapa" aria-labelledby="t-aulas">
     <div class="contenedor tramo-mapa-rejilla">
       <div class="tramo-mapa-texto">
+        <div class="tarjeta-paso">
+        <p class="kicker">La previsión</p>
         <h2 id="t-aulas" class="frase">Unas <span data-r="aulas_menos">340</span> aulas de primero menos en 2030, y ya sabemos dónde.</h2>
+        </div>
+        <div class="tarjeta-paso">
         <p class="frase-sub">Son <span data-r="alumnos_menos">6.812</span> alumnos de 1.º menos que en <span data-r="base">2024/25</span>, a 20 por aula. Con un margen del 80&nbsp;%, entre <span data-r="menos_lo">1.388</span> y <span data-r="menos_hi">12.314</span> menos.</p>
+        </div>
+        <div class="tarjeta-paso">
+        <p class="paso-sur">Área Sur: <strong><span data-r="resumen.proyeccion_1o.por_area_cambio_pct.Sur" data-f="pct1">−21,0 %</span></strong> en 1.º de primaria, de <span data-r="base">2024/25</span> a <span data-r="cursos_p1.-1">2030/31</span>.</p>
         <p class="portada-pie">
           <span class="portada-escala" aria-hidden="true"><i style="background:#8f2a24"></i><i style="background:#c2453b"></i><i style="background:#e2786b"></i><i style="background:#f3b6ab"></i><i style="background:#e6e4dd"></i><i style="background:#c3dbf7"></i><i style="background:#86b6ef"></i><i style="background:#3987e5"></i></span>
           <span>1.º de primaria, <span data-r="cursos_p1.-1">2030/31</span> frente a <span data-r="base">2024/25</span>: <b class="baja">rojo, baja</b>; <b class="sube">azul, sube</b>; atenuado, el intervalo incluye que no cambie. Toca un municipio para ver su ficha.</span>
         </p>
+        </div>
       </div>
       <figure class="heroe-mapa">
+        <div class="lineas" aria-hidden="true"><p class="linea-a"><span>Los niños de 2030 ya han nacido</span><span>Los niños de 2030 ya han nacido</span><span>Los niños de 2030 ya han nacido</span><span>Los niños de 2030 ya han nacido</span><span>Los niños de 2030 ya han nacido</span></p><p class="linea-b"><span>Unas <span data-r="aulas_menos">340</span> aulas menos</span><span>Y ya sabemos dónde</span><span>Unas <span data-r="aulas_menos">340</span> aulas menos</span><span>Y ya sabemos dónde</span><span>Unas <span data-r="aulas_menos">340</span> aulas menos</span><span>Y ya sabemos dónde</span></p></div>
         <div class="portada-caja">
           <svg id="svg-portada" viewBox="0 0 1000 1094" role="img" aria-labelledby="portada-titulo"><title id="portada-titulo">Mapa del cambio previsto en 1.º de primaria por municipio. Toca un municipio para ver su ficha.</title></svg>
         </div>
@@ -153,9 +192,15 @@
     </div>
   </section>
 
-  <section class="tramo tramo-fiable" aria-labelledby="t-fiable">
+  <section class="declaracion pizarra" aria-labelledby="t-fiable" data-cap="funciona">
     <div class="contenedor">
-      <h2 id="t-fiable" class="frase">Los niños de <span data-r="anio_ancla">2030</span> ya han nacido: se cuentan.</h2>
+      <h2 id="t-fiable" class="declara">Los niños de <span data-r="anio_ancla">2030</span> <em>ya han nacido:</em> <em>se cuentan.</em></h2>
+    </div>
+  </section>
+
+  <section class="tramo tramo-fiable" aria-label="Cómo se calcula" data-cap="funciona">
+    <div class="contenedor">
+      <p class="kicker">El método</p>
       <figure class="flujo" aria-labelledby="flujo-pie">
         <ol class="flujo-pasos">
           <li class="paso" style="--k:0">
@@ -174,8 +219,15 @@
             <span class="paso-txt">alumnos de 1.º en <span data-r="cursos_p1.-1">2030/31</span>, entre <span data-r="municipios.28058.p1.-1.1" data-f="int">1.075</span> y <span data-r="municipios.28058.p1.-1.2" data-f="int">1.277</span></span>
           </li>
         </ol>
-        <figcaption id="flujo-pie">Así se calcula, con Fuenlabrada de ejemplo: los nacidos de <span data-r="resumen.proyeccion_1o.ultimo_ano_nacidos">2024</span> por el factor del municipio dan los alumnos de 1.º de <span data-r="cursos_p1.-1">2030/31</span>. Y así acierta, comprobado en cursos ya cerrados:</figcaption>
+        <figcaption id="flujo-pie">Así se calcula, con Fuenlabrada de ejemplo: los nacidos de <span data-r="resumen.proyeccion_1o.ultimo_ano_nacidos">2024</span> por el factor del municipio dan los alumnos de 1.º de <span data-r="cursos_p1.-1">2030/31</span>.</figcaption>
       </figure>
+    </div>
+  </section>
+
+  <section class="tramo tramo-prueba" aria-labelledby="t-prueba" data-cap="prueba">
+    <div class="contenedor">
+      <p class="kicker">La prueba</p>
+      <h2 id="t-prueba" class="frase">Y así acierta, comprobado en cursos ya cerrados.</h2>
       <figure class="barras">
         <div class="bf">
           <span class="bf-etq">Suponer que nada cambia</span>
@@ -209,7 +261,7 @@
     </div>
   </section>
 
-  <section id="mapa" class="bloque" aria-labelledby="t-mapa">
+  <section id="mapa" class="bloque" aria-labelledby="t-mapa" data-cap="mapa">
     <div class="contenedor">
       <p class="kicker">Municipio a municipio</p>
       <h2 id="t-mapa">¿Cuántos niños empezarán el colegio en cada municipio?</h2>
@@ -301,7 +353,7 @@
     </div>
   </section>
 
-  <section id="metodo" class="bloque" aria-labelledby="t-metodo">
+  <section id="metodo" class="bloque" aria-labelledby="t-metodo" data-cap="funciona">
     <div class="contenedor">
       <p class="kicker">Método y error</p>
       <h2 id="t-metodo">Cómo se calcula y cuánto se equivoca</h2>
@@ -374,7 +426,7 @@
     </div>
   </section>
 
-  <section id="reutiliza" class="bloque" aria-labelledby="t-reutiliza">
+  <section id="reutiliza" class="bloque" aria-labelledby="t-reutiliza" data-cap="datos">
     <div class="contenedor">
       <p class="kicker">Reutiliza los datos</p>
       <h2 id="t-reutiliza">API abierta y servidor MCP: las mismas cifras, para tus programas y tu asistente de IA</h2>
@@ -452,7 +504,12 @@
   </section>
 </main>
 
-<footer class="pie">
+<aside class="proximo pizarra" id="proximo" aria-label="Próximo paso" hidden>
+  <a href="#uso"><span class="proximo-etq">Próximo paso propuesto</span><span class="proximo-txt">Piloto en el sur</span></a>
+  <button type="button" id="proximo-cerrar" aria-label="Cerrar este aviso">×</button>
+</aside>
+
+<footer class="pie" id="quien">
   <div class="contenedor">
     <p>Radar de natalidad municipal · Proyecto para DATAMAD 2026 de Antonio González Fernández. Código con licencia MIT en <a href="https://github.com/antonmareo10/datamad-radar-natalidad">github.com/antonmareo10/datamad-radar-natalidad</a>; tablas derivadas CC BY 4.0. Código escrito con un asistente de IA (Claude Code) bajo su dirección; las cifras las recalcula <code>python -m radar todo</code> y las vigilan los tests.</p>
   </div>
@@ -460,5 +517,8 @@
 
 <script src="datos/radar.js"></script>
 <script src="app.js"></script>
+<script src="vendor/lenis.min.js"></script>
+<script src="vendor/scrollama.min.js"></script>
+<script src="movimiento.js"></script>
 </body>
 </html>
