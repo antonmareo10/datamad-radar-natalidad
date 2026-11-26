@@ -271,7 +271,8 @@
     if (anunciar) document.getElementById("anuncio").textContent = "Ficha de " + MUN[cm].n + " actualizada.";
   }
 
-  function actualizar() { pintarMapa(); ficha(); tablaMunicipios(); }
+  let tiempoSync = null;  // el control de tiempo del mapa sigue a los selectores
+  function actualizar() { pintarMapa(); ficha(); tablaMunicipios(); if (tiempoSync) tiempoSync(); }
 
   // ------------------------------------------------------------------ gráfico de líneas con banda
   function pasoBonito(v) {
@@ -723,6 +724,96 @@
     }
     etiquetas.innerHTML = h;
     sv.appendChild(etiquetas);
+  })();
+
+  // ------------------------------------------------------------------ el mapa en el tiempo: de 2024/25 a 2030/31, año a año
+  (function tiempo() {
+    const caja_ = document.getElementById("tiempo");
+    if (!caja_) return;
+    const boton = document.getElementById("tiempo-play"), rango = document.getElementById("tiempo-rango");
+    const cursoTxt = document.getElementById("tiempo-curso"), totalTxt = document.getElementById("tiempo-total");
+    const P = R.resumen.proyeccion_1o, N = R.cursos_p1.length;  // 0 = 2024/25 (real); 1..N = cursos previstos
+    const QUIETO = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const NEUTRO = DIV.colores[clase(0, DIV.cortes)];
+    let reloj = null, propio = false, tocado = false;
+    const icono = boton.querySelector(".tiempo-icono");
+
+    function rotulo(v) {
+      const r = v > 0 ? P.region[v - 1] : null;
+      cursoTxt.textContent = v > 0 ? R.cursos_p1[v - 1] : R.base;
+      totalTxt.textContent = r ? `${ent(r.prevision)} alumnos de 1.º previstos en la región (${pct(r.cambio_pct, 1)})` : `${ent(P.real_base)} alumnos de 1.º en la región: el último dato real`;
+      rango.value = String(v);
+      rango.setAttribute("aria-valuetext", v > 0 ? R.cursos_p1[v - 1] : R.base + ", dato real");
+    }
+    const resumenEl = document.getElementById("resumen-mapa");
+    function fijarAlto() { if (resumenEl && !resumenEl.style.minHeight) resumenEl.style.minHeight = resumenEl.offsetHeight + "px"; }  // la frase de arriba no mueve el mapa
+    function fotograma(v) {
+      fijarAlto();
+      propio = true;
+      if (estado.nivel !== "p1" || estado.modo !== "cambio") {  // el tiempo se cuenta en 1.º de primaria y en cambio previsto
+        estado.nivel = "p1"; estado.modo = "cambio";
+        document.querySelector('input[name="nivel"][value="p1"]').checked = true;
+        document.querySelector('input[name="modo"][value="cambio"]').checked = true;
+      }
+      estado.iP1 = Math.max(0, v - 1);
+      opcionesCurso();
+      pintarMapa();
+      if (v === 0) {  // punto de partida: el curso real, sin cambio en ningún municipio
+        Object.entries(caminos).forEach(([cm, p]) => { if (dato(MUN[cm])) { p.setAttribute("fill", NEUTRO); p.setAttribute("fill-opacity", "1"); } });
+        if (resumenEl) resumenEl.innerHTML = `1.º de primaria en ${esc(R.base)}: el último curso con matrícula publicada, punto de partida de la previsión.`;
+      }
+      rotulo(v);
+      propio = false;
+    }
+    function parar(final) {
+      if (reloj) { clearTimeout(reloj); reloj = null; }
+      svg.classList.remove("anima");
+      icono.textContent = "▶";
+      boton.setAttribute("aria-label", "Reproducir el mapa de 2025 a 2030");
+      if (final) {  // la ficha solo se redibuja si alguien la abrió a mitad de la animación (así no se cierran sus desplegables)
+        const k = document.querySelector("#ficha .kpi-etq");
+        propio = true;
+        if (k && k.textContent.indexOf(R.cursos_p1[estado.iP1]) < 0) ficha();
+        tablaMunicipios();
+        propio = false;
+      }
+    }
+    function reproducir() {
+      parar(false);
+      svg.classList.add("anima");
+      icono.textContent = "❚❚";
+      boton.setAttribute("aria-label", "Pausar");
+      let v = +rango.value >= N ? 0 : +rango.value;
+      fotograma(v);
+      const paso = () => {
+        v++;
+        fotograma(v);
+        if (v >= N) { reloj = null; setTimeout(() => parar(true), 600); return; }
+        reloj = setTimeout(paso, 800);
+      };
+      reloj = setTimeout(paso, v === 0 ? 1000 : 800);
+    }
+    boton.addEventListener("click", () => { tocado = true; if (reloj) parar(true); else reproducir(); });
+    rango.addEventListener("input", () => { tocado = true; parar(false); fotograma(+rango.value); });
+    rango.addEventListener("change", () => { propio = true; ficha(); tablaMunicipios(); propio = false; });
+    tiempoSync = () => {  // si alguien cambia el curso, la etapa o el modo a mano, el control lo refleja
+      if (propio) return;
+      parar(false);
+      const enP1 = estado.nivel === "p1" && estado.modo === "cambio";
+      caja_.classList.toggle("tiempo-fuera", !enP1);
+      rotulo(estado.iP1 + 1);
+      if (!enP1) cursoTxt.textContent = estado.nivel === "p1" ? R.cursos_p1[estado.iP1] : R.cursos_pi[estado.iPI];
+    };
+    rotulo(N);
+    // se reproduce solo una vez, al llegar al mapa (nunca en ?demo ni con movimiento reducido)
+    if (!DEMO && !QUIETO.matches && "IntersectionObserver" in window) {
+      const io = new IntersectionObserver(ents => {
+        if (!ents.some(e => e.isIntersecting)) return;
+        io.disconnect();
+        if (!tocado && estado.nivel === "p1" && estado.modo === "cambio" && estado.iP1 === N - 1) { rango.value = "0"; reproducir(); }
+      }, { threshold: 0.55 });
+      io.observe(svg);
+    }
   })();
 
   // ------------------------------------------------------------------ ¿Y en tu municipio?: la clase de 20 sillas, redibujada

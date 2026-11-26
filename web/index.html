@@ -225,6 +225,13 @@
               <title id="mapa-titulo">Mapa de los municipios de la Comunidad de Madrid</title>
               <desc id="mapa-desc">Coroplético del cambio previsto por municipio. La misma información está en la tabla de municipios, debajo del mapa.</desc>
             </svg>
+            <div class="tiempo" id="tiempo">
+              <p class="tiempo-anio" aria-hidden="true"><span class="tiempo-curso" id="tiempo-curso">2030/31</span><span class="tiempo-total" id="tiempo-total"></span></p>
+              <div class="tiempo-mandos">
+                <button type="button" class="tiempo-play" id="tiempo-play" aria-label="Reproducir el mapa de 2025 a 2030"><span class="tiempo-icono" aria-hidden="true">▶</span> 2025 → 2030</button>
+                <input type="range" class="tiempo-rango" id="tiempo-rango" min="0" max="6" step="1" value="6" aria-label="Curso que enseña el mapa" aria-valuetext="2030/31">
+              </div>
+            </div>
             <div class="tooltip" id="tooltip" hidden></div>
           </div>
           <figcaption>
