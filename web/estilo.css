@@ -763,3 +763,36 @@ html.mov .aula-sillas:not(.re) .silla { animation: llegar 420ms ease-out calc(38
   .heroe { grid-template-areas: ". aula" "titular aula" "sub aula" "acciones aula" ". aula"; grid-template-rows: 1fr auto auto auto 1fr; row-gap: 20px; }
   .heroe .heroe-sub { display: block; grid-area: sub; margin: 0; font-size: clamp(1rem, 1.2vw, 1.2rem); line-height: 1.45; max-width: 46ch; }
 }
+
+/* ---------------------------------------------------------------- «¿Y si…?»: simulación en la ficha. Contorno discontinuo y tinta neutra: no es la previsión */
+.simula { margin: 18px 0 6px; padding: 14px 14px 12px; border: 1.5px dashed #8a877e; border-radius: 10px; background: #faf9f6; }
+.ficha .simula h4 { margin: 0 0 6px; font-size: 1.05rem; }
+.ficha .simula-aviso { margin: 0 0 12px; font-size: 0.88rem; color: var(--tinta-2); max-width: none; }
+.simula-mando { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; align-items: center; }
+.simula-mando label { grid-column: 1 / -1; font-size: 0.82rem; font-weight: 600; color: var(--tinta-2); }
+.simula-mando input { width: 100%; min-height: 32px; margin: 0; accent-color: var(--tinta); cursor: pointer; }
+.simula-mando output { min-width: 9.5em; text-align: right; font-weight: 750; font-variant-numeric: tabular-nums; }
+.simula-cuerpo { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px 18px; margin-top: 10px; align-items: start; }
+@media (min-width: 520px) { .simula-cuerpo { grid-template-columns: 170px minmax(0, 1fr); } }
+.simula-fig { margin: 0; max-width: 190px; }
+.simula-sillas { width: 100%; height: auto; }
+.simula-sillas .nino { fill: #1f3c34; }
+.simula-sillas .respaldo, .simula-sillas .asiento { fill: #9fb1aa; }
+.simula-sillas .patas { fill: none; stroke: #9fb1aa; stroke-width: 3.2; stroke-linecap: round; }
+.simula-sillas .vacia .nino { display: none; }
+.simula-sillas .vacia .respaldo, .simula-sillas .vacia .asiento { fill: #ff8f7a; }
+.simula-sillas .vacia .patas { stroke: #ff8f7a; }
+.simula-sillas .hueco { fill: none; stroke: #c2453b; stroke-width: 1.6; stroke-dasharray: 3 3.2; }
+.simula-sillas .nueva .respaldo, .simula-sillas .nueva .asiento { fill: #86b6ef; }
+.simula-sillas .nueva .patas { stroke: #86b6ef; }
+.simula-sillas .fantasma { opacity: 0.22; }
+.simula-sillas .anillo { fill: none; stroke: #4a4945; stroke-width: 1.5; stroke-dasharray: 4 3; }
+.simula-fig figcaption { display: flex; flex-wrap: wrap; gap: 2px 12px; margin-top: 6px; font-size: 0.76rem; color: var(--tinta-3); }
+.simula-fig figcaption span { display: inline-flex; align-items: center; gap: 5px; }
+.simula-fig figcaption span::before { content: ""; width: 9px; height: 9px; border-radius: 2px; background: #ff8f7a; flex: none; }
+.simula-fig figcaption .simula-ley-nueva::before { background: #86b6ef; }
+.simula-fig figcaption .simula-ley-cambia::before { background: none; border: 1.5px dashed #4a4945; }
+.ficha .simula-res { margin: 0; font-size: 0.95rem; line-height: 1.5; color: var(--tinta-2); max-width: none; min-height: 7.5em; }
+.simula-res strong { color: var(--tinta); font-weight: 750; }
+html.demo .simula-res { font-size: 0.9rem; }
+@media (max-width: 519px) { .simula-mando { grid-template-columns: minmax(0, 1fr); } .simula-mando output { min-width: 0; text-align: left; } }

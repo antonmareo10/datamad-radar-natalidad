@@ -385,6 +385,77 @@
   }
 
   // ------------------------------------------------------------------ ficha de municipio
+  // ------------------------------------------------------------------ «¿Y si…?»: simulación, no previsión
+  // Multiplica el factor del municipio (alumnos de 1.º por nacido) por 1 + s, con s de −20 % a +20 %. Como la previsión es nacidos × factor,
+  // los alumnos simulados son la previsión × (1 + s). Con s = 0 coincide con la previsión. El intervalo y la previsión no se tocan.
+  let SI = 0, siIr = false;
+  try {
+    const v = parseInt(new URLSearchParams(location.search).get("si"), 10);
+    if (!isNaN(v)) { SI = Math.max(-20, Math.min(20, Math.round(v / 5) * 5)); siIr = true; }
+  } catch (e) { /* sin URLSearchParams */ }
+  const ORDEN_SI = [3, 6, 14, 15, 10, 18, 1, 12, 8, 17, 5, 2, 19, 7, 11, 0, 13, 9, 16, 4];
+  function simulador(m, cm) {
+    const caja = document.getElementById("simula");
+    if (!caja) return;
+    const p = m.p1[m.p1.length - 1], base = m.y1[m.y1.length - 1], ult = R.cursos_p1[R.cursos_p1.length - 1];
+    caja.innerHTML = `<h4 id="simula-t">¿Y si llegan más (o menos) familias con niños?</h4>
+      <p class="simula-aviso"><strong>Simulación, no es la previsión:</strong> qué pasaría si cambiara la llegada o salida de familias con niños. La previsión y su intervalo no cambian.</p>
+      <div class="simula-mando"><label for="simula-rango">Factor del municipio</label>
+        <input type="range" id="simula-rango" min="-20" max="20" step="5" value="${SI}" list="simula-marcas">
+        <datalist id="simula-marcas"><option value="-20"></option><option value="-10"></option><option value="0"></option><option value="10"></option><option value="20"></option></datalist>
+        <output for="simula-rango" id="simula-valor"></output></div>
+      <div class="simula-cuerpo">
+        <figure class="simula-fig"><svg class="simula-sillas" id="simula-sillas" viewBox="-6 -4 284 294" role="img" aria-labelledby="simula-sillas-t"></svg>
+          <figcaption><span class="simula-ley-vacia">silla vacía</span><span class="simula-ley-nueva">silla nueva</span><span class="simula-ley-cambia">cambia respecto a la previsión</span></figcaption></figure>
+        <p class="simula-res" id="simula-res" aria-live="polite"></p>
+      </div>`;
+    const rango = document.getElementById("simula-rango"), valor = document.getElementById("simula-valor");
+    const res = document.getElementById("simula-res"), sv = document.getElementById("simula-sillas");
+    const sillasDe = c => { const n = Math.min(Math.round(20 * Math.abs(c) / 100), c < 0 ? 20 : 10); return c < 0 ? -n : n; };  // negativo: vacías; positivo: nuevas
+    const clase = k => (k < 0 ? `${-k} de 20 sillas vacías` : k > 0 ? `${k} ${k === 1 ? "silla nueva" : "sillas nuevas"} por cada 20` : "las 20 sillas ocupadas");
+    const silla = (x, y, cls, cambia) => `<g class="silla${cls ? " " + cls : ""}" transform="translate(${x} ${y})">${cambia ? '<rect class="anillo" x="-4" y="-2" width="48" height="62" rx="8"/>' : ""}<g class="nino"><circle cx="20" cy="11" r="8"/><path d="M5 37C5 26 11 21 20 21S35 26 35 37Z"/></g>${cls === "vacia" ? '<circle class="hueco" cx="20" cy="11" r="8"/>' : ""}<rect class="respaldo" x="3" y="27" width="34" height="15" rx="3"/><rect class="asiento" x="1" y="44" width="38" height="4" rx="2"/><path class="patas" d="M6 48v9M34 48v9"/></g>`;
+    function pintar() {
+      const k = 1 + SI / 100, ps = p[0] * k, cF = (p[0] / base - 1) * 100, cS = (ps / base - 1) * 100;
+      const dif = Math.round(ps) - Math.round(p[0]), cual = dif > 0 ? "más" : "menos";
+      const kF = sillasDe(cF), kS = sillasDe(cS);
+      const vF = new Set(ORDEN_SI.slice(0, Math.max(0, -kF))), vS = new Set(ORDEN_SI.slice(0, Math.max(0, -kS)));
+      const nF = Math.max(0, kF), nS = Math.max(0, kS), total = 20 + Math.max(nF, nS), filas = Math.ceil(total / 5);
+      let h = "";
+      for (let i = 0; i < total; i++) {
+        const x = 8 + 54 * (i % 5), y = 6 + 72 * Math.floor(i / 5);
+        if (i < 20) h += silla(x, y, vS.has(i) ? "vacia" : "", vS.has(i) !== vF.has(i));
+        else { const j = i - 20; h += silla(x, y, j < nS ? "nueva" : "fantasma", (j < nS) !== (j < nF)); }
+      }
+      const e = filas > 4 ? 280 / (72 * filas - 8) : 1;
+      sv.innerHTML = `<title id="simula-sillas-t">Clase simulada de 1.º de primaria en ${esc(m.n)} en ${esc(ult)}: ${clase(kS)}; con la previsión, ${clase(kF)}.</title>` +
+        (e < 1 ? `<g transform="translate(${((272 - 272 * e) / 2).toFixed(1)} 0) scale(${e.toFixed(4)})">${h}</g>` : h);
+      valor.textContent = SI === 0 ? "0" + NBSP + "%: la previsión" : pct(SI);
+      rango.setAttribute("aria-valuetext", SI === 0 ? "0 %, la previsión" : pct(SI) + " sobre el factor medido");
+      const a = Math.abs(dif) / 20;
+      const aulas = a < 0.5 ? "" : a < 1.5 ? ` · un aula ${cual}` : ` · unas ${ent(a >= 50 ? Math.round(a / 10) * 10 : Math.round(a))} aulas ${cual}`;
+      res.innerHTML = SI === 0
+        ? `Con el factor medido (${f3.format(m.f)}): <strong>${ent(p[0])}</strong> alumnos de 1.º en ${esc(ult)}, que es la previsión (${pct(cF)} frente a ${esc(R.base)}). En la clase: ${clase(kF)}. Mueve el control para simular.`
+        : `Si el factor fuera ${f3.format(m.f * k)} (${pct(SI)}): unos <strong>${ent(ps)}</strong> alumnos de 1.º en ${esc(ult)}, <strong>${ent(Math.abs(dif))} ${cual}</strong> que la previsión (${ent(p[0])})${aulas}. Frente a ${esc(R.base)} (${ent(base)}): ${pct(cS)}; la previsión es ${pct(cF)}, entre ${ent(p[1])} y ${ent(p[2])} alumnos. En la clase: ${clase(kS)}; con la previsión, ${clase(kF)}.`;
+      caja.dataset.sim = String(Math.round(ps)); caja.dataset.prev = String(Math.round(p[0]));
+      caja.classList.toggle("simulando", SI !== 0);
+    }
+    rango.addEventListener("input", () => {
+      SI = +rango.value; pintar();
+      try {
+        const u = new URL(location.href);
+        u.searchParams.set("m", cm);
+        if (SI) u.searchParams.set("si", SI); else u.searchParams.delete("si");
+        history.replaceState(null, "", u.pathname + u.search + u.hash);
+      } catch (e) { /* file:// en algunos navegadores */ }
+    });
+    pintar();
+    if (siIr) {  // ?m=Fuenlabrada&si=10 abre la ficha en el escenario
+      siIr = false;
+      const ir = () => { const c = document.getElementById("simula"); if (c) c.scrollIntoView({ block: "center" }); };
+      if (document.readyState === "complete") setTimeout(ir, 150); else window.addEventListener("load", () => setTimeout(ir, 150));
+    }
+  }
+
   function ficha() {
     const cm = estado.sel, m = MUN[cm];
     const el = document.getElementById("ficha");
@@ -422,6 +493,7 @@
     partes.push(`<h4>1.º de primaria: alumnos y nacidos seis años antes</h4><div class="grafico" id="g-1o"></div>
       <details class="desplegable-mini"><summary>Ver los datos en una tabla</summary><div class="tabla-scroll" id="t-1o"></div></details>`);
     partes.push(`<p>Factor del municipio: ${f3.format(m.f)} alumnos de 1.º por cada niño nacido aquí, medido en su matrícula de infantil de ${R.base}. Por encima de 1, el municipio escolariza a más niños de los que nacen en él.</p>`);
+    if (m.f && m.p1 && m.p1.length && m.p1[m.p1.length - 1][0] != null && m.y1 && m.y1[m.y1.length - 1]) partes.push(`<div class="simula no-informe" id="simula"></div>`);
     // backtest del municipio
     const bt = (m.bt || []).filter(r => r[0] + r[1] === BASE && r[2] > 0).sort((a, b) => a[0] - b[0]);
     if (bt.length) {
@@ -453,6 +525,7 @@
       <p><strong>Fuentes.</strong> ${[...new Set(["nacidos", "primaria_curso", "ensenanzas_titularidad"].map(k => fuente(k)).filter(f => f.titulo).map(f => `${f.titulo} (${f.editor})`))].map(esc).join("; ")}. Catálogo de datos abiertos de la Comunidad de Madrid, datos.comunidad.madrid, licencia CC BY 4.0. Datos generados el ${esc(fecha(R.generado_utc))}.</p>
       <p><strong>En línea:</strong> ${esc(enlace)}</p></div>`);
     el.innerHTML = partes.join("");
+    simulador(m, cm);
 
     // gráfico 1.º
     const x0 = NAC0 + 6, x1 = BASE + R.cursos_p1.length;
