@@ -9,4 +9,6 @@
   - Lo respondió un agente nuevo con el modelo Claude, y lo puntuó [asistente/evaluar.py](asistente/evaluar.py) de forma determinista contra la API de producción.
   - Es una prueba pequeña: demuestra el método, no que acierte siempre.
 
+- **[verificar_cifras.py](verificar_cifras.py):** contrasta con la API de producción cada cifra que aparece en las diapositivas, la ficha y el guion, redondeando una sola vez. Termina con error si alguna no coincide (`python analisis/verificar_cifras.py`).
+
 Código escrito con Claude Code bajo la dirección de Antonio González Fernández.
