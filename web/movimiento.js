@@ -19,9 +19,9 @@
   // ------------------------------------------------------------------ ir a un sitio de la página
   function ir(el, foco) {
     const suave = MOV ? "smooth" : "auto";
-    if (foco && cab.classList.contains("pin")) { if (lenis) lenis.scrollTo(0); else window.scrollTo({ top: 0, behavior: suave }); }
+    if (foco && cab.classList.contains("pin")) { if (lenis) lenis.scrollTo(0, { duration: 1.1 }); else window.scrollTo({ top: 0, behavior: suave }); }
     else if (foco) foco.scrollIntoView({ behavior: suave, block: "center" });
-    else if (lenis) lenis.scrollTo(el);
+    else if (lenis) lenis.scrollTo(el, { duration: 1.3 });
     else el.scrollIntoView({ behavior: suave, block: "start" });
     if (foco) setTimeout(() => foco.focus({ preventScroll: true }), MOV ? 750 : 0);
   }
@@ -74,8 +74,10 @@
   const capitulo = $("#capitulo");
   if (capitulo) {
     capitulo.addEventListener("change", () => {
-      const o = capitulo.selectedOptions[0], el = o && document.getElementById(o.dataset.irA);
+      const o = capitulo.selectedOptions[0];
+      let el = o && document.getElementById(o.dataset.irA);
       if (!el) return;
+      if (el.tagName === "H2") el = el.closest("section") || el;  // el tramo entero, no solo su título
       if (o.value === "sillas") { if (lenis) lenis.scrollTo(0); else window.scrollTo({ top: 0, behavior: MOV ? "smooth" : "auto" }); }
       else ir(el, o.value === "municipio" ? document.getElementById("tm-buscar") : null);
       capitulo.blur();
