@@ -1,6 +1,6 @@
 # Radar de natalidad municipal
 
-> Previsión abierta de cuántos niños entrarán en 1.º de primaria (hasta 2030/31) e infantil de 3 a 5 años (hasta 2027/28) en cada uno de los 136 municipios con colegio de la Comunidad de Madrid, con un intervalo del 80 % y su error medido en cursos ya cerrados. Hecha solo con datos del catálogo de datos abiertos de la Comunidad de Madrid. Proyecto para DataMad 2026 de Antonio González Fernández (participación individual).
+> Previsión abierta de cuántos niños entrarán en 1.º de primaria (hasta 2030/31) e infantil de 3 a 5 años (hasta 2027/28) en cada uno de los 136 municipios con colegio de la Comunidad de Madrid, con un intervalo del 80 % y su error medido en cursos ya cerrados. Hecha solo con datos del catálogo de datos abiertos de la Comunidad de Madrid. Proyecto para DATAMAD 2026 de Antonio González Fernández (participación individual).
 
 Este fichero resume en texto plano lo mismo que enseña la web https://radar-natalidad-madrid.vercel.app y su repositorio. Todas las cifras salen de `resultados/resumen.json` y se regeneran con cada ejecución.
 

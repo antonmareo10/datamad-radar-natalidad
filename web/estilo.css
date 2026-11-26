@@ -168,6 +168,10 @@ p { margin: 0 0 1em; max-width: 72ch; }
   .aula { grid-area: aula; max-width: 440px; }
 }
 /* pantallas bajas (proyector de 720 p): la clase entera cabe sin desplazarse */
+.heroe-sub { margin: -8px 0 0; font-size: 1rem; line-height: 1.45; color: var(--tiza-2); max-width: 46ch; }
+@media (min-width: 900px) { .heroe-sub { display: none; } }  /* en escritorio lo dice el antetítulo de la barra */
+.desliza { display: none; margin: 0 0 6px; font-size: 0.85rem; font-weight: 650; color: var(--tinta-3); text-align: right; }
+@media (max-width: 719px) { .desliza { display: block; } }
 @media (min-width: 900px) and (max-height: 820px) { .aula { max-width: 360px; } .titular { font-size: clamp(2.4rem, 4.4vw, 4.2rem); } }
 
 /* tramos de la portada */

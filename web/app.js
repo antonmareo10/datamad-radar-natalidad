@@ -701,8 +701,8 @@
     const P = R.resumen.proyeccion_1o;
     const cCap = centro([CAP]), cSur = centro(Object.keys(MUN).filter(cm => MUN[cm].z === "Sur" && cajas[cm])), cFue = centro(["28058"]);
     let h = "";
-    if (cCap) h += texto(cCap[0] + 6, cCap[1] - 8, "Capital", pct(P.capital.cambio_pct), "middle");
-    if (cSur) h += texto(cSur[0] + 70, cSur[1] + 175, "Sur", pct(P.por_area_cambio_pct.Sur), "start");
+    if (cCap) h += texto(cCap[0] + 6, cCap[1] - 8, "Capital", pct(P.capital.cambio_pct, 1), "middle");
+    if (cSur) h += texto(cSur[0] + 70, cSur[1] + 175, "Sur", pct(P.por_area_cambio_pct.Sur, 1), "start");
     if (cFue && MUN["28058"]) {
       h += `<circle class="e-punto" cx="${cFue[0]}" cy="${cFue[1]}" r="9" data-cm="28058"/>`;
       h += texto(cFue[0] - 18, cFue[1] + 10, "Fuenlabrada", "", "end", "e-fue", "28058");

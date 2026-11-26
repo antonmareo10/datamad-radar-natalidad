@@ -80,7 +80,7 @@
   <div class="contenedor barra">
     <a class="titulo-marca" href="#principal">
       <svg class="marca" viewBox="0 0 32 32" width="32" height="32" aria-hidden="true" focusable="false"><circle cx="16" cy="20.25" r="8" fill="none" stroke="currentColor" stroke-width="4.5"/><path d="M8.482 17.514C10.603 11.688 16.1 4.1 23.1 3.35" fill="none" stroke="currentColor" stroke-width="4.5"/><circle cx="16" cy="20.25" r="2.6" fill="#ff8f7a"/></svg>
-      <span class="marca-texto"><span class="marca-nombre">Radar de natalidad municipal</span><span class="antetitulo">Proyecto para DataMad 2026 con datos abiertos de la Comunidad de Madrid</span></span>
+      <span class="marca-texto"><span class="marca-nombre">Radar de natalidad municipal</span><span class="antetitulo">Proyecto para DATAMAD 2026 con datos abiertos de la Comunidad de Madrid</span></span>
     </a>
     <nav class="barra-nav" aria-label="Atajos">
       <a href="#mapa">Mapa</a><a href="#metodo">Método</a><a href="#reutiliza">API y MCP</a><a href="#datos">Datos</a>
@@ -88,6 +88,7 @@
   </div>
   <div class="contenedor heroe">
     <h1 class="titular">En 2030, en el sur de Madrid, de cada 20&nbsp;sillas de primero, 4&nbsp;estarán vacías.</h1>
+    <p class="heroe-sub">Previsión abierta de alumnos de 1.º en los <span data-r="resumen.proyeccion_1o.municipios_con_colegio">136</span> municipios con colegio hasta <span data-r="cursos_p1.-1">2030/31</span>, con su error medido. Solo datos abiertos de la Comunidad de Madrid.</p>
     <figure class="aula">
       <svg class="aula-sillas" viewBox="0 0 272 286" width="272" height="286" role="img" aria-labelledby="aula-titulo">
         <title id="aula-titulo">Veinte sillas de una clase de 1.º de primaria vistas desde atrás: dieciséis con un niño y cuatro vacías, como el −21 % previsto en el área Sur.</title>
@@ -301,7 +302,7 @@
         <li>Cuando cambia el ciclo migratorio. Los intervalos municipales salen de <span data-r="curso_inicial"></span>-<span data-r="base"></span>, años de migración estable. En la serie regional, con la razón alumnos/nacidos congelada, el error mediano llegó, según la antelación, hasta el <span data-r="resumen.region_serie_larga.por_periodo_razon_regional.2009-2015.mdape_max" data-f="pct1abs"></span> en 2009-2015, tras la crisis, cuando se fueron familias; con el ciclo estable de 2016 en adelante no pasó del <span data-r="resumen.region_serie_larga.por_periodo_razon_regional.2016-en adelante.mdape_max" data-f="pct1abs"></span>.</li>
         <li>No prevé el total de primaria ni la red pública y la concertada por separado, y no baja a los distritos de la capital: el catálogo no publica nacimientos por distrito.</li>
       </ul>
-      <p>Agregar ayuda: sumando las previsiones de cada área territorial (Capital, Norte, Sur, Este y Oeste), el error total baja al <span data-r="resumen.backtest_1o.wape_areas.5.radar" data-f="pct1abs"></span> a cinco cursos, frente al <span data-r="resumen.backtest_1o.wape_areas.5.ingenuo" data-f="pct1abs"></span> de suponer que nada cambia. Los intervalos del 80 % se calibraron con los errores del pasado; calculados sin la base que se evalúa, contienen al real en el <span data-r="resumen.cobertura_intervalos_1o_pct.todos" data-f="pct1abs"></span> de los casos.</p>
+      <p>Sumar por áreas reduce el error: sumando las previsiones de cada área territorial (Capital, Norte, Sur, Este y Oeste), el error total baja al <span data-r="resumen.backtest_1o.wape_areas.5.radar" data-f="pct1abs"></span> a cinco cursos, frente al <span data-r="resumen.backtest_1o.wape_areas.5.ingenuo" data-f="pct1abs"></span> de suponer que nada cambia. Los intervalos del 80 % se calibraron con los errores del pasado; calculados sin la base que se evalúa, contienen al real en el <span data-r="resumen.cobertura_intervalos_1o_pct.todos" data-f="pct1abs"></span> de los casos.</p>
     </div>
   </section>
 
@@ -417,6 +418,7 @@
       <p class="kicker">Datos y licencias</p>
       <h2 id="t-datos">De dónde sale cada cifra</h2>
       <p>Todos los ficheros se descargan de su URL oficial en el catálogo de la Comunidad de Madrid. La fecha es la de la descarga que generó esta versión.</p>
+      <p class="desliza" aria-hidden="true">desliza →</p>
       <div class="tabla-scroll"><table class="tabla" id="tabla-fuentes"></table></div>
       <p class="nota">Código con licencia MIT (<a href="https://github.com/antonmareo10/datamad-radar-natalidad">repositorio en GitHub</a>). Tablas derivadas con licencia CC BY 4.0, citando como fuente original a la Comunidad de Madrid (datos.comunidad.madrid). Los límites municipales son la capa «Municipios y Distritos de Madrid (2020)» del mismo catálogo (CC BY); los 21 distritos de la capital se funden en uno y las líneas se simplifican para el mapa. Datos generados el <span data-r="generado"></span>.</p>
     </div>
@@ -425,7 +427,7 @@
 
 <footer class="pie">
   <div class="contenedor">
-    <p>Radar de natalidad municipal · Proyecto para DataMad 2026 · Código abierto (MIT) en <a href="https://github.com/antonmareo10/datamad-radar-natalidad">github.com/antonmareo10/datamad-radar-natalidad</a>. Para reproducirlo: <code>python -m radar todo</code>.</p>
+    <p>Radar de natalidad municipal · Proyecto para DATAMAD 2026 de Antonio González Fernández. Código con licencia MIT en <a href="https://github.com/antonmareo10/datamad-radar-natalidad">github.com/antonmareo10/datamad-radar-natalidad</a>; tablas derivadas CC BY 4.0. Código escrito con un asistente de IA (Claude Code) bajo su dirección; las cifras las recalcula <code>python -m radar todo</code> y las vigilan los tests.</p>
   </div>
 </footer>
 
