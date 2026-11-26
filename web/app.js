@@ -418,7 +418,7 @@
       const media = propios.reduce((a, b) => a + b, 0) / propios.length;
       if (med > 15) partes.push(`<div class="aviso"><p>Aquí el radar ha fallado bastante en el pasado: error mediano del ${pctAbs(med, 1)} en sus ${propios.length} previsiones hechas con dos o más cursos de antelación, y en media ${media < 0 ? "se quedó corto" : "se pasó"} (${pct(media, 1)}). El intervalo es el de su grupo de tamaño y no recoge ese sesgo propio: tómalo con cautela.</p></div>`);
     }
-    if (cm === CAP) partes.push(`<p>No se puede bajar a los distritos: el catálogo regional no publica nacimientos por distrito, aunque sí el alumnado.</p>`);
+    if (cm === CAP) partes.push(`<p class="no-informe">No se puede bajar a los distritos: el catálogo regional no publica nacimientos por distrito, aunque sí el alumnado.</p>`);
     partes.push(`<h4>1.º de primaria: alumnos y nacidos seis años antes</h4><div class="grafico" id="g-1o"></div>
       <details class="desplegable-mini"><summary>Ver los datos en una tabla</summary><div class="tabla-scroll" id="t-1o"></div></details>`);
     partes.push(`<p>Factor del municipio: ${f3.format(m.f)} alumnos de 1.º por cada niño nacido aquí, medido en su matrícula de infantil de ${R.base}. Por encima de 1, el municipio escolariza a más niños de los que nacen en él.</p>`);
@@ -439,13 +439,19 @@
       let lectura = "La población infantil se mueve poco respecto a los nacimientos.";
       if (m.cen >= 105) lectura = "Llegan familias con niños pequeños. En municipios así el método tiende a quedarse corto: el dato real puede acercarse al extremo alto del intervalo.";
       else if (m.cen <= 95) lectura = "Se van más familias con niños pequeños de las que llegan.";
-      partes.push(`<h4>Señal de llegada de familias</h4><p>A 1 de enero de ${R.anio_censo} vivían aquí ${ent(m.cen_n)} niños de 0 a 4 años: ${ent(m.cen)} por cada 100 nacidos en el municipio en ${R.anio_censo - 5}-${R.anio_censo - 1}. ${lectura}</p>`);
+      partes.push(`<h4 class="no-informe">Señal de llegada de familias</h4><p class="no-informe">A 1 de enero de ${R.anio_censo} vivían aquí ${ent(m.cen_n)} niños de 0 a 4 años: ${ent(m.cen)} por cada 100 nacidos en el municipio en ${R.anio_censo - 5}-${R.anio_censo - 1}. ${lectura}</p>`);
     }
     if (m.pi) {
-      partes.push(`<h4>Infantil de 3 a 5 años</h4><div class="grafico" id="g-inf"></div>
+      partes.push(`<h4 class="no-informe">Infantil de 3 a 5 años</h4><div class="grafico no-informe" id="g-inf"></div>
         <details class="desplegable-mini"><summary>Ver los datos en una tabla</summary><div class="tabla-scroll" id="t-inf"></div></details>`);
-      if (m.gi === "pequeño") partes.push(`<p class="nota">En infantil, en los municipios pequeños, el método no mejora a suponer que nada cambia: tómalo como orientativo.</p>`);
+      if (m.gi === "pequeño") partes.push(`<p class="nota no-informe">En infantil, en los municipios pequeños, el método no mejora a suponer que nada cambia: tómalo como orientativo.</p>`);
     }
+    partes.push(`<p class="ficha-imprimir"><button type="button" class="boton boton-sec boton-imprimir">Imprimir informe de ${esc(m.n)}</button> <span class="nota">una página con la previsión, su intervalo, el acierto pasado y las fuentes</span></p>`);
+    const enlace = `https://radar-natalidad-madrid.vercel.app/?m=${cm}`;
+    partes.unshift(`<p class="solo-informe informe-cabecera">Radar de natalidad municipal · Informe de ${esc(m.n)} · previsión de alumnos de 1.º de primaria hasta ${esc(R.cursos_p1[R.cursos_p1.length - 1])}</p>`);
+    partes.push(`<div class="solo-informe informe-pie"><p><strong>Cómo leerlo.</strong> La previsión multiplica los nacidos en el municipio seis años antes por su factor, medido en su matrícula de infantil. El intervalo del 80${NBSP}% sale de los errores reales del método en cursos ya cerrados, en municipios de tamaño parecido.</p>
+      <p><strong>Fuentes.</strong> ${[...new Set(["nacidos", "primaria_curso", "ensenanzas_titularidad"].map(k => fuente(k)).filter(f => f.titulo).map(f => `${f.titulo} (${f.editor})`))].map(esc).join("; ")}. Catálogo de datos abiertos de la Comunidad de Madrid, datos.comunidad.madrid, licencia CC BY 4.0. Datos generados el ${esc(fecha(R.generado_utc))}.</p>
+      <p><strong>En línea:</strong> ${esc(enlace)}</p></div>`);
     el.innerHTML = partes.join("");
 
     // gráfico 1.º
@@ -513,6 +519,14 @@
     });
     t.tBodies[0].innerHTML = filas.map(x => `<tr><td class="txt"><button type="button" class="ir" data-cm="${x.cm}">${esc(x.m.n)}</button>${x.m.g === "pequeño" ? ' <span class="nota">(pequeño)</span>' : ""}</td><td class="txt">${esc(x.m.z || "")}</td><td>${ent(x.d.base)}</td><td class="destacado">${ent(x.d.p)}</td><td>${ent(x.d.lo)}–${ent(x.d.hi)}</td><td class="${x.d.cambio < -0.5 ? "baja" : x.d.cambio > 0.5 ? "sube" : ""}">${pct(x.d.cambio)}</td></tr>`).join("");
   }
+  document.getElementById("ficha").addEventListener("click", e => {  // «Imprimir informe»: una página con la ficha, sus fuentes y su enlace
+    if (!e.target.closest(".boton-imprimir")) return;
+    const raiz = document.documentElement, quitar = () => raiz.classList.remove("informe");
+    raiz.classList.add("informe");
+    window.addEventListener("afterprint", quitar, { once: true });
+    window.print();
+    setTimeout(quitar, 1000);
+  });
   document.getElementById("tabla-municipios").addEventListener("click", e => {
     const b = e.target.closest("button");
     if (!b) return;

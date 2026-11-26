@@ -521,3 +521,40 @@ abbr[title] { text-decoration: none; }
   .tramo-mapa.por-ver #svg-portada path.m { fill: #e6e4dd; fill-opacity: 1; }
   .tramo-mapa.visto #svg-portada path.m { transition: fill 450ms ease-out, fill-opacity 450ms ease-out; transition-delay: calc(var(--d, 0) * 550ms); }
 }
+
+/* ---------------------------------------------------------------- «Imprimir informe»: la ficha en una página */
+.ficha-imprimir { margin: 18px 0 0; padding-top: 14px; border-top: 1px solid var(--linea-suave); display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
+.ficha-imprimir .nota { margin: 0; }
+.boton-imprimir { min-height: 38px; padding: 7px 14px; font-size: 0.9rem; cursor: pointer; font-family: inherit; }
+.solo-informe { display: none; }
+@media print {
+  html.informe { font-size: 9.5pt; }
+  html.informe body { background: #fff; color: #000; line-height: 1.4; }
+  html.informe .ficha .aviso p { font-size: 8.5pt; line-height: 1.35; margin: 0; }
+  html.informe .ficha .meta { margin-bottom: 4pt; }
+  html.informe body > *:not(main), html.informe main > *:not(#mapa), html.informe #mapa .contenedor > *:not(.rejilla-mapa),
+  html.informe .mapa-fig, html.informe .ficha-imprimir, html.informe .ficha details, html.informe .ficha .no-informe,
+  html.informe .ficha .tooltip{ display: none !important; }
+  html.informe #mapa, html.informe .contenedor { padding: 0; margin: 0; max-width: none; }
+  html.informe .rejilla-mapa { display: block; }
+  html.informe .ficha { border: 0; box-shadow: none; padding: 0; background: #fff; }
+  html.informe .ficha h3 { font-size: 20pt; margin: 4pt 0 2pt; }
+  html.informe .ficha h4 { margin-top: 10pt; }
+  html.informe .ficha p, html.informe .ficha .aviso { break-inside: avoid; }
+  html.informe .grafico { break-inside: avoid; max-width: 170mm; }
+  html.informe .solo-informe { display: block; }
+  html.informe .informe-cabecera { font-size: 8.5pt; color: #444; border-bottom: 1px solid #999; padding-bottom: 4pt; margin: 0; max-width: none; }
+  html.informe .informe-pie { margin-top: 10pt; padding-top: 6pt; border-top: 1px solid #999; font-size: 8pt; color: #333; break-inside: avoid; }
+  html.informe .informe-pie p { margin: 0 0 3pt; max-width: none; }
+  html.informe .ficha .tabla { font-size: 8.5pt; }
+  html.informe .ficha .tabla th, html.informe .ficha .tabla td { padding: 1.5pt 6pt; }
+  html.informe .ficha .kpis { gap: 6pt; margin-top: 6pt; }
+  html.informe .ficha .kpi { padding: 6pt 8pt; }
+  html.informe .ficha .leyenda-fan { margin-bottom: 0; }
+  html.informe .grafico svg { width: 100%; height: 46mm; }
+  html.informe .ficha .kpi-valor { font-size: 20pt; }
+  html.informe .ficha .aviso { padding: 4pt 8pt; margin: 6pt 0; }
+  html.informe .ficha p { margin-bottom: 4pt; }
+  html.informe .ficha h4 { margin: 8pt 0 3pt; }
+  @page { size: A4; margin: 10mm 14mm; }
+}
