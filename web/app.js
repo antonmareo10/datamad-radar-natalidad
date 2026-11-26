@@ -711,9 +711,130 @@
     sv.appendChild(etiquetas);
   })();
 
+  // ------------------------------------------------------------------ ¿Y en tu municipio?: la clase de 20 sillas, redibujada
+  const deM = (function tuMunicipio() {
+    const sv = document.querySelector(".aula-sillas"), form = document.getElementById("tm");
+    if (!sv || !form) return null;
+    const campo = document.getElementById("tm-buscar"), texto = document.getElementById("tm-texto"), enlace = document.getElementById("tm-ficha");
+    const ley = document.getElementById("tm-ley"), titulo = document.getElementById("aula-titulo");
+    const ultimo = R.cursos_p1[R.cursos_p1.length - 1];
+    const norma = s => String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
+    const d2030 = m => {  // siempre el último curso previsto, aunque el mapa muestre otro
+      const p = m.p1 && m.p1[m.p1.length - 1], base = m.y1 && m.y1[m.y1.length - 1];
+      if (!p || p[0] == null || !base) return null;
+      return { p: p[0], lo: p[1], hi: p[2], base, cambio: (p[0] / base - 1) * 100, claro: p[2] < base || p[1] > base };
+    };
+    const conColegio = ordenNombres.filter(cm => MUN[cm].col && d2030(MUN[cm]));
+    document.getElementById("tm-lista").innerHTML = conColegio.map(cm => `<option value="${esc(MUN[cm].n)}"></option>`).join("");
+    titulo.remove();
+    const inicial = { html: texto.innerHTML, ley: ley.innerHTML, titulo: titulo.textContent, sillas: sv.innerHTML };
+    sv.prepend(titulo);
+    // orden en que se vacían (o se marcan) las sillas: las cuatro primeras son las de la portada
+    const ORDEN = [3, 6, 14, 15, 10, 18, 1, 12, 8, 17, 5, 2, 19, 7, 11, 0, 13, 9, 16, 4];
+    const MAX_NUEVAS = 10;
+    const silla = (x, y, cls, i) => `<g class="silla${cls ? " " + cls : ""}"${i != null ? ` style="--i:${i}"` : ""} transform="translate(${x} ${y})"><g class="nino"><circle cx="20" cy="11" r="8"/><path d="M5 37C5 26 11 21 20 21S35 26 35 37Z"/></g>${cls === "vacia" ? '<circle class="hueco" cx="20" cy="11" r="8"/>' : ""}<rect class="respaldo" x="3" y="27" width="34" height="15" rx="3"/><rect class="asiento" x="1" y="44" width="38" height="4" rx="2"/><path class="patas" d="M6 48v9M34 48v9"/></g>`;
+
+    function buscar(q) {
+      const t = norma(q);
+      if (!t) return null;
+      if (/^\d{5}$/.test(t)) return MUN[t] ? t : null;
+      const exacto = Object.keys(MUN).find(cm => norma(MUN[cm].n) === t);
+      if (exacto) return exacto;
+      const empieza = conColegio.filter(cm => norma(MUN[cm].n).startsWith(t));
+      if (empieza.length) return empieza[0];
+      const contiene = conColegio.filter(cm => norma(MUN[cm].n).includes(t));
+      return contiene.length ? contiene[0] : null;
+    }
+
+    function aulasTxt(dif) {  // a 20 alumnos por aula, como en la portada
+      const n = Math.abs(dif) / 20, cual = dif < 0 ? "menos" : "más";
+      if (n < 0.5) return "";
+      if (n < 1.5) return ` · un aula ${cual}`;
+      return ` · unas ${ent(n >= 50 ? Math.round(n / 10) * 10 : Math.round(n))} aulas ${cual}`;
+    }
+
+    function pintar(cm, alCargar) {
+      const m = MUN[cm];
+      if (!m || !m.col) {
+        sv.innerHTML = inicial.sillas; sv.prepend(titulo); sv.classList.add("re");
+        texto.innerHTML = m ? `<strong>${esc(m.n)}</strong> no tiene colegio de primaria: sus niños se escolarizan en municipios vecinos.` : inicial.html;
+        ley.className = "ley-vacia"; ley.innerHTML = inicial.ley; titulo.textContent = inicial.titulo;
+        if (m) { enlace.hidden = false; enlace.href = "#municipio=" + cm; enlace.dataset.cm = cm; } else enlace.hidden = true;
+        return;
+      }
+      const d = d2030(m);
+      const n = Math.min(Math.round(20 * Math.abs(d.cambio) / 100), d.cambio < 0 ? 20 : MAX_NUEVAS);
+      const baja = d.cambio < 0, claro = !!d.claro;
+      const cls = baja ? (claro ? "vacia" : "duda-menos") : (claro ? "nueva" : "duda-mas");
+      const total = baja ? 20 : 20 + n, filas = Math.ceil(total / 5);
+      const marcadas = new Map((baja ? ORDEN.slice(0, n) : Array.from({ length: n }, (_, k) => 20 + k)).map((p, k) => [p, k]));
+      let h = "";
+      for (let p = 0; p < total; p++) {
+        const x = 8 + 54 * (p % 5), y = 6 + 72 * Math.floor(p / 5);
+        h += marcadas.has(p) ? silla(x, y, cls, marcadas.get(p)) : silla(x, y, "", null);
+      }
+      // con sillas nuevas la clase crece hacia atrás: se encoge para caber en el mismo hueco (sin mover la página)
+      const s = filas > 4 ? 280 / (72 * filas - 8) : 1;
+      sv.innerHTML = s < 1 ? `<g transform="translate(${((272 - 272 * s) / 2).toFixed(1)} 0) scale(${s.toFixed(4)})">${h}</g>` : h;
+      sv.prepend(titulo);
+      sv.classList.toggle("re", !alCargar);
+      const recortado = !baja && Math.round(20 * d.cambio / 100) > MAX_NUEVAS;
+      const sillasTxt = n === 0 ? "las 20 sillas siguen ocupadas"
+        : baja ? `${n} de cada 20 sillas ${claro ? "vacías" : "podrían quedar vacías"}`
+        : `${n}${recortado ? " o más" : ""} sillas nuevas por cada 20${claro ? "" : ", si se cumple"}`;
+      titulo.textContent = `Clase de 1.º de primaria en ${m.n} en ${ultimo}: ${sillasTxt}, por un cambio previsto del ${pct(d.cambio)}.`;
+      const tipo = baja ? (claro ? "ley-vacia" : "ley-duda") : (claro ? "ley-nueva" : "ley-duda-mas");
+      ley.className = tipo;
+      ley.innerHTML = `<span>${baja ? (claro ? "una silla vacía en " + esc(ultimo) : "una silla quizá vacía") : (claro ? "una silla nueva en " + esc(ultimo) : "una silla quizá nueva")}</span>`;
+      const cola = claro ? aulasTxt(d.p - d.base) : ` · <span class="tm-incierto">incierto: el intervalo incluye que no cambie</span>`;
+      texto.innerHTML = `<strong>${esc(m.n)}</strong>: de ${ent(d.base)} alumnos de 1.º en ${esc(R.base)} a unos ${ent(d.p)} en ${esc(ultimo)} (<strong>${pct(d.cambio)}</strong>), entre ${ent(d.lo)} y ${ent(d.hi)}${cola}.` +
+        (recortado ? ` En el dibujo, ${MAX_NUEVAS} sillas nuevas como máximo.` : "");
+      enlace.hidden = false; enlace.href = "#municipio=" + cm; enlace.dataset.cm = cm;
+    }
+
+    function elegir(cm, alCargar) {
+      pintar(cm, alCargar);
+      if (!alCargar) {
+        try {
+          const u = new URL(location.href);
+          if (cm) u.searchParams.set("m", cm); else u.searchParams.delete("m");
+          history.replaceState(null, "", u.pathname + u.search + u.hash);
+        } catch (e) { /* file:// en algunos navegadores */ }
+      }
+    }
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      const q = campo.value;
+      if (!norma(q)) { elegir(null); return; }
+      const cm = buscar(q);
+      if (cm) { campo.value = MUN[cm].n; elegir(cm); }
+      else texto.innerHTML = `No encuentro «${esc(q.trim())}» entre los ${conColegio.length} municipios con colegio de primaria. Prueba con otro nombre o elige uno de la lista.`;
+    });
+    campo.addEventListener("input", () => {  // al elegir una sugerencia de la lista, sin pulsar «Ver»
+      const t = norma(campo.value);
+      if (!t) { elegir(null); return; }
+      const cm = conColegio.find(c => norma(MUN[c].n) === t);
+      if (cm) elegir(cm);
+    });
+    enlace.addEventListener("click", e => {
+      if (!enlace.dataset.cm) return;
+      e.preventDefault();
+      irA(enlace.dataset.cm, "ficha");
+    });
+
+    // ?m=28058 o ?m=Fuenlabrada abre la portada directamente en ese municipio
+    let q = null;
+    try { q = new URLSearchParams(location.search).get("m"); } catch (e) { /* sin URLSearchParams */ }
+    const cm0 = q ? buscar(q) : null;
+    if (cm0) { campo.value = MUN[cm0].n; pintar(cm0, true); }
+    return cm0;
+  })();
+
   // ------------------------------------------------------------------ arranque
   const m = /municipio=(\d{5})/.exec(location.hash);
   if (m && MUN[m[1]]) estado.sel = m[1];
+  else if (deM) estado.sel = deM;
   opcionesCurso();
   selMuni.value = estado.sel;
   actualizar();

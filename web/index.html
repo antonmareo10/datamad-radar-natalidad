@@ -112,7 +112,17 @@
           <g class="silla" transform="translate(170 222)"><g class="nino"><circle cx="20" cy="11" r="8"/><path d="M5 37C5 26 11 21 20 21S35 26 35 37Z"/></g><rect class="respaldo" x="3" y="27" width="34" height="15" rx="3"/><rect class="asiento" x="1" y="44" width="38" height="4" rx="2"/><path class="patas" d="M6 48v9M34 48v9"/></g>
           <g class="silla" transform="translate(224 222)"><g class="nino"><circle cx="20" cy="11" r="8"/><path d="M5 37C5 26 11 21 20 21S35 26 35 37Z"/></g><rect class="respaldo" x="3" y="27" width="34" height="15" rx="3"/><rect class="asiento" x="1" y="44" width="38" height="4" rx="2"/><path class="patas" d="M6 48v9M34 48v9"/></g>
       </svg>
-      <figcaption class="aula-pie" aria-hidden="true"><span class="ley-nino">un alumno</span><span class="ley-vacia"><span>una silla vacía en <span data-r="cursos_p1.-1">2030/31</span></span></span></figcaption>
+      <figcaption class="aula-pie" aria-hidden="true"><span class="ley-nino">un alumno</span><span class="ley-vacia" id="tm-ley"><span>una silla vacía en <span data-r="cursos_p1.-1">2030/31</span></span></span></figcaption>
+      <form class="tm" id="tm" role="search" action="#" autocomplete="off">
+        <label class="tm-etq" for="tm-buscar">¿Y en tu municipio?</label>
+        <div class="tm-fila">
+          <input class="tm-campo" id="tm-buscar" name="m" type="text" list="tm-lista" placeholder="Escribe su nombre" inputmode="search" enterkeyhint="search" spellcheck="false" autocapitalize="words" aria-describedby="tm-texto">
+          <button class="tm-ver" type="submit">Ver</button>
+        </div>
+        <datalist id="tm-lista"></datalist>
+      </form>
+      <p class="tm-texto" id="tm-texto" aria-live="polite">La media del área Sur: <strong><span data-r="resumen.proyeccion_1o.por_area_cambio_pct.Sur" data-f="pct">−21 %</span></strong> en 1.º de primaria. de <span data-r="base">2024/25</span> a <span data-r="cursos_p1.-1">2030/31</span>. Escribe tu municipio y la clase se redibuja con sus alumnos, su intervalo y su incertidumbre.</p>
+      <p class="tm-pie"><a class="tm-ficha" id="tm-ficha" href="#mapa" hidden>Ver su ficha →</a></p>
     </figure>
     <div class="acciones">
       <a class="boton" href="#municipio=28058" data-ir="28058" data-destino="ficha">Ver Fuenlabrada</a>
