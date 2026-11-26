@@ -84,9 +84,9 @@ Las cifras son las que devuelve hoy la API de producción (`region.json`, versi�
 
 Un asistente «especializado» sin examen es solo una promesa. Este tiene uno, y es determinista:
 
-- [`preguntas.json`](preguntas.json): 10 preguntas como las que haría un técnico municipal o la Consejería. Ocho piden datos (una cifra de un municipio, un cambio, el total regional, un ranking del sur, una comparación entre dos municipios, el error del backtest, un municipio con aviso de fiabilidad y la comprobación con un dato que el modelo no había visto). Dos son trampas (un curso fuera del horizonte y un municipio sin colegio) cuya respuesta correcta es «no tengo ese dato». Cada una guarda la URL, el campo y el valor exacto de la API.
-- [`evaluar.py`](evaluar.py): puntúa sin ningún modelo de por medio. Una respuesta de dato es correcta solo si las cifras coinciden con la API (como mucho redondeadas al entero en alumnos y exactas a un decimal en porcentajes), lleva su intervalo, cita una URL del radar y ninguna de fuera, y traslada el aviso cuando la API lo da. Una trampa es correcta solo si dice que no tiene el dato y no da ninguna cifra.
-- [`prompt_para_el_asistente.txt`](prompt_para_el_asistente.txt): el texto exacto que recibe el asistente (las reglas y las preguntas, sin las soluciones).
+- [`preguntas.json`](https://github.com/antonmareo10/datamad-radar-natalidad/blob/master/analisis/asistente/preguntas.json): 10 preguntas como las que haría un técnico municipal o la Consejería. Ocho piden datos (una cifra de un municipio, un cambio, el total regional, un ranking del sur, una comparación entre dos municipios, el error del backtest, un municipio con aviso de fiabilidad y la comprobación con un dato que el modelo no había visto). Dos son trampas (un curso fuera del horizonte y un municipio sin colegio) cuya respuesta correcta es «no tengo ese dato». Cada una guarda la URL, el campo y el valor exacto de la API.
+- [`evaluar.py`](https://github.com/antonmareo10/datamad-radar-natalidad/blob/master/analisis/asistente/evaluar.py): puntúa sin ningún modelo de por medio. Una respuesta de dato es correcta solo si las cifras coinciden con la API (como mucho redondeadas al entero en alumnos y exactas a un decimal en porcentajes), lleva su intervalo, cita una URL del radar y ninguna de fuera, y traslada el aviso cuando la API lo da. Una trampa es correcta solo si dice que no tiene el dato y no da ninguna cifra.
+- [`prompt_para_el_asistente.txt`](https://github.com/antonmareo10/datamad-radar-natalidad/blob/master/analisis/asistente/prompt_para_el_asistente.txt): el texto exacto que recibe el asistente (las reglas y las preguntas, sin las soluciones).
 
 ```bash
 python evaluar.py respuestas.json
@@ -98,7 +98,7 @@ El asistente se ejecuta en una sesión nueva, sin acceso a las soluciones, y su 
 - **Preguntas con dato:** 8 de 8 correctas, con la cifra, su intervalo y la fuente del radar.
 - **Trampas:** las 2 rechazadas con «no tengo ese dato», sin inventar nada.
 - **Cómo se hizo:**
-  - lo contestó un agente nuevo con el modelo Claude (Anthropic);
+  - lo contestó un agente nuevo, con un modelo de IA general;
   - solo tenía las reglas y las preguntas;
   - consultaba únicamente la API pública del radar;
   - lo puntuó `evaluar.py` de forma determinista contra la API de producción.
@@ -111,4 +111,5 @@ El asistente se ejecuta en una sesión nueva, sin acceso a las soluciones, y su 
 - El puntuador lee las cifras del campo `figures` y busca en el texto la negativa y el aviso; no juzga el tono ni la redacción de la respuesta.
 - Hereda los límites del radar: municipios pequeños con intervalos muy anchos, municipios que ganan familias jóvenes y cambios del ciclo migratorio.
 
-Código escrito con un asistente de IA (Claude Code) bajo la dirección de Antonio González Fernández. Datos: Radar de natalidad municipal, a partir de datos abiertos de la Comunidad de Madrid (datos.comunidad.madrid), CC BY 4.0.
+Antonio González Fernández · DATAMAD 2026. Datos: Radar de natalidad municipal, a partir de datos abiertos de la Comunidad de Madrid (datos.comunidad.madrid), CC BY 4.0.
+

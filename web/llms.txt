@@ -75,7 +75,6 @@ Instalación: https://github.com/antonmareo10/datamad-radar-natalidad/blob/maste
 - Tablas derivadas con licencia CC BY 4.0. Datos de origen: Comunidad de Madrid (datos.comunidad.madrid), CC BY. Cita: «Radar de natalidad municipal, a partir de datos abiertos de la Comunidad de Madrid (datos.comunidad.madrid)».
 - Reproducible con una orden: `python -m radar todo` descarga los ficheros oficiales y lo recalcula todo en menos de un minuto en un portátil.
 - Coste: 0 € en datos y 0 € de infraestructura como web estática (sin servidor, base de datos ni claves).
-- Código escrito con un asistente de IA (Claude Code) bajo la dirección de Antonio González Fernández.
 
 ## Enlaces
 
