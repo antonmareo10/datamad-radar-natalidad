@@ -27,13 +27,7 @@ REGLAS
 
 **Opción A: servidor MCP** (`radar-natalidad`, solo lectura, en [`mcp_server/`](https://github.com/antonmareo10/datamad-radar-natalidad/blob/master/mcp_server/README.md) del repositorio). Instalación: `pip install -r requirements-mcp.txt` (solo necesita `mcp`).
 
-Claude Code:
-
-```bash
-claude mcp add radar-natalidad -- python /ruta/al/repo/mcp_server/server.py
-```
-
-Claude Desktop (`claude_desktop_config.json`):
+En el fichero de configuración MCP de tu asistente (formato estándar `mcpServers`):
 
 ```json
 {

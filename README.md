@@ -24,7 +24,7 @@ Proyecto para DATAMAD 2026 de Antonio González Fernández. Código con licencia
 - Pone a prueba el método con un backtest de origen móvil (se prevé como si estuviéramos en un curso pasado, solo con lo que se sabía entonces) y publica el error por tamaño de municipio y por antelación, incluido dónde falla.
 - Genera una web estática (carpeta [`web/`](web/)) con un mapa por municipio, una ficha con la serie, la previsión y cómo habría acertado el método en ese municipio, y las tablas de error. Funciona sin servidor y sin conexión: basta abrir `web/index.html`.
 - Publica las mismas cifras como API abierta: ficheros JSON estáticos en [`web/api/v1/`](web/api/v1/), sin claves ni servidor. Un índice con las fuentes y las licencias, los totales de la región y un fichero por municipio con la serie, la previsión de 1.º y de infantil con sus intervalos, el error del backtest en ese municipio y los avisos de fiabilidad de su ficha. Se generan junto con la web y a partir de los mismos datos; el esquema está en [`docs/API.md`](docs/API.md).
-- Incluye un servidor MCP de solo lectura ([`mcp_server/`](mcp_server/)) para que un asistente de IA, como Claude, consulte el radar con cuatro herramientas: `buscar_municipio`, `prevision_municipio`, `fiabilidad_municipio` y `mayores_cambios`. Lee la API publicada (o los JSON locales, sin conexión) y responde siempre con el intervalo del 80 %.
+- Incluye un servidor MCP de solo lectura ([`mcp_server/`](mcp_server/)) para que un asistente de IA consulte el radar con cuatro herramientas: `buscar_municipio`, `prevision_municipio`, `fiabilidad_municipio` y `mayores_cambios`. Lee la API publicada (o los JSON locales, sin conexión) y responde siempre con el intervalo del 80 %.
 - Publica también las previsiones de 1.º en el estándar Smart Data Models de FIWARE, como observaciones estadísticas del modelo SDMX `Observation` ([`web/api/v1/sdm/observaciones_1o.json`](web/api/v1/sdm/observaciones_1o.json)), validadas contra su JSON Schema oficial. Qué modelo y por qué, en [`docs/SMART_DATA_MODELS.md`](docs/SMART_DATA_MODELS.md).
 
 ## Resultados (versión del 5-nov-2026)
@@ -135,7 +135,7 @@ python -m radar todo        # descarga (con caché), calcula y regenera la web y
 python -m pytest            # tests de los cálculos, la API y el servidor MCP
 ```
 
-Servidor MCP (opcional): `pip install -r requirements-mcp.txt` y sigue [`mcp_server/README.md`](mcp_server/README.md) para añadirlo a Claude Desktop o Claude Code. `python mcp_server/demo.py` enseña las cuatro herramientas sin conexión.
+Servidor MCP (opcional): `pip install -r requirements-mcp.txt` y sigue [`mcp_server/README.md`](mcp_server/README.md) para añadirlo a tu asistente compatible con MCP. `python mcp_server/demo.py` enseña las cuatro herramientas sin conexión.
 
 Órdenes sueltas: `python -m radar descargar [--forzar]`, `python -m radar calcular` y `python -m radar web`. Con los ficheros ya descargados, `todo` tarda unos 16 segundos en un portátil.
 

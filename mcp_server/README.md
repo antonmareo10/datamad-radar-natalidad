@@ -1,6 +1,6 @@
 # Servidor MCP del Radar de natalidad municipal
 
-Servidor [MCP](https://modelcontextprotocol.io) de solo lectura para que un asistente de IA (Claude Desktop, Claude Code o cualquier cliente MCP) consulte el radar: cuántos alumnos entrarán en 1.º de primaria y en infantil en cada municipio de la Comunidad de Madrid, con su intervalo del 80 % y lo fiable que ha sido el método allí.
+Servidor [MCP](https://modelcontextprotocol.io) de solo lectura para que un asistente de IA (cualquier cliente MCP) consulte el radar: cuántos alumnos entrarán en 1.º de primaria y en infantil en cada municipio de la Comunidad de Madrid, con su intervalo del 80 % y lo fiable que ha sido el método allí.
 
 - **Nombre del servidor:** `radar-natalidad`. Transporte stdio.
 - **Datos:** lee la [API abierta](../docs/API.md) publicada (`https://radar-natalidad-madrid.vercel.app/api/v1/`) o, con `--local`, los mismos JSON de `web/api/v1/` sin conexión. No escribe nada ni necesita claves.
@@ -30,17 +30,9 @@ pip install -r requirements-mcp.txt
 
 El servidor solo necesita `mcp`; no hace falta instalar pandas ni descargar los datos.
 
-## Añadirlo a Claude Code
+## Añadirlo a un asistente
 
-```bash
-claude mcp add radar-natalidad -- python /ruta/al/repo/mcp_server/server.py
-```
-
-Usa el Python del entorno donde instalaste `mcp` (por ejemplo `/ruta/al/repo/.venv/Scripts/python.exe` en Windows o `/ruta/al/repo/.venv/bin/python` en Linux y macOS). Con `--scope project` queda guardado en un `.mcp.json` para todo el equipo.
-
-## Añadirlo a Claude Desktop
-
-Edita `claude_desktop_config.json` (en Windows, `%APPDATA%\Claude\claude_desktop_config.json`; en macOS, `~/Library/Application Support/Claude/claude_desktop_config.json`) y reinicia Claude Desktop:
+En el fichero de configuración MCP de tu cliente (formato estándar `mcpServers`), con el Python del entorno donde instalaste `mcp` (por ejemplo `/ruta/al/repo/.venv/Scripts/python.exe` en Windows o `/ruta/al/repo/.venv/bin/python` en Linux y macOS), y reinicia el cliente:
 
 ```json
 {

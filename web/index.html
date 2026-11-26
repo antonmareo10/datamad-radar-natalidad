@@ -456,21 +456,21 @@
         </div>
         <div>
           <h3>Servidor MCP para asistentes de IA</h3>
-          <p>Con el servidor <code>radar-natalidad</code>, Claude o cualquier asistente compatible con MCP consulta el radar y contesta con la cifra, su intervalo y los avisos de la ficha. Es de solo lectura y lee esta misma API.</p>
+          <p>Con el servidor <code>radar-natalidad</code>, cualquier asistente compatible con MCP consulta el radar y contesta con la cifra, su intervalo y los avisos de la ficha. Es de solo lectura y lee esta misma API.</p>
           <ul class="herramientas">
             <li><code>buscar_municipio(texto)</code> encuentra un municipio por nombre o código INE.</li>
             <li><code>prevision_municipio(municipio, nivel)</code> da la previsión de 1.º o de infantil, curso a curso, con su intervalo.</li>
             <li><code>fiabilidad_municipio(municipio)</code> cuenta cuánto ha acertado el método en ese municipio y en los de su tamaño.</li>
             <li><code>mayores_cambios(n, sentido)</code> lista dónde más baja o sube 1.º de primaria.</li>
           </ul>
-          <p>Para añadirlo a Claude Code, desde una copia del repositorio con <code>pip install -r requirements-mcp.txt</code>:</p>
+          <p>Para arrancarlo, desde una copia del repositorio con <code>pip install -r requirements-mcp.txt</code>:</p>
           <div class="codigo">
-            <div class="codigo-cab"><span>Terminal</span><button type="button" class="copiar" data-copia="cod-claude">Copiar</button></div>
-            <pre><code id="cod-claude">claude mcp add radar-natalidad -- python /ruta/al/repo/mcp_server/server.py</code></pre>
+            <div class="codigo-cab"><span>Terminal</span><button type="button" class="copiar" data-copia="cod-mcp">Copiar</button></div>
+            <pre><code id="cod-mcp">python /ruta/al/repo/mcp_server/server.py</code></pre>
           </div>
-          <p>En Claude Desktop, dentro de su fichero de configuración:</p>
+          <p>En el fichero de configuración MCP de tu asistente:</p>
           <div class="codigo">
-            <div class="codigo-cab"><span>claude_desktop_config.json</span><button type="button" class="copiar" data-copia="cod-desktop">Copiar</button></div>
+            <div class="codigo-cab"><span>configuración MCP (JSON)</span><button type="button" class="copiar" data-copia="cod-desktop">Copiar</button></div>
             <pre><code id="cod-desktop">{
   "mcpServers": {
     "radar-natalidad": {

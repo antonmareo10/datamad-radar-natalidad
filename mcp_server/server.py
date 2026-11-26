@@ -1,6 +1,6 @@
 """Servidor MCP de solo lectura del Radar de natalidad municipal (transporte stdio).
 
-Cualquier asistente compatible con MCP (Claude Desktop, Claude Code y otros) puede consultar la
+Cualquier asistente compatible con MCP puede consultar la
 previsión de alumnos de cada municipio de la Comunidad de Madrid con cuatro herramientas:
 buscar_municipio, prevision_municipio, fiabilidad_municipio y mayores_cambios.
 
