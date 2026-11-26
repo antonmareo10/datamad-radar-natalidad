@@ -146,7 +146,7 @@
 
   // ------------------------------------------------------------------ la clase: de 2024/25 a 2030/31 con el scroll, el puntero o el botón
   const T_FIN = 3100, conM = /[?&]m=/.test(location.search), mira = $("#mira");
-  let tAct = 0, tObj = 0, tope = 200, enBucle = false, tScroll = 0, en2030 = false, encima = false, pinH = false, pinM = false;
+  let tAct = 0, tObj = 0, tope = 200, enBucle = false, tScroll = 0, en2030 = false, encima = false, tocada = false, pinH = false, pinM = false;
   const guiada = !!sillas && !conM;
   function rotuloMira() {
     if (!mira) return;
@@ -168,10 +168,10 @@
     sillas.addEventListener("pointermove", e => {
       if (e.pointerType !== "mouse" || sillas.classList.contains("re")) return;
       const r = sillas.getBoundingClientRect();
-      encima = true; apuntar(entre((e.clientX - r.left - r.width * 0.08) / (r.width * 0.84)) * T_FIN);
+      encima = true; tocada = true; apuntar(entre((e.clientX - r.left - r.width * 0.08) / (r.width * 0.84)) * T_FIN);
     });
     sillas.addEventListener("pointerleave", () => { if (encima) { encima = false; apuntar(base()); } });
-    if (mira) mira.addEventListener("click", () => { en2030 = !(tObj > T_FIN / 2); if (!en2030 && pinH && tScroll > T_FIN / 2) return rotuloMira(); apuntar(en2030 ? T_FIN : (pinH ? tScroll : 0), 26); });
+    if (mira) mira.addEventListener("click", () => { tocada = true; en2030 = !(tObj > T_FIN / 2); if (!en2030 && pinH && tScroll > T_FIN / 2) return rotuloMira(); apuntar(en2030 ? T_FIN : (pinH ? tScroll : 0), 26); });
   } else if (mira) mira.style.visibility = "hidden";
 
   // ------------------------------------------------------------------ tramos fijados (escritorio): se miden y, si no caben, se quedan como están
@@ -228,8 +228,8 @@
       if (!pasos) tarjetas.forEach(t => t.classList.add("activa"));
       else pasos.resize();
     } else if (surG) surG.style.setProperty("--s", "1");
-    if (!pinH && guiada && !en2030 && !medir.hecho) {  // sin portada fijada (móvil): la clase pasa a 2030 sola, una vez
-      setTimeout(() => { if (!encima && !sillas.classList.contains("re")) { en2030 = true; apuntar(T_FIN, 24); } }, 1300);
+    if (guiada && !medir.hecho) {  // la clase pasa a 2030 sola, una vez, si nadie ha tocado nada; después mandan el puntero, el botón y el scroll
+      setTimeout(() => { if (!tocada && !encima && tScroll === 0 && !sillas.classList.contains("re")) { en2030 = true; apuntar(T_FIN, 24); } }, 1200);
     }
     medir.hecho = true;
     rotuloMira();
