@@ -1,6 +1,37 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Radar de natalidad · pitch</title>
-<meta http-equiv="refresh" content="0; url=/pitch.pdf">
-<style>body{margin:0;background:#1f3c34;color:#f3f0e7;font:600 22px system-ui,sans-serif;display:grid;place-items:center;height:100vh}a{color:#ff8f7a}</style>
-</head><body><p>Abriendo el pitch… <a href="/pitch.pdf">pulsa aquí si no se abre</a></p></body></html>
+<title>Radar de natalidad · presentar</title>
+<style>
+html,body{margin:0;height:100%;background:#000;overflow:hidden}
+#deck{position:fixed;inset:0}
+#deck img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .45s ease}
+#deck img.on{opacity:1}
+#start{position:fixed;inset:0;display:grid;place-items:center;background:#1f3c34;color:#f3f0e7;font:600 22px system-ui,sans-serif;z-index:5;text-align:center}
+#start button{font:800 34px system-ui,sans-serif;background:#ff8f7a;color:#1f3c34;border:0;border-radius:999px;padding:22px 48px;cursor:pointer}
+#start p{opacity:.8;margin-top:22px}
+#n{position:fixed;right:14px;bottom:10px;color:#7d8a86;font:600 14px system-ui,sans-serif;opacity:0;transition:opacity .3s}
+body.mouse #n{opacity:1}
+body.hide{cursor:none}
+@media (prefers-reduced-motion:reduce){#deck img{transition:none}}
+</style></head>
+<body>
+<div id="deck"></div>
+<div id="start"><div><button id="go">▶ Presentar</button><p>Pantalla completa · pasa con el mando o con → · vuelve con ←</p></div></div>
+<div id="n"></div>
+<script>
+const N=16, deck=document.getElementById('deck'), n=document.getElementById('n'); let i=0; const imgs=[];
+for(let k=1;k<=N;k++){const im=new Image(); im.src='s'+String(k).padStart(2,'0')+'.jpg'; im.alt='Diapositiva '+k; deck.appendChild(im); imgs.push(im);}
+function show(j){ if(j<0||j>=N) return; imgs[i].classList.remove('on'); i=j; imgs[i].classList.add('on'); n.textContent=(i+1)+' / '+N; }
+show(0);
+function full(){ const e=document.documentElement; if(!document.fullscreenElement && e.requestFullscreen){ e.requestFullscreen().catch(()=>{}); } }
+document.getElementById('go').addEventListener('click',()=>{ full(); document.getElementById('start').style.display='none'; });
+document.addEventListener('keydown',ev=>{
+  const k=ev.key;
+  if(['ArrowRight','PageDown',' ','Enter','ArrowDown','n'].includes(k)){ev.preventDefault(); if(document.getElementById('start').style.display!=='none'){full();document.getElementById('start').style.display='none';return;} show(i+1);}
+  else if(['ArrowLeft','PageUp','Backspace','ArrowUp','p'].includes(k)){ev.preventDefault(); show(i-1);}
+  else if(k==='Home'){show(0);} else if(k==='End'){show(N-1);} else if(k==='f'||k==='F'){full();}
+});
+deck.addEventListener('click',()=>{ if(document.getElementById('start').style.display==='none') show(i+1); });
+let t; document.addEventListener('mousemove',()=>{document.body.classList.add('mouse');document.body.classList.remove('hide');clearTimeout(t);t=setTimeout(()=>{document.body.classList.remove('mouse');document.body.classList.add('hide');},1500);});
+</script>
+</body></html>
