@@ -205,6 +205,26 @@ html:not(.listo) .portada-caja::after, html:not(.listo) .mapa-caja::after {
   background: repeating-linear-gradient(-45deg, #f4f2ed 0 10px, #f9f8f5 10px 20px); border-radius: 6px;
 }
 
+/* cómo se calcula, en tres pasos: nacidos × factor ≈ alumnos */
+.flujo { margin: 6px 0 40px; max-width: 980px; }
+.flujo-pasos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 34px; }
+.paso { position: relative; display: grid; grid-template-columns: 44px minmax(0, 1fr); grid-template-areas: "ico num" "ico txt"; gap: 0 14px; align-items: start; align-content: start; }
+.paso-ico { grid-area: ico; width: 44px; height: 44px; fill: none; stroke: var(--tinta-2); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; margin-top: 4px; }
+.paso-num { grid-area: num; font-size: clamp(2rem, 3.4vw, 2.9rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; color: var(--tinta); }
+.paso-op { font-weight: 500; color: var(--tinta-3); margin-right: 0.12em; }
+.paso-txt { grid-area: txt; margin-top: 4px; font-size: 0.97rem; line-height: 1.45; color: var(--tinta-2); max-width: 30ch; }
+.paso + .paso::before {  /* flecha hacia el paso siguiente: hacia abajo en el móvil */
+  content: ""; position: absolute; left: 21px; top: -27px; width: 2px; height: 18px; background: var(--tinta-3); opacity: 0.6;
+}
+.paso + .paso::after { content: ""; position: absolute; left: 17px; top: -14px; border: 5px solid transparent; border-top: 6px solid var(--tinta-3); opacity: 0.6; }
+.flujo figcaption { margin-top: 22px; font-size: 0.95rem; line-height: 1.5; color: var(--tinta-2); max-width: 64ch; }
+@media (min-width: 760px) {
+  .flujo-pasos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 56px; }
+  .paso { grid-template-columns: minmax(0, 1fr); grid-template-areas: "ico" "num" "txt"; gap: 8px; }
+  .paso + .paso::before { left: -42px; top: 77px; width: 26px; height: 2px; }
+  .paso + .paso::after { left: -20px; top: 73px; border: 5px solid transparent; border-left: 7px solid var(--tinta-3); border-right: 0; }
+}
+
 /* el error, en dos barras */
 .tramo-fiable { background: var(--fondo-alterno); }
 .barras { margin: 8px 0 0; max-width: 980px; }

@@ -81,6 +81,7 @@
     else if (f === "pctabs") v = pctAbs(v);
     else if (f === "pct1abs") v = pctAbs(v, 1);
     else if (f === "dec") v = (v < 0 ? MENOS : "") + f2.format(Math.abs(v));
+    else if (f === "dec3") v = f3.format(v);
     el.textContent = v == null ? "—" : v;
   });
 
