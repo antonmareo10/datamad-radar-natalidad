@@ -509,3 +509,15 @@ abbr[title] { text-decoration: none; }
   .ficha .tabla.compacta { font-size: 0.74rem; }
   .ficha .tabla.compacta th, .ficha .tabla.compacta td { padding: 6px 2px; }
 }
+
+/* ---------------------------------------------------------------- revelar al hacer scroll (una vez; nada con movimiento reducido) */
+@media (prefers-reduced-motion: no-preference) {
+  .flujo.por-ver .paso { opacity: 0; transform: translateX(-14px); }
+  .flujo.visto .paso { transition: opacity 480ms ease-out, transform 520ms cubic-bezier(.2, .7, .3, 1); transition-delay: calc(var(--k) * 260ms); }
+  .barras .bf-barra { transform-origin: left center; }
+  .barras.por-ver .bf-barra { transform: scaleX(0); }
+  .barras.visto .bf-barra { transition: transform 600ms cubic-bezier(.2, .7, .3, 1); }
+  .barras.visto .bf + .bf .bf-barra { transition-delay: 450ms; }
+  .tramo-mapa.por-ver #svg-portada path.m { fill: #e6e4dd; fill-opacity: 1; }
+  .tramo-mapa.visto #svg-portada path.m { transition: fill 450ms ease-out, fill-opacity 450ms ease-out; transition-delay: calc(var(--d, 0) * 550ms); }
+}

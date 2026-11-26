@@ -946,6 +946,56 @@
   actualizar();
   reutiliza();
   document.documentElement.classList.add("listo");
+
+  // ------------------------------------------------------------------ al llegar con el scroll: revelar, una sola vez, lo que aún no se ha visto
+  (function revelar() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
+    const formato = (v, dec) => new Intl.NumberFormat("es-ES", { minimumFractionDigits: dec, maximumFractionDigits: dec, useGrouping: "always" }).format(v);
+    function contar(el, retraso) {  // cuenta de 0 a la cifra que ya está escrita; el ancho queda fijo para no mover nada
+      const final = el.textContent, m = /\d[\d.]*(,\d+)?/.exec(final);
+      if (!m) return;
+      const dec = m[1] ? m[1].length - 1 : 0, v = parseFloat(m[0].replace(/\./g, "").replace(",", "."));
+      if (!(v > 0)) return;
+      el.style.display = "inline-block"; el.style.minWidth = el.getBoundingClientRect().width + "px";
+      const antes = final.slice(0, m.index), despues = final.slice(m.index + m[0].length);
+      el.textContent = antes + formato(0, dec) + despues;
+      setTimeout(() => {
+        const t0 = performance.now(), dur = 600;
+        const paso = t => {
+          const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+          el.textContent = k < 1 ? antes + formato(v * e, dec) + despues : final;
+          if (k < 1) requestAnimationFrame(paso);
+        };
+        requestAnimationFrame(paso);
+      }, retraso);
+    }
+    const piezas = [
+      { el: document.querySelector(".flujo"), contar: [[".paso:nth-child(1) .paso-num [data-r]", 0], [".paso:nth-child(3) .paso-num [data-r]", 520]] },
+      { el: document.querySelector(".barras"), contar: [[".bf:nth-of-type(1) .bf-num", 0], [".bf:nth-of-type(2) .bf-num", 450]] },
+      { el: document.querySelector(".tramo-mapa"), contar: [['.frase [data-r="aulas_menos"]', 0]] },
+    ].filter(p => p.el);
+    const svgP = document.getElementById("svg-portada");
+    if (svgP) {  // el color del mapa de portada baja de norte a sur
+      const caja = svgP.getBoundingClientRect();
+      svgP.querySelectorAll("path.m").forEach(p => {
+        const b = p.getBoundingClientRect(), y = caja.height ? (b.top + b.height / 2 - caja.top) / caja.height : 0;
+        p.style.setProperty("--d", Math.max(0, Math.min(1, y)).toFixed(3));
+      });
+    }
+    const io = new IntersectionObserver(ents => ents.forEach(e => {
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target);
+      const p = piezas.find(x => x.el === e.target);
+      p.contar.forEach(([sel, ms]) => { const el = p.el.querySelector(sel); if (el) contar(el, ms); });
+      p.el.classList.remove("por-ver");
+      p.el.classList.add("visto");
+    }), { threshold: 0.3 });
+    piezas.forEach(p => {
+      if (p.el.getBoundingClientRect().top < window.innerHeight) return;  // ya a la vista al cargar: se queda como está
+      p.el.classList.add("por-ver");
+      io.observe(p.el);
+    });
+  })();
   window.addEventListener("hashchange", () => {  // enlaces internos del tipo #municipio=28058
     const h = /municipio=(\d{5})/.exec(location.hash);
     if (h && MUN[h[1]] && h[1] !== estado.sel) seleccionar(h[1], true);
