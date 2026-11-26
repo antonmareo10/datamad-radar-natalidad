@@ -33,8 +33,8 @@ import numpy as np
 import pandas as pd
 
 AQUI = pathlib.Path(__file__).resolve().parent
-REPO_DEF = pathlib.Path(r"C:\Users\anton\repos\datamad-radar-natalidad")
-DATOS_DEF = pathlib.Path(r"C:\Users\anton\repos\datamad-radar-final\datos")
+REPO_DEF = AQUI.parents[1]  # raíz del repositorio
+DATOS_DEF = REPO_DEF / "datos"  # se descargan con `python -m radar todo`; o pásalo con --datos
 TOL_M = 1.0  # dos municipios se tocan si sus fronteras quedan a 1 m o menos
 
 

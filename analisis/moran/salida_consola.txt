@@ -103,4 +103,4 @@
    absoluto_rangos_dentro_de_tamano n= 79 I=-0.0166 E[I]=+0.0547 z=-0.86 p_sup=0.8004 p_2colas=0.3975 enlaces=181
    mediana |residuo| por tamaño: {np.str_('grande'): 4.03, np.str_('mediano'): 11.25}
 
-mapa: C:\Users\anton\AppData\Local\Temp\claude\b24d3ceed9b16d1e\64f8cb90-8259-4d44-810f-03cb6a632499\scratchpad\moran\mapa_residuos.png
+mapa: analisis/moran/mapa_residuos.png
