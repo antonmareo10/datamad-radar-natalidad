@@ -13,7 +13,7 @@ Previsión abierta de cuántos niños entrarán en 1.º de primaria (hasta 2030/
 
 Web: https://radar-natalidad-madrid.vercel.app · API abierta: https://radar-natalidad-madrid.vercel.app/api/v1/ ([documentación](docs/API.md)) · Resumen en texto plano: https://radar-natalidad-madrid.vercel.app/llms.txt
 
-Proyecto para DataMad 2026 de Antonio González Fernández. Código con licencia MIT; tablas derivadas CC BY 4.0.
+Proyecto para DATAMAD 2026 de Antonio González Fernández. Código con licencia MIT; tablas derivadas CC BY 4.0. Código escrito con un asistente de IA (Claude Code) bajo su dirección; las cifras las recalcula `python -m radar todo` y las vigilan los tests.
 
 ![Mapa del cambio previsto en 1.º de primaria y ficha de Fuenlabrada](docs/captura.png)
 
