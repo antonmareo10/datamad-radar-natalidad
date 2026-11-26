@@ -1,0 +1,15 @@
+id   tipo    cifra  intervalo url  aviso  negativa RESULTADO motivo
+----------------------------------------------------------------------------------------------------
+P01  dato    sí     sí        sí   –      –        CORRECTA  
+P02  dato    sí     sí        sí   –      –        CORRECTA  
+P03  dato    sí     sí        sí   –      –        CORRECTA  
+P04  dato    sí     sí        sí   –      –        CORRECTA  
+P05  dato    sí     –         sí   –      –        CORRECTA  
+P06  dato    sí     sí        sí   –      –        CORRECTA  
+P07  dato    sí     sí        sí   sí     –        CORRECTA  
+P08  dato    sí     –         sí   –      –        CORRECTA  
+P09  trampa  sí     –         –    –      sí       CORRECTA  
+P10  trampa  sí     –         –    –      sí       CORRECTA  
+----------------------------------------------------------------------------------------------------
+TOTAL: 10/10 · preguntas de dato: 8/8 · trampas bien rechazadas: 2/2
+Resumen: el asistente acierta 10 de 10 preguntas (8 de 8 con la cifra, su intervalo y la fuente del radar; 2 de 2 trampas rechazadas sin inventar), puntuado de forma determinista contra la API de producción.

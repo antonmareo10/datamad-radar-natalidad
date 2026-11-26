@@ -1,0 +1,106 @@
+{
+ "espec": "p_finfk",
+ "mdape_grande_h5_radar": 4.35,
+ "mdape_grande_h5_ingenuo": 16.1,
+ "n_grande_h5": 72,
+ "municipios_grande": 36,
+ "bases_h5": [
+  2018,
+  2019
+ ],
+ "cursos_reales_h5": [
+  2023,
+  2024
+ ],
+ "donde_falla_municipios": 81,
+ "donde_falla_max_dif_con_csv": 0.0,
+ "geometria": {
+  "unidades": 179,
+  "enlaces_reina": 471,
+  "enlaces_vertice_compartido": 471,
+  "solo_en_distancia": [],
+  "solo_en_vertices": [],
+  "sin_vecinos": [],
+  "vecinos_capital": 16
+ }
+}
+
+== A_grandes36_h5  n=36 (con residuo 36, islas 0, sin geometría 0)
+   con_signo                        n= 36 I=-0.0244 E[I]=-0.0286 z=+0.05 p_sup=0.4690 p_2colas=0.9774 enlaces=62
+   absoluto                         n= 36 I=+0.1136 E[I]=-0.0286 z=+1.07 p_sup=0.1432 p_2colas=0.2833 enlaces=62
+   con_signo_rangos                 n= 36 I=+0.0053 E[I]=-0.0286 z=+0.27 p_sup=0.3856 p_2colas=0.8068 enlaces=62
+   absoluto_rangos                  n= 36 I=+0.0965 E[I]=-0.0286 z=+0.95 p_sup=0.1670 p_2colas=0.3456 enlaces=62
+   knn4_con_signo                   n= 36 I=+0.0371 E[I]=-0.0286 z=+0.64 p_sup=0.2499 p_2colas=0.5286 enlaces=72
+   knn4_absoluto                    n= 36 I=+0.0533 E[I]=-0.0286 z=+0.81 p_sup=0.2028 p_2colas=0.4246 enlaces=72
+   LISA: {"p_menor_005": 2, "esperados_por_azar": 1.8, "significativos_fdr_005": 0, "nucleos_005": [{"municipio": "Móstoles", "cuadrante": "AB", "residuo": 5.4, "p": 0.0166}, {"municipio": "Fuenlabrada", "cuadrante": "AA", "residuo": 2.04, "p": 0.0326}]}
+
+== A2_grandes36_y_capital_h5  n=37 (con residuo 37, islas 0, sin geometría 0)
+   con_signo                        n= 37 I=+0.0081 E[I]=-0.0278 z=+0.33 p_sup=0.3593 p_2colas=0.7619 enlaces=77
+   absoluto                         n= 37 I=+0.1279 E[I]=-0.0278 z=+1.33 p_sup=0.0964 p_2colas=0.1827 enlaces=77
+   con_signo_rangos                 n= 37 I=+0.0189 E[I]=-0.0278 z=+0.39 p_sup=0.3342 p_2colas=0.6926 enlaces=77
+   absoluto_rangos                  n= 37 I=+0.0938 E[I]=-0.0278 z=+1.03 p_sup=0.1534 p_2colas=0.3021 enlaces=77
+   knn4_con_signo                   n= 37 I=+0.0417 E[I]=-0.0278 z=+0.68 p_sup=0.2322 p_2colas=0.4817 enlaces=74
+   knn4_absoluto                    n= 37 I=+0.0545 E[I]=-0.0278 z=+0.81 p_sup=0.2003 p_2colas=0.4056 enlaces=74
+
+== B_donde_falla_81_h2a4  n=79 (con residuo 81, islas 2, sin geometría 0)
+   con_signo                        n= 79 I=+0.0899 E[I]=-0.0128 z=+1.26 p_sup=0.1035 p_2colas=0.1974 enlaces=181
+   absoluto                         n= 79 I=-0.0574 E[I]=-0.0128 z=-0.55 p_sup=0.6972 p_2colas=0.5848 enlaces=181
+   con_signo_rangos                 n= 79 I=+0.1315 E[I]=-0.0128 z=+1.77 p_sup=0.0431 p_2colas=0.0787 enlaces=181
+   absoluto_rangos                  n= 79 I=-0.0789 E[I]=-0.0128 z=-0.82 p_sup=0.7942 p_2colas=0.4150 enlaces=181
+   knn4_con_signo                   n= 81 I=+0.0471 E[I]=-0.0125 z=+0.90 p_sup=0.1800 p_2colas=0.3637 enlaces=162
+   knn4_absoluto                    n= 81 I=-0.0318 E[I]=-0.0125 z=-0.29 p_sup=0.5865 p_2colas=0.7573 enlaces=162
+   con_signo_dentro_de_tamano       n= 79 I=+0.0899 E[I]=+0.0015 z=+1.04 p_sup=0.1488 p_2colas=0.2953 enlaces=181
+   absoluto_dentro_de_tamano        n= 79 I=-0.0574 E[I]=+0.0218 z=-0.94 p_sup=0.8249 p_2colas=0.3454 enlaces=181
+   absoluto_rangos_dentro_de_tamano n= 79 I=-0.0789 E[I]=+0.0190 z=-1.20 p_sup=0.8841 p_2colas=0.2308 enlaces=181
+   mediana |residuo| por tamaño: {np.str_('grande'): 1.67, np.str_('mediano'): 4.29}
+
+== C_todos_h5  n=131 (con residuo 134, islas 3, sin geometría 0)
+   con_signo                        n=131 I=-0.1290 E[I]=-0.0077 z=-2.24 p_sup=0.9953 p_2colas=0.0283 enlaces=330
+   absoluto                         n=131 I=+0.0872 E[I]=-0.0077 z=+1.81 p_sup=0.0551 p_2colas=0.0645 enlaces=330
+   con_signo_rangos                 n=131 I=-0.0383 E[I]=-0.0077 z=-0.53 p_sup=0.6970 p_2colas=0.5952 enlaces=330
+   absoluto_rangos                  n=131 I=+0.1939 E[I]=-0.0077 z=+3.54 p_sup=0.0004 p_2colas=0.0004 enlaces=330
+   knn4_con_signo                   n=134 I=-0.0711 E[I]=-0.0075 z=-1.18 p_sup=0.8979 p_2colas=0.2334 enlaces=268
+   knn4_absoluto                    n=134 I=+0.0933 E[I]=-0.0075 z=+1.86 p_sup=0.0488 p_2colas=0.0576 enlaces=268
+   con_signo_dentro_de_tamano       n=131 I=-0.1290 E[I]=-0.0043 z=-1.74 p_sup=0.9805 p_2colas=0.0713 enlaces=330
+   absoluto_dentro_de_tamano        n=131 I=+0.0872 E[I]=+0.0798 z=+0.11 p_sup=0.3973 p_2colas=0.9084 enlaces=330
+   absoluto_rangos_dentro_de_tamano n=131 I=+0.1939 E[I]=+0.1588 z=+0.61 p_sup=0.2677 p_2colas=0.5447 enlaces=330
+   mediana |residuo| por tamaño: {np.str_('grande'): 4.03, np.str_('mediano'): 12.65, np.str_('pequeño'): 16.32}
+
+== D_todos_h1a6  n=132 (con residuo 135, islas 3, sin geometría 0)
+   con_signo                        n=132 I=-0.0470 E[I]=-0.0076 z=-0.72 p_sup=0.7675 p_2colas=0.4400 enlaces=332
+   absoluto                         n=132 I=+0.0988 E[I]=-0.0076 z=+2.00 p_sup=0.0434 p_2colas=0.0456 enlaces=332
+   con_signo_rangos                 n=132 I=+0.0075 E[I]=-0.0076 z=+0.25 p_sup=0.3949 p_2colas=0.7928 enlaces=332
+   absoluto_rangos                  n=132 I=+0.1925 E[I]=-0.0076 z=+3.44 p_sup=0.0009 p_2colas=0.0009 enlaces=332
+   knn4_con_signo                   n=135 I=-0.0568 E[I]=-0.0075 z=-0.92 p_sup=0.8240 p_2colas=0.3499 enlaces=270
+   knn4_absoluto                    n=135 I=+0.1264 E[I]=-0.0075 z=+2.46 p_sup=0.0195 p_2colas=0.0197 enlaces=270
+   con_signo_dentro_de_tamano       n=132 I=-0.0470 E[I]=+0.0055 z=-0.75 p_sup=0.7745 p_2colas=0.4329 enlaces=332
+   absoluto_dentro_de_tamano        n=132 I=+0.0988 E[I]=+0.0691 z=+0.46 p_sup=0.2732 p_2colas=0.6429 enlaces=332
+   absoluto_rangos_dentro_de_tamano n=132 I=+0.1925 E[I]=+0.1623 z=+0.54 p_sup=0.2951 p_2colas=0.5921 enlaces=332
+   LISA: {"p_menor_005": 14, "esperados_por_azar": 6.6, "significativos_fdr_005": 0, "nucleos_005": [{"municipio": "Lozoyuela-Navas-Sieteiglesias", "cuadrante": "AB", "residuo": 12.89, "p": 0.0025}, {"municipio": "Venturada", "cuadrante": "AA", "residuo": 8.29, "p": 0.0035}, {"municipio": "La Cabrera", "cuadrante": "BA", "residuo": -7.85, "p": 0.0037}, {"municipio": "Colmenar del Arroyo", "cuadrante": "AB", "residuo": 54.58, "p": 0.005}, {"municipio": "Carabaña", "cuadrante": "AB", "residuo": 26.51, "p": 0.0083}, {"municipio": "Aldea del Fresno", "cuadrante": "AB", "residuo": 5.63, "p": 0.0122}, {"municipio": "Santorcaz", "cuadrante": "AA", "residuo": 14.2, "p": 0.0164}, {"municipio": "Estremera", "cuadrante": "BB", "residuo": -6.62, "p": 0.026}, {"municipio": "Fuentidueña de Tajo", "cuadrante": "BB", "residuo": -7.78, "p": 0.0263}, {"municipio": "Los Santos de la Humosa", "cuadrante": "AA", "residuo": 4.32, "p": 0.0303}, {"municipio": "Guadalix de la Sierra", "cuadrante": "AA", "residuo": 4.18, "p": 0.0348}, {"municipio": "Valdeavero", "cuadrante": "BA", "residuo": -6.91, "p": 0.0373}, {"municipio": "Villalbilla", "cuadrante": "BA", "residuo": -6.43, "p": 0.0397}, {"municipio": "El Álamo", "cuadrante": "BB", "residuo": -7.06, "p": 0.0406}]}
+   mediana |residuo| por tamaño: {np.str_('grande'): 1.66, np.str_('mediano'): 3.91, np.str_('pequeño'): 7.1}
+
+== E_todos_h1a6_log  n=132 (con residuo 135, islas 3, sin geometría 0)
+   con_signo                        n=132 I=-0.0222 E[I]=-0.0076 z=-0.26 p_sup=0.5993 p_2colas=0.7906 enlaces=332
+   absoluto                         n=132 I=+0.1073 E[I]=-0.0076 z=+2.10 p_sup=0.0323 p_2colas=0.0371 enlaces=332
+   con_signo_rangos                 n=132 I=+0.0344 E[I]=-0.0076 z=+0.71 p_sup=0.2310 p_2colas=0.4664 enlaces=332
+   absoluto_rangos                  n=132 I=+0.1803 E[I]=-0.0076 z=+3.25 p_sup=0.0013 p_2colas=0.0013 enlaces=332
+   knn4_con_signo                   n=135 I=-0.0484 E[I]=-0.0075 z=-0.73 p_sup=0.7672 p_2colas=0.4604 enlaces=270
+   knn4_absoluto                    n=135 I=+0.1398 E[I]=-0.0075 z=+2.67 p_sup=0.0116 p_2colas=0.0119 enlaces=270
+   con_signo_dentro_de_tamano       n=132 I=-0.0222 E[I]=-0.0093 z=-0.19 p_sup=0.5689 p_2colas=0.8474 enlaces=332
+   absoluto_dentro_de_tamano        n=132 I=+0.1073 E[I]=+0.0883 z=+0.31 p_sup=0.3466 p_2colas=0.7609 enlaces=332
+   absoluto_rangos_dentro_de_tamano n=132 I=+0.1803 E[I]=+0.1660 z=+0.26 p_sup=0.3942 p_2colas=0.7982 enlaces=332
+   mediana |residuo| por tamaño: {np.str_('grande'): 1.8, np.str_('mediano'): 4.67, np.str_('pequeño'): 8.03}
+
+== F_grandes_y_medianos_h5  n=79 (con residuo 81, islas 2, sin geometría 0)
+   con_signo                        n= 79 I=-0.0317 E[I]=-0.0128 z=-0.23 p_sup=0.5812 p_2colas=0.8191 enlaces=181
+   absoluto                         n= 79 I=-0.0524 E[I]=-0.0128 z=-0.50 p_sup=0.6776 p_2colas=0.6353 enlaces=181
+   con_signo_rangos                 n= 79 I=-0.0472 E[I]=-0.0128 z=-0.42 p_sup=0.6545 p_2colas=0.6784 enlaces=181
+   absoluto_rangos                  n= 79 I=-0.0166 E[I]=-0.0128 z=-0.03 p_sup=0.4985 p_2colas=0.9655 enlaces=181
+   knn4_con_signo                   n= 81 I=+0.0134 E[I]=-0.0125 z=+0.39 p_sup=0.3301 p_2colas=0.7024 enlaces=162
+   knn4_absoluto                    n= 81 I=-0.0413 E[I]=-0.0125 z=-0.41 p_sup=0.6446 p_2colas=0.6683 enlaces=162
+   con_signo_dentro_de_tamano       n= 79 I=-0.0317 E[I]=+0.0083 z=-0.44 p_sup=0.6668 p_2colas=0.6632 enlaces=181
+   absoluto_dentro_de_tamano        n= 79 I=-0.0524 E[I]=+0.0700 z=-1.41 p_sup=0.9253 p_2colas=0.1622 enlaces=181
+   absoluto_rangos_dentro_de_tamano n= 79 I=-0.0166 E[I]=+0.0547 z=-0.86 p_sup=0.8004 p_2colas=0.3975 enlaces=181
+   mediana |residuo| por tamaño: {np.str_('grande'): 4.03, np.str_('mediano'): 11.25}
+
+mapa: C:\Users\anton\AppData\Local\Temp\claude\b24d3ceed9b16d1e\64f8cb90-8259-4d44-810f-03cb6a632499\scratchpad\moran\mapa_residuos.png

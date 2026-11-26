@@ -1,0 +1,218 @@
+[
+ {
+  "id": "P01",
+  "answer_text": "Fuenlabrada, curso 2030/31: se prevén 1.150 alumnos de 1.º de primaria (1.150,1), con un intervalo del 80 % de 1.075 a 1.277 (p10 1.074,5 – p90 1.276,5). Frente a los 1.560 del curso 2024/25 es un −26,3 % (intervalo del 80 %: de −31,1 % a −18,2 %). Es una previsión, no un hecho. La ficha no trae avisos de fiabilidad para este municipio. Fuente: https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28058.json",
+  "cited_urls": [
+   "https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28058.json"
+  ],
+  "figures": [
+   {
+    "name": "prevision",
+    "value": 1150.107
+   },
+   {
+    "name": "p10",
+    "value": 1074.53
+   },
+   {
+    "name": "p90",
+    "value": 1276.518
+   }
+  ]
+ },
+ {
+  "id": "P02",
+  "answer_text": "Getafe, curso 2030/31 frente a 2024/25: se prevé un −18,1 % en el alumnado de 1.º de primaria, con un intervalo del 80 % de −23,5 % a −9,1 %. En alumnos: de 1.860 en 2024/25 a 1.524 previstos en 2030/31 (intervalo del 80 %: 1.424 a 1.691). Es una previsión, no un hecho. La ficha no trae avisos de fiabilidad para este municipio. Fuente: https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28065.json",
+  "cited_urls": [
+   "https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28065.json"
+  ],
+  "figures": [
+   {
+    "name": "cambio_pct",
+    "value": -18.1
+   },
+   {
+    "name": "cambio_p10",
+    "value": -23.5
+   },
+   {
+    "name": "cambio_p90",
+    "value": -9.1
+   }
+  ]
+ },
+ {
+  "id": "P03",
+  "answer_text": "Comunidad de Madrid, curso 2030/31: se prevén 52.047 alumnos de 1.º de primaria, con un intervalo del 80 % de 46.545 a 57.471 (p10 46.544,7 – p90 57.471,3). Son 6.812 menos que los 58.859 del curso 2024/25, un −11,6 %; con ese intervalo, entre 1.388 y 12.314 alumnos menos. El intervalo regional sale de los errores de la serie regional larga (1999/00–2025/26), que incluye cambios de ciclo migratorio. Es una previsión, no un hecho. Fuente: https://radar-natalidad-madrid.vercel.app/api/v1/region.json",
+  "cited_urls": [
+   "https://radar-natalidad-madrid.vercel.app/api/v1/region.json",
+   "https://radar-natalidad-madrid.vercel.app/llms.txt"
+  ],
+  "figures": [
+   {
+    "name": "prevision",
+    "value": 52047.0
+   },
+   {
+    "name": "p10",
+    "value": 46544.7
+   },
+   {
+    "name": "p90",
+    "value": 57471.3
+   },
+   {
+    "name": "cambio_pct",
+    "value": -11.6
+   },
+   {
+    "name": "cambio_alumnos",
+    "value": -6812
+   }
+  ]
+ },
+ {
+  "id": "P04",
+  "answer_text": "Área Sur, municipios con 100 alumnos de 1.º o más en 2024/25: la mayor caída prevista para 2030/31 es la de Arroyomolinos, −33,9 % frente a 2024/25, con un intervalo del 80 % de −38,2 % a −26,6 % (de 532 alumnos a 352 previstos; intervalo del 80 %: 329 a 390). Le sigue Fuenlabrada con −26,3 % (intervalo del 80 %: −31,1 % a −18,2 %); los dos intervalos se solapan, así que el orden entre ambos no es concluyente. Aviso de la ficha de Arroyomolinos: llegan familias con niños pequeños (123 niños de 0 a 4 años censados por cada 100 nacidos); en municipios así el método tiende a quedarse corto y el dato real puede acercarse al extremo alto del intervalo. Es una previsión, no un hecho. Fuentes: https://radar-natalidad-madrid.vercel.app/api/v1/region.json y https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28015.json",
+  "cited_urls": [
+   "https://radar-natalidad-madrid.vercel.app/api/v1/region.json",
+   "https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28015.json"
+  ],
+  "figures": [
+   {
+    "name": "municipio",
+    "value": "Arroyomolinos"
+   },
+   {
+    "name": "cambio_pct",
+    "value": -33.9
+   },
+   {
+    "name": "cambio_p10",
+    "value": -38.2
+   },
+   {
+    "name": "cambio_p90",
+    "value": -26.6
+   }
+  ]
+ },
+ {
+  "id": "P05",
+  "answer_text": "Municipios grandes de la Comunidad de Madrid (250 alumnos de 1.º o más, 36 municipios), previsión de 1.º de primaria con cinco cursos de antelación, medida en cursos ya cerrados: el error mediano del radar es del 4,3 %; suponer que nada cambia falla un 16,1 % (y contar solo los nacidos, un 13,6 %). Los intervalos del 80 % de ese grupo contuvieron al dato real en el 76,7 % de los casos. El error medido del método es algo optimista, porque el método se eligió con los mismos cursos con los que se mide. Fuentes: https://radar-natalidad-madrid.vercel.app/llms.txt y https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28058.json (campo fiabilidad.error_mediano_grupo_pct, antelación 5, grupo «grande»).",
+  "cited_urls": [
+   "https://radar-natalidad-madrid.vercel.app/llms.txt",
+   "https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28058.json"
+  ],
+  "figures": [
+   {
+    "name": "error_radar_pct",
+    "value": 4.3
+   },
+   {
+    "name": "error_ingenuo_pct",
+    "value": 16.1
+   }
+  ]
+ },
+ {
+  "id": "P06",
+  "answer_text": "Curso 2030/31 frente a 2024/25, 1.º de primaria. Móstoles: se prevé −25,1 % (intervalo del 80 %: −30,0 % a −16,9 %), de 1.664 alumnos a 1.246 previstos (intervalo del 80 %: 1.164 a 1.383). Alcorcón: se prevé −24,4 % (intervalo del 80 %: −29,3 % a −16,1 %), de 1.624 alumnos a 1.228 previstos (intervalo del 80 %: 1.147 a 1.363). La cifra central baja más en Móstoles, pero los dos intervalos se solapan casi por completo: la diferencia no es concluyente. Las fichas no traen avisos de fiabilidad para ninguno de los dos. Es una previsión, no un hecho. Fuentes: https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28092.json y https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28007.json",
+  "cited_urls": [
+   "https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28092.json",
+   "https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28007.json"
+  ],
+  "figures": [
+   {
+    "name": "municipio",
+    "value": "Móstoles"
+   },
+   {
+    "name": "cambio_pct_mostoles",
+    "value": -25.1
+   },
+   {
+    "name": "cambio_p10_mostoles",
+    "value": -30.0
+   },
+   {
+    "name": "cambio_p90_mostoles",
+    "value": -16.9
+   },
+   {
+    "name": "cambio_pct_alcorcon",
+    "value": -24.4
+   },
+   {
+    "name": "cambio_p10_alcorcon",
+    "value": -29.3
+   },
+   {
+    "name": "cambio_p90_alcorcon",
+    "value": -16.1
+   }
+  ]
+ },
+ {
+  "id": "P07",
+  "answer_text": "Buitrago del Lozoya, curso 2030/31: se prevén 28 alumnos de 1.º de primaria (28,5), con un intervalo del 80 % de 26 a 38 (p10 25,6 – p90 37,9); frente a los 53 del curso 2024/25 es un −46,3 % (intervalo del 80 %: −51,7 % a −28,5 %). ¿Fiarse? Con mucha cautela, y el radar lo avisa: 1) aquí el radar ha fallado bastante en el pasado: error mediano del 38,9 % en sus 15 previsiones hechas con dos o más cursos de antelación, y en media se quedó corto (−35,9 %); el intervalo es el de su grupo de tamaño y no recoge ese sesgo propio. 2) Llegan familias con niños pequeños (121 niños de 0 a 4 años censados por cada 100 nacidos): en municipios así el método tiende a quedarse corto y el dato real puede acercarse al extremo alto del intervalo. 3) Es uno de los municipios que escolarizan a niños de toda la comarca, uno de los casos en los que el método falla. Es un municipio de pocos alumnos, donde unas pocas familias mueven mucho el porcentaje. El error medido del método es algo optimista, porque el método se eligió con los mismos cursos con los que se mide. Es una previsión, no un hecho. Fuentes: https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28027.json y https://radar-natalidad-madrid.vercel.app/llms.txt",
+  "cited_urls": [
+   "https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28027.json",
+   "https://radar-natalidad-madrid.vercel.app/llms.txt"
+  ],
+  "figures": [
+   {
+    "name": "prevision",
+    "value": 28.454
+   },
+   {
+    "name": "p10",
+    "value": 25.583
+   },
+   {
+    "name": "p90",
+    "value": 37.898
+   }
+  ]
+ },
+ {
+  "id": "P08",
+  "answer_text": "Sí, una. Comunidad de Madrid, curso 2025/26: el radar preveía 56.969 alumnos de 1.º de primaria (intervalo del 80 %: 55.825 a 58.546) y la cifra publicada, que el modelo no usa, es 56.482: una desviación del +0,9 % (el radar previó 487 alumnos de más), dentro del intervalo. El dato publicado es provisional y es un solo punto, así que no basta para dar el método por validado. El error medido del método es algo optimista, porque el método se eligió con los mismos cursos con los que se mide. Fuentes: https://radar-natalidad-madrid.vercel.app/api/v1/region.json (campo comprobacion_fuera_de_muestra) y https://radar-natalidad-madrid.vercel.app/llms.txt",
+  "cited_urls": [
+   "https://radar-natalidad-madrid.vercel.app/api/v1/region.json",
+   "https://radar-natalidad-madrid.vercel.app/llms.txt"
+  ],
+  "figures": [
+   {
+    "name": "previsto",
+    "value": 56969
+   },
+   {
+    "name": "publicado",
+    "value": 56482
+   },
+   {
+    "name": "error_pct",
+    "value": 0.9
+   }
+  ]
+ },
+ {
+  "id": "P09",
+  "answer_text": "No tengo ese dato. El radar solo prevé 1.º de primaria hasta el curso 2030/31 (los niños que entrarán entonces ya han nacido; para cursos posteriores todavía no hay nacimientos publicados), y no extrapolo por mi cuenta. Para Fuenlabrada sí cubre, curso a curso, de 2025/26 a 2030/31, cada uno con su intervalo del 80 %, además de infantil de 3 a 5 años hasta 2027/28. Fuentes: https://radar-natalidad-madrid.vercel.app/api/v1/index.json (cursos cubiertos) y https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28058.json",
+  "cited_urls": [
+   "https://radar-natalidad-madrid.vercel.app/api/v1/index.json",
+   "https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28058.json"
+  ],
+  "figures": []
+ },
+ {
+  "id": "P10",
+  "answer_text": "No tengo ese dato. Alameda del Valle no tiene colegio de primaria, así que el radar no da previsión de alumnos para ese municipio: según su ficha, sus niños se escolarizan en municipios vecinos y cuentan en las previsiones de esos municipios. El radar solo cubre los municipios con colegio de la Comunidad de Madrid; de Alameda del Valle solo publica la serie de nacidos y la población. Fuentes: https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28003.json y https://radar-natalidad-madrid.vercel.app/api/v1/index.json",
+  "cited_urls": [
+   "https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28003.json",
+   "https://radar-natalidad-madrid.vercel.app/api/v1/index.json"
+  ],
+  "figures": []
+ }
+]

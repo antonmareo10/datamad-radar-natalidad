@@ -1,0 +1,85 @@
+# Radar de natalidad municipal
+
+> Previsión abierta de cuántos niños entrarán en 1.º de primaria (hasta 2030/31) e infantil de 3 a 5 años (hasta 2027/28) en cada uno de los 136 municipios con colegio de la Comunidad de Madrid, con un intervalo del 80 % y su error medido en cursos ya cerrados. Hecha solo con datos del catálogo de datos abiertos de la Comunidad de Madrid. Proyecto para DATAMAD 2026 de Antonio González Fernández (participación individual).
+
+Este fichero resume en texto plano lo mismo que enseña la web https://radar-natalidad-madrid.vercel.app y su repositorio. Todas las cifras salen de `resultados/resumen.json` y se regeneran con cada ejecución.
+
+## Qué es
+
+- Una previsión, municipio a municipio, de los alumnos de 1.º de primaria y de infantil (3 a 5 años), con un intervalo del 80 % calibrado con los errores reales del método en cursos ya cerrados.
+- Resultado principal: unas 340 aulas de 1.º de primaria menos en la Comunidad de Madrid en 2030/31. Son 6.812 alumnos de 1.º menos que en 2024/25 (58.859), un 11,6 % menos, a 20 alumnos por aula. Intervalo del 80 %: entre 1.388 y 12.314 menos.
+- La caída no es igual en todas partes: Madrid capital, −5,7 %; área Sur, −21,0 %.
+- Web con mapa y una ficha por municipio (serie, previsión, intervalo y cómo habría acertado el método allí), API abierta en JSON y servidor MCP.
+
+## Para quién
+
+- Ayuntamientos (concejalías de Educación y de Familia): saber con varios cursos de margen si sobrarán o faltarán plazas en sus colegios y escuelas infantiles.
+- Consejería de Educación: una primera estimación común y abierta para planificar unidades, cupos de profesorado e inversiones, contrastable con sus datos internos.
+- Reutilizadores (periodistas, AMPAs, centros privados y concertados, consultoras): tablas, API y código abiertos, sin pedir permiso.
+- Uso actual: aún sin usuarios ni clientes. Es un prototipo.
+
+## Datos de origen (catálogo de datos abiertos de la Comunidad de Madrid)
+
+Siete recursos de seis datasets de https://datos.comunidad.madrid, descargados de su URL oficial; de cada uno se guarda la URL, la fecha, el tamaño y la huella SHA-256 (`fuentes/manifiesto.json`). Ninguna fuente de fuera del catálogo regional.
+
+- Nacidos vivos por lugar de residencia de la madre y sexo. Municipios (Instituto de Estadística de la Comunidad de Madrid): https://datos.comunidad.madrid/dataset/mnp_nacidos_vivos_por_residencia_y_sexo
+- Estadísticas de alumnos de centros educativos de la Comunidad de Madrid, dos recursos: alumnos de primaria por curso y alumnos por titularidad y financiación (Consejería de Educación, Ciencia y Universidades): https://datos.comunidad.madrid/dataset/spacm_estadisticas_alumnos
+- Alumnos matriculados en educación primaria por curso, titularidad del centro y sexo (Instituto de Estadística): https://datos.comunidad.madrid/dataset/alumnos_matriculados_primaria_por_curso_titularidad_y_sexo
+- Población censada por edad, nacionalidad y sexo. Censo anual. Municipios (Instituto de Estadística): https://datos.comunidad.madrid/dataset/poblacion_censada_por_edad_nacionalidad_y_sexo
+- Población empadronada por sexo. Municipios (Instituto de Estadística): https://datos.comunidad.madrid/dataset/padron_por_sexo
+- Límites municipales: capa «Municipios y Distritos de Madrid (2020)» del dataset Covid 19 - TIA por Municipios y Distritos de Madrid (Consejería de Sanidad): https://datos.comunidad.madrid/dataset/covid19_tia_muni_y_distritos
+
+## Método, en tres líneas
+
+1. Un niño que empieza 1.º de primaria en 2030/31 nació en 2024, y los nacimientos de 2024 ya están publicados.
+2. Previsión = nacidos seis años antes × factor propio de cada municipio (medido en su matrícula de infantil: alumnos por cada niño nacido allí) × una corrección regional que iguala la escala de infantil con la de 1.º.
+3. Se pone a prueba con origen móvil: se prevé como si estuviéramos en un curso pasado, solo con lo que se sabía entonces, y se compara con lo que pasó; ninguna previsión usa datos posteriores a su fecha (lo comprueba un test). Los intervalos del 80 % salen de esos errores reales.
+
+## Validación (cifras de la web)
+
+- 4,3 % de error mediano al prever 1.º de primaria con cinco cursos de antelación en los 36 municipios grandes (250 alumnos de 1.º o más), contrastado con cursos ya cerrados. Suponer que nada cambia falla un 16,1 %; contar solo los nacidos, un 13,6 %.
+- Intervalos del 80 %: calculados sin la base que se evalúa, contienen al real en el 78,2 % de los casos.
+- Dato que el modelo no usa: para 2025/26 prevé 56.969 alumnos de 1.º; la cifra provisional publicada por el Instituto de Estadística es 56.482, una diferencia del +0,9 %. Es un solo punto y además provisional.
+- Se probaron diez variantes y se eligió la de menor error mediano sobre la misma muestra que se mide, así que esos errores son algo optimistas; la web lo explica en «Método y error».
+
+## Límites (dónde falla)
+
+- En los municipios pequeños (menos de 50 alumnos de 1.º): dos o tres familias mueven mucho el porcentaje y sus intervalos son muy anchos. En infantil, en los pequeños, el método no mejora a suponer que nada cambia.
+- En los municipios que ganan familias jóvenes: cuantos más niños de 0 a 4 años tiene censados por cada nacido, más se queda corto.
+- En los que escolarizan a niños de toda la comarca, como Buitrago del Lozoya.
+- Cuando cambia el ciclo migratorio: los intervalos municipales salen de años de migración estable.
+- No prevé el total de primaria ni la red pública y la concertada por separado, y no baja a los distritos de la capital: el catálogo no publica nacimientos por distrito.
+
+## API abierta (JSON estático, sin claves ni registro)
+
+- Índice, licencias y fuentes: https://radar-natalidad-madrid.vercel.app/api/v1/index.json
+- Toda la región: https://radar-natalidad-madrid.vercel.app/api/v1/region.json
+- Un municipio por código INE: https://radar-natalidad-madrid.vercel.app/api/v1/municipios/{codigo_ine}.json (por ejemplo, Madrid: https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28079.json)
+- Previsiones de 1.º en el estándar Smart Data Models (modelo SDMX `Observation`): https://radar-natalidad-madrid.vercel.app/api/v1/sdm/observaciones_1o.json
+- Documentación: https://github.com/antonmareo10/datamad-radar-natalidad/blob/master/docs/API.md
+
+## Servidor MCP
+
+Servidor MCP de solo lectura `radar-natalidad`, en la carpeta `mcp_server/` del repositorio. Lee esta misma API y responde con la cifra, su intervalo del 80 % y los avisos de la ficha. Cuatro herramientas:
+
+- `buscar_municipio(texto)`: encuentra un municipio por nombre o código INE.
+- `prevision_municipio(municipio, nivel)`: previsión de 1.º o de infantil, curso a curso, con su intervalo.
+- `fiabilidad_municipio(municipio)`: cuánto ha acertado el método en ese municipio y en los de su tamaño.
+- `mayores_cambios(n, sentido)`: dónde más baja o sube 1.º de primaria.
+
+Instalación: https://github.com/antonmareo10/datamad-radar-natalidad/blob/master/mcp_server/README.md
+
+## Software libre, licencias y coste
+
+- Código con licencia MIT, en Python con pandas y NumPy; la web no usa librerías externas. Repositorio: https://github.com/antonmareo10/datamad-radar-natalidad
+- Tablas derivadas con licencia CC BY 4.0. Datos de origen: Comunidad de Madrid (datos.comunidad.madrid), CC BY. Cita: «Radar de natalidad municipal, a partir de datos abiertos de la Comunidad de Madrid (datos.comunidad.madrid)».
+- Reproducible con una orden: `python -m radar todo` descarga los ficheros oficiales y lo recalcula todo en menos de un minuto en un portátil.
+- Coste: 0 € en datos y 0 € de infraestructura como web estática (sin servidor, base de datos ni claves).
+- Código escrito con un asistente de IA (Claude Code) bajo la dirección de Antonio González Fernández.
+
+## Enlaces
+
+- Web: https://radar-natalidad-madrid.vercel.app
+- Código: https://github.com/antonmareo10/datamad-radar-natalidad
+- API: https://radar-natalidad-madrid.vercel.app/api/v1/
+- Documentación de la API: https://github.com/antonmareo10/datamad-radar-natalidad/blob/master/docs/API.md

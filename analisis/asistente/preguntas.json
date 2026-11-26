@@ -1,0 +1,430 @@
+{
+ "descripcion": "10 preguntas con verdad determinista tomada de la API de producción del Radar de natalidad municipal.",
+ "api_generado_utc": "2026-11-23T22:48:45+00:00",
+ "version_radar": "1.0.0",
+ "reglas_de_puntuacion": "Una pregunta de dato es correcta si TODAS las cifras clave coinciden con la API (|valor − valor_api| ≤ tolerancia: 0,5 en alumnos, es decir el redondeo al entero; 0,05 en porcentajes, es decir exacto a un decimal), están las cifras del intervalo cuando se exige, se cita una URL del radar y ninguna de fuera, y aparece el aviso cuando la API lo da. Una trampa es correcta si dice que no tiene el dato y no da ninguna cifra.",
+ "preguntas": [
+  {
+   "id": "P01",
+   "tipo": "dato",
+   "dificultad": "fácil",
+   "pregunta": "¿Cuántos alumnos de 1.º de primaria se prevén en Fuenlabrada en el curso 2030/31, y con qué margen?",
+   "figuras_pedidas": [
+    "prevision",
+    "p10",
+    "p90"
+   ],
+   "requiere_intervalo": true,
+   "requiere_aviso": false,
+   "verdad": {
+    "url": "https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28058.json",
+    "campos": [
+     {
+      "name": "prevision",
+      "ruta_api": "primero_primaria.prevision[curso=2030/31].prevision",
+      "valor_api": 1150.107,
+      "tolerancia": 0.5,
+      "es_intervalo": false,
+      "descripcion": "alumnos de 1.º previstos"
+     },
+     {
+      "name": "p10",
+      "ruta_api": "primero_primaria.prevision[curso=2030/31].p10",
+      "valor_api": 1074.53,
+      "tolerancia": 0.5,
+      "es_intervalo": true,
+      "descripcion": "extremo inferior del intervalo del 80 % (alumnos)"
+     },
+     {
+      "name": "p90",
+      "ruta_api": "primero_primaria.prevision[curso=2030/31].p90",
+      "valor_api": 1276.518,
+      "tolerancia": 0.5,
+      "es_intervalo": true,
+      "descripcion": "extremo superior del intervalo del 80 % (alumnos)"
+     }
+    ]
+   }
+  },
+  {
+   "id": "P02",
+   "tipo": "dato",
+   "dificultad": "fácil",
+   "pregunta": "En Getafe, ¿cuánto cambia el alumnado de 1.º de primaria previsto para 2030/31 respecto al curso 2024/25?",
+   "figuras_pedidas": [
+    "cambio_pct",
+    "cambio_p10",
+    "cambio_p90"
+   ],
+   "requiere_intervalo": true,
+   "requiere_aviso": false,
+   "verdad": {
+    "url": "https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28065.json",
+    "campos": [
+     {
+      "name": "cambio_pct",
+      "ruta_api": "primero_primaria.prevision[curso=2030/31].cambio_pct",
+      "valor_api": -18.1,
+      "tolerancia": 0.05,
+      "es_intervalo": false,
+      "descripcion": "cambio en % frente a 2024/25 (negativo si baja)"
+     },
+     {
+      "name": "cambio_p10",
+      "ruta_api": "primero_primaria.prevision[curso=2030/31].cambio_p10",
+      "valor_api": -23.5,
+      "tolerancia": 0.05,
+      "es_intervalo": true,
+      "descripcion": "extremo inferior del intervalo del 80 % del cambio, en %"
+     },
+     {
+      "name": "cambio_p90",
+      "ruta_api": "primero_primaria.prevision[curso=2030/31].cambio_p90",
+      "valor_api": -9.1,
+      "tolerancia": 0.05,
+      "es_intervalo": true,
+      "descripcion": "extremo superior del intervalo del 80 % del cambio, en %"
+     }
+    ]
+   }
+  },
+  {
+   "id": "P03",
+   "tipo": "dato",
+   "dificultad": "media",
+   "pregunta": "Para toda la Comunidad de Madrid: ¿cuántos alumnos de 1.º de primaria se prevén en 2030/31, cuántos menos que en 2024/25 y con qué intervalo?",
+   "figuras_pedidas": [
+    "prevision",
+    "p10",
+    "p90",
+    "cambio_pct",
+    "cambio_alumnos"
+   ],
+   "requiere_intervalo": true,
+   "requiere_aviso": false,
+   "verdad": {
+    "url": "https://radar-natalidad-madrid.vercel.app/api/v1/region.json",
+    "campos": [
+     {
+      "name": "prevision",
+      "ruta_api": "primero_primaria.prevision[curso=2030/31].prevision",
+      "valor_api": 52047.0,
+      "tolerancia": 0.5,
+      "es_intervalo": false,
+      "descripcion": "alumnos de 1.º previstos en la región"
+     },
+     {
+      "name": "p10",
+      "ruta_api": "primero_primaria.prevision[curso=2030/31].p10",
+      "valor_api": 46544.7,
+      "tolerancia": 0.5,
+      "es_intervalo": true,
+      "descripcion": "extremo inferior del intervalo del 80 % (alumnos)"
+     },
+     {
+      "name": "p90",
+      "ruta_api": "primero_primaria.prevision[curso=2030/31].p90",
+      "valor_api": 57471.3,
+      "tolerancia": 0.5,
+      "es_intervalo": true,
+      "descripcion": "extremo superior del intervalo del 80 % (alumnos)"
+     },
+     {
+      "name": "cambio_pct",
+      "ruta_api": "primero_primaria.prevision[curso=2030/31].cambio_pct",
+      "valor_api": -11.6,
+      "tolerancia": 0.05,
+      "es_intervalo": false,
+      "descripcion": "cambio en % frente a 2024/25 (negativo si baja)"
+     },
+     {
+      "name": "cambio_alumnos",
+      "ruta_api": "prevision − primero_primaria.real_base (58859)",
+      "valor_api": -6812.0,
+      "tolerancia": 1.0,
+      "es_intervalo": false,
+      "descripcion": "diferencia en alumnos frente a 2024/25 (negativa si baja)"
+     }
+    ]
+   }
+  },
+  {
+   "id": "P04",
+   "tipo": "dato",
+   "dificultad": "difícil (ranking)",
+   "pregunta": "De los municipios del área Sur con al menos 100 alumnos de 1.º, ¿en cuál cae más (en porcentaje) el alumnado de 1.º previsto para 2030/31?",
+   "figuras_pedidas": [
+    "municipio",
+    "cambio_pct",
+    "cambio_p10",
+    "cambio_p90"
+   ],
+   "requiere_intervalo": true,
+   "requiere_aviso": false,
+   "verdad": {
+    "url": "https://radar-natalidad-madrid.vercel.app/api/v1/region.json",
+    "campos": [
+     {
+      "name": "municipio",
+      "ruta_api": "ranking_1o.municipios[zona=Sur] con menor cambio_pct → municipio",
+      "valor_api": "Arroyomolinos",
+      "tolerancia": null,
+      "es_intervalo": false,
+      "descripcion": "nombre del municipio"
+     },
+     {
+      "name": "cambio_pct",
+      "ruta_api": "…cambio_pct",
+      "valor_api": -33.9,
+      "tolerancia": 0.05,
+      "es_intervalo": false,
+      "descripcion": "cambio en % frente a 2024/25 (negativo si baja)"
+     },
+     {
+      "name": "cambio_p10",
+      "ruta_api": "…cambio_p10",
+      "valor_api": -38.2,
+      "tolerancia": 0.05,
+      "es_intervalo": true,
+      "descripcion": "extremo inferior del intervalo del 80 % del cambio, en %"
+     },
+     {
+      "name": "cambio_p90",
+      "ruta_api": "…cambio_p90",
+      "valor_api": -26.6,
+      "tolerancia": 0.05,
+      "es_intervalo": true,
+      "descripcion": "extremo superior del intervalo del 80 % del cambio, en %"
+     }
+    ]
+   }
+  },
+  {
+   "id": "P05",
+   "tipo": "dato",
+   "dificultad": "media",
+   "pregunta": "¿Cuánto se equivoca el radar al prever 1.º de primaria con cinco cursos de antelación en los municipios grandes, y cuánto se equivocaría suponer que nada cambia?",
+   "figuras_pedidas": [
+    "error_radar_pct",
+    "error_ingenuo_pct"
+   ],
+   "requiere_intervalo": false,
+   "requiere_aviso": false,
+   "verdad": {
+    "url": "https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28058.json",
+    "campos": [
+     {
+      "name": "error_radar_pct",
+      "ruta_api": "fiabilidad.error_mediano_grupo_pct.5.radar",
+      "valor_api": 4.3,
+      "tolerancia": 0.05,
+      "es_intervalo": false,
+      "descripcion": "error mediano del radar, en %"
+     },
+     {
+      "name": "error_ingenuo_pct",
+      "ruta_api": "fiabilidad.error_mediano_grupo_pct.5.ingenuo",
+      "valor_api": 16.1,
+      "tolerancia": 0.05,
+      "es_intervalo": false,
+      "descripcion": "error mediano de suponer que nada cambia, en %"
+     }
+    ],
+    "nota_url": "Vale cualquier municipio del grupo «grande»; el mismo dato está en /llms.txt."
+   }
+  },
+  {
+   "id": "P06",
+   "tipo": "dato",
+   "dificultad": "difícil (comparación)",
+   "pregunta": "Entre Móstoles y Alcorcón, ¿dónde baja más en porcentaje el alumnado de 1.º previsto para 2030/31 respecto a 2024/25? Dame las dos cifras con su margen.",
+   "figuras_pedidas": [
+    "municipio",
+    "cambio_pct_mostoles",
+    "cambio_p10_mostoles",
+    "cambio_p90_mostoles",
+    "cambio_pct_alcorcon",
+    "cambio_p10_alcorcon",
+    "cambio_p90_alcorcon"
+   ],
+   "requiere_intervalo": true,
+   "requiere_aviso": false,
+   "verdad": {
+    "url": "https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28092.json",
+    "campos": [
+     {
+      "name": "municipio",
+      "ruta_api": "el de menor cambio_pct de los dos",
+      "valor_api": "Móstoles",
+      "tolerancia": null,
+      "es_intervalo": false,
+      "descripcion": "nombre del municipio donde la cifra central baja más"
+     },
+     {
+      "name": "cambio_pct_mostoles",
+      "ruta_api": "primero_primaria.prevision[curso=2030/31].cambio_pct",
+      "valor_api": -25.1,
+      "tolerancia": 0.05,
+      "es_intervalo": false,
+      "descripcion": "cambio en % frente a 2024/25 (negativo si baja)"
+     },
+     {
+      "name": "cambio_p10_mostoles",
+      "ruta_api": "primero_primaria.prevision[curso=2030/31].cambio_p10",
+      "valor_api": -30.0,
+      "tolerancia": 0.05,
+      "es_intervalo": true,
+      "descripcion": "extremo inferior del intervalo del 80 % del cambio, en %"
+     },
+     {
+      "name": "cambio_p90_mostoles",
+      "ruta_api": "primero_primaria.prevision[curso=2030/31].cambio_p90",
+      "valor_api": -16.9,
+      "tolerancia": 0.05,
+      "es_intervalo": true,
+      "descripcion": "extremo superior del intervalo del 80 % del cambio, en %"
+     },
+     {
+      "name": "cambio_pct_alcorcon",
+      "ruta_api": "primero_primaria.prevision[curso=2030/31].cambio_pct",
+      "valor_api": -24.4,
+      "tolerancia": 0.05,
+      "es_intervalo": false,
+      "descripcion": "cambio en % frente a 2024/25 (negativo si baja)"
+     },
+     {
+      "name": "cambio_p10_alcorcon",
+      "ruta_api": "primero_primaria.prevision[curso=2030/31].cambio_p10",
+      "valor_api": -29.3,
+      "tolerancia": 0.05,
+      "es_intervalo": true,
+      "descripcion": "extremo inferior del intervalo del 80 % del cambio, en %"
+     },
+     {
+      "name": "cambio_p90_alcorcon",
+      "ruta_api": "primero_primaria.prevision[curso=2030/31].cambio_p90",
+      "valor_api": -16.1,
+      "tolerancia": 0.05,
+      "es_intervalo": true,
+      "descripcion": "extremo superior del intervalo del 80 % del cambio, en %"
+     }
+    ],
+    "url_2": "https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28007.json",
+    "nota": "Los dos intervalos se solapan casi por completo: lo honrado es decir que la diferencia no es concluyente (no se puntúa)."
+   }
+  },
+  {
+   "id": "P07",
+   "tipo": "dato",
+   "dificultad": "media (aviso)",
+   "pregunta": "¿Qué prevé el radar para 1.º de primaria en Buitrago del Lozoya en 2030/31? ¿Me puedo fiar?",
+   "figuras_pedidas": [
+    "prevision",
+    "p10",
+    "p90"
+   ],
+   "requiere_intervalo": true,
+   "requiere_aviso": true,
+   "verdad": {
+    "url": "https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28027.json",
+    "campos": [
+     {
+      "name": "prevision",
+      "ruta_api": "primero_primaria.prevision[curso=2030/31].prevision",
+      "valor_api": 28.454,
+      "tolerancia": 0.5,
+      "es_intervalo": false,
+      "descripcion": "alumnos de 1.º previstos"
+     },
+     {
+      "name": "p10",
+      "ruta_api": "primero_primaria.prevision[curso=2030/31].p10",
+      "valor_api": 25.583,
+      "tolerancia": 0.5,
+      "es_intervalo": true,
+      "descripcion": "extremo inferior del intervalo del 80 % (alumnos)"
+     },
+     {
+      "name": "p90",
+      "ruta_api": "primero_primaria.prevision[curso=2030/31].p90",
+      "valor_api": 37.898,
+      "tolerancia": 0.5,
+      "es_intervalo": true,
+      "descripcion": "extremo superior del intervalo del 80 % (alumnos)"
+     }
+    ],
+    "aviso_api": "Aquí el radar ha fallado bastante en el pasado: error mediano del 38,9 % en sus 15 previsiones hechas con dos o más cursos de antelación, y en media se quedó corto (−35,9 %). El intervalo es el de su grupo de tamaño y no recoge ese sesgo propio: tómalo con cautela."
+   }
+  },
+  {
+   "id": "P08",
+   "tipo": "dato",
+   "dificultad": "media",
+   "pregunta": "¿Se ha comprobado alguna previsión regional de 1.º con un dato que el modelo no había visto? ¿Qué previó, qué se publicó y cuánto se desvió?",
+   "figuras_pedidas": [
+    "previsto",
+    "publicado",
+    "error_pct"
+   ],
+   "requiere_intervalo": false,
+   "requiere_aviso": false,
+   "verdad": {
+    "url": "https://radar-natalidad-madrid.vercel.app/api/v1/region.json",
+    "campos": [
+     {
+      "name": "previsto",
+      "ruta_api": "primero_primaria.comprobacion_fuera_de_muestra.previsto",
+      "valor_api": 56969,
+      "tolerancia": 0.5,
+      "es_intervalo": false,
+      "descripcion": "alumnos previstos para 2025/26"
+     },
+     {
+      "name": "publicado",
+      "ruta_api": "primero_primaria.comprobacion_fuera_de_muestra.publicado",
+      "valor_api": 56482,
+      "tolerancia": 0.5,
+      "es_intervalo": false,
+      "descripcion": "alumnos publicados (dato provisional)"
+     },
+     {
+      "name": "error_pct",
+      "ruta_api": "primero_primaria.comprobacion_fuera_de_muestra.error_pct",
+      "valor_api": 0.9,
+      "tolerancia": 0.05,
+      "es_intervalo": false,
+      "descripcion": "desviación en %"
+     }
+    ]
+   }
+  },
+  {
+   "id": "P09",
+   "tipo": "trampa",
+   "dificultad": "trampa (fuera de horizonte)",
+   "pregunta": "¿Y cuántos alumnos de 1.º de primaria habrá en Fuenlabrada en el curso 2040/41?",
+   "figuras_pedidas": [],
+   "requiere_intervalo": false,
+   "requiere_aviso": false,
+   "verdad": {
+    "url": "https://radar-natalidad-madrid.vercel.app/api/v1/index.json",
+    "campos": [],
+    "comportamiento_correcto": "Decir «no tengo ese dato»: la previsión de 1.º llega a 2030/31 (index.json → datos.cursos_prevision_1o = 2025/26, 2026/27, 2027/28, 2028/29, 2029/30, 2030/31). Ninguna cifra."
+   }
+  },
+  {
+   "id": "P10",
+   "tipo": "trampa",
+   "dificultad": "trampa (municipio sin colegio)",
+   "pregunta": "¿Cuántos alumnos de 1.º de primaria tendrá Alameda del Valle en 2030/31?",
+   "figuras_pedidas": [],
+   "requiere_intervalo": false,
+   "requiere_aviso": false,
+   "verdad": {
+    "url": "https://radar-natalidad-madrid.vercel.app/api/v1/municipios/28003.json",
+    "campos": [],
+    "comportamiento_correcto": "Decir «no tengo ese dato»: tiene_colegio=false y no hay bloque primero_primaria. Aviso de la API: «No tiene colegio de primaria: sus niños se escolarizan en municipios vecinos y cuentan en las previsiones de esos municipios. En 2024 nacieron aquí 0 niños.». Ninguna cifra de alumnos."
+   }
+  }
+ ]
+}

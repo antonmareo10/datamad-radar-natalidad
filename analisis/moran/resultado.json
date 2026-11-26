@@ -1,0 +1,981 @@
+{
+ "control": {
+  "espec": "p_finfk",
+  "mdape_grande_h5_radar": 4.35,
+  "mdape_grande_h5_ingenuo": 16.1,
+  "n_grande_h5": 72,
+  "municipios_grande": 36,
+  "bases_h5": [
+   2018,
+   2019
+  ],
+  "cursos_reales_h5": [
+   2023,
+   2024
+  ],
+  "donde_falla_municipios": 81,
+  "donde_falla_max_dif_con_csv": 0.0,
+  "geometria": {
+   "unidades": 179,
+   "enlaces_reina": 471,
+   "enlaces_vertice_compartido": 471,
+   "solo_en_distancia": [],
+   "solo_en_vertices": [],
+   "sin_vecinos": [],
+   "vecinos_capital": 16
+  }
+ },
+ "permutaciones": 9999,
+ "semilla": 20261126,
+ "tolerancia_contacto_m": 1.0,
+ "resultados": [
+  {
+   "nombre": "A_grandes36_h5",
+   "definicion": "36 municipios grandes (250 alumnos de 1.º o más en 2018/19, sin la capital); h = 5 cursos; media por municipio de err = (previsto − real)/real × 100 sobre las 2 bases con h = 5",
+   "n_con_residuo": 36,
+   "sin_geometria": [],
+   "islas": [],
+   "n": 36,
+   "con_signo": {
+    "n": 36,
+    "I": -0.024424337273637402,
+    "EI": -0.02857142857142857,
+    "media_perm": -0.031193587661309075,
+    "dt_perm": 0.1314292877528786,
+    "z_perm": 0.05150488527640531,
+    "p_superior": 0.469,
+    "p_una_cola_pysal": 0.469,
+    "p_dos_colas": 0.9774,
+    "enlaces": 62,
+    "vecinos_medios": 3.4444444444444446
+   },
+   "absoluto": {
+    "n": 36,
+    "I": 0.11355107908539522,
+    "EI": -0.02857142857142857,
+    "media_perm": -0.027873558656713027,
+    "dt_perm": 0.1327879044496592,
+    "z_perm": 1.0650415663101551,
+    "p_superior": 0.1432,
+    "p_una_cola_pysal": 0.1432,
+    "p_dos_colas": 0.2833,
+    "enlaces": 62,
+    "vecinos_medios": 3.4444444444444446
+   },
+   "con_signo_rangos": {
+    "n": 36,
+    "I": 0.005303671017956724,
+    "EI": -0.02857142857142857,
+    "media_perm": -0.030978290940572882,
+    "dt_perm": 0.13205863921283478,
+    "z_perm": 0.27474129806877,
+    "p_superior": 0.3856,
+    "p_una_cola_pysal": 0.3856,
+    "p_dos_colas": 0.8068,
+    "enlaces": 62,
+    "vecinos_medios": 3.4444444444444446
+   },
+   "absoluto_rangos": {
+    "n": 36,
+    "I": 0.09646718146718146,
+    "EI": -0.02857142857142857,
+    "media_perm": -0.02931778227157765,
+    "dt_perm": 0.13181249012163967,
+    "z_perm": 0.9542719633221539,
+    "p_superior": 0.167,
+    "p_una_cola_pysal": 0.167,
+    "p_dos_colas": 0.3456,
+    "enlaces": 62,
+    "vecinos_medios": 3.4444444444444446
+   },
+   "knn4_con_signo": {
+    "n": 36,
+    "I": 0.03707446879437592,
+    "EI": -0.02857142857142857,
+    "media_perm": -0.02794694969263197,
+    "dt_perm": 0.10201330624458657,
+    "z_perm": 0.637381738526471,
+    "p_superior": 0.2499,
+    "p_una_cola_pysal": 0.2499,
+    "p_dos_colas": 0.5286,
+    "enlaces": 72,
+    "vecinos_medios": 4.0
+   },
+   "knn4_absoluto": {
+    "n": 36,
+    "I": 0.053325443154762106,
+    "EI": -0.02857142857142857,
+    "media_perm": -0.029247050468707878,
+    "dt_perm": 0.10238120060052927,
+    "z_perm": 0.806520075356912,
+    "p_superior": 0.2028,
+    "p_una_cola_pysal": 0.2028,
+    "p_dos_colas": 0.4246,
+    "enlaces": 72,
+    "vecinos_medios": 4.0
+   },
+   "lisa": {
+    "p_menor_005": 2,
+    "esperados_por_azar": 1.8,
+    "significativos_fdr_005": 0,
+    "nucleos_005": [
+     {
+      "municipio": "Móstoles",
+      "cuadrante": "AB",
+      "residuo": 5.4,
+      "p": 0.0166
+     },
+     {
+      "municipio": "Fuenlabrada",
+      "cuadrante": "AA",
+      "residuo": 2.04,
+      "p": 0.0326
+     }
+    ]
+   }
+  },
+  {
+   "nombre": "A2_grandes36_y_capital_h5",
+   "definicion": "ídem A añadiendo Madrid capital (37 unidades)",
+   "n_con_residuo": 37,
+   "sin_geometria": [],
+   "islas": [],
+   "n": 37,
+   "con_signo": {
+    "n": 37,
+    "I": 0.00806481121492261,
+    "EI": -0.027777777777777776,
+    "media_perm": -0.030112430169233838,
+    "dt_perm": 0.11560338354235344,
+    "z_perm": 0.33024328712809264,
+    "p_superior": 0.3593,
+    "p_una_cola_pysal": 0.3593,
+    "p_dos_colas": 0.7619,
+    "enlaces": 77,
+    "vecinos_medios": 4.162162162162162
+   },
+   "absoluto": {
+    "n": 37,
+    "I": 0.12791208224302303,
+    "EI": -0.027777777777777776,
+    "media_perm": -0.027872806123996414,
+    "dt_perm": 0.11713573285427575,
+    "z_perm": 1.3299518820685203,
+    "p_superior": 0.0964,
+    "p_una_cola_pysal": 0.0964,
+    "p_dos_colas": 0.1827,
+    "enlaces": 77,
+    "vecinos_medios": 4.162162162162162
+   },
+   "con_signo_rangos": {
+    "n": 37,
+    "I": 0.018943755785861053,
+    "EI": -0.027777777777777776,
+    "media_perm": -0.026510999956370806,
+    "dt_perm": 0.11607790327827076,
+    "z_perm": 0.3915883597006768,
+    "p_superior": 0.3342,
+    "p_una_cola_pysal": 0.3342,
+    "p_dos_colas": 0.6926,
+    "enlaces": 77,
+    "vecinos_medios": 4.162162162162162
+   },
+   "absoluto_rangos": {
+    "n": 37,
+    "I": 0.09384610174083859,
+    "EI": -0.027777777777777776,
+    "media_perm": -0.026419757117168964,
+    "dt_perm": 0.11692555527221239,
+    "z_perm": 1.0285677803968403,
+    "p_superior": 0.1534,
+    "p_una_cola_pysal": 0.1534,
+    "p_dos_colas": 0.3021,
+    "enlaces": 77,
+    "vecinos_medios": 4.162162162162162
+   },
+   "knn4_con_signo": {
+    "n": 37,
+    "I": 0.041707003372800346,
+    "EI": -0.027777777777777776,
+    "media_perm": -0.026595615091149747,
+    "dt_perm": 0.10055340851432323,
+    "z_perm": 0.6792670628785378,
+    "p_superior": 0.2322,
+    "p_una_cola_pysal": 0.2322,
+    "p_dos_colas": 0.4817,
+    "enlaces": 74,
+    "vecinos_medios": 4.0
+   },
+   "knn4_absoluto": {
+    "n": 37,
+    "I": 0.05448809174970426,
+    "EI": -0.027777777777777776,
+    "media_perm": -0.027015482187909466,
+    "dt_perm": 0.10077598779281757,
+    "z_perm": 0.8087598615770908,
+    "p_superior": 0.2003,
+    "p_una_cola_pysal": 0.2003,
+    "p_dos_colas": 0.4056,
+    "enlaces": 74,
+    "vecinos_medios": 4.0
+   }
+  },
+  {
+   "nombre": "B_donde_falla_81_h2a4",
+   "definicion": "definición del repo (resultados/donde_falla_por_municipio.csv, columna err_medio): municipios grandes, medianos y capital; media de err en h = 2 a 4",
+   "n_con_residuo": 81,
+   "sin_geometria": [],
+   "islas": [
+    "28027",
+    "28100"
+   ],
+   "n": 79,
+   "con_signo": {
+    "n": 79,
+    "I": 0.08994382060960923,
+    "EI": -0.01282051282051282,
+    "media_perm": -0.011717870094325674,
+    "dt_perm": 0.08057560820750445,
+    "z_perm": 1.2616931223420365,
+    "p_superior": 0.1035,
+    "p_una_cola_pysal": 0.1035,
+    "p_dos_colas": 0.1974,
+    "enlaces": 181,
+    "vecinos_medios": 4.582278481012659
+   },
+   "absoluto": {
+    "n": 79,
+    "I": -0.057411001312189326,
+    "EI": -0.01282051282051282,
+    "media_perm": -0.013006445739355192,
+    "dt_perm": 0.08056846312221547,
+    "z_perm": -0.5511406554382975,
+    "p_superior": 0.6972,
+    "p_una_cola_pysal": 0.3029,
+    "p_dos_colas": 0.5848,
+    "enlaces": 181,
+    "vecinos_medios": 4.582278481012659
+   },
+   "con_signo_rangos": {
+    "n": 79,
+    "I": 0.1314534599542511,
+    "EI": -0.01282051282051282,
+    "media_perm": -0.01433293194507884,
+    "dt_perm": 0.08242530175849948,
+    "z_perm": 1.7687092287083659,
+    "p_superior": 0.0431,
+    "p_una_cola_pysal": 0.0431,
+    "p_dos_colas": 0.0787,
+    "enlaces": 181,
+    "vecinos_medios": 4.582278481012659
+   },
+   "absoluto_rangos": {
+    "n": 79,
+    "I": -0.07887246851250014,
+    "EI": -0.01282051282051282,
+    "media_perm": -0.011811846868993803,
+    "dt_perm": 0.08144795573656427,
+    "z_perm": -0.8233554917008302,
+    "p_superior": 0.7942,
+    "p_una_cola_pysal": 0.2059,
+    "p_dos_colas": 0.415,
+    "enlaces": 181,
+    "vecinos_medios": 4.582278481012659
+   },
+   "absoluto_dentro_de_tamano": {
+    "n": 79,
+    "I": -0.057411001312189326,
+    "EI": 0.0218455285086137,
+    "media_perm": 0.0218455285086137,
+    "dt_perm": 0.08393619830841699,
+    "z_perm": -0.9442473142467225,
+    "p_superior": 0.8249,
+    "p_una_cola_pysal": 0.1752,
+    "p_dos_colas": 0.3454,
+    "enlaces": 181,
+    "vecinos_medios": 4.582278481012659
+   },
+   "absoluto_rangos_dentro_de_tamano": {
+    "n": 79,
+    "I": -0.07887246851250014,
+    "EI": 0.01895602126105754,
+    "media_perm": 0.01895602126105754,
+    "dt_perm": 0.08183123378405441,
+    "z_perm": -1.1954908321646311,
+    "p_superior": 0.8841,
+    "p_una_cola_pysal": 0.116,
+    "p_dos_colas": 0.2308,
+    "enlaces": 181,
+    "vecinos_medios": 4.582278481012659
+   },
+   "con_signo_dentro_de_tamano": {
+    "n": 79,
+    "I": 0.08994382060960923,
+    "EI": 0.001510895385138498,
+    "media_perm": 0.001510895385138498,
+    "dt_perm": 0.08528173075068628,
+    "z_perm": 1.0369504048058862,
+    "p_superior": 0.1488,
+    "p_una_cola_pysal": 0.1488,
+    "p_dos_colas": 0.2953,
+    "enlaces": 181,
+    "vecinos_medios": 4.582278481012659
+   },
+   "mediana_abs_por_tamano": {
+    "grande": 1.67,
+    "mediano": 4.29
+   },
+   "knn4_con_signo": {
+    "n": 81,
+    "I": 0.04708088207279536,
+    "EI": -0.0125,
+    "media_perm": -0.012635508014345693,
+    "dt_perm": 0.06659116726859331,
+    "z_perm": 0.8967614255247537,
+    "p_superior": 0.18,
+    "p_una_cola_pysal": 0.18,
+    "p_dos_colas": 0.3637,
+    "enlaces": 162,
+    "vecinos_medios": 4.0
+   },
+   "knn4_absoluto": {
+    "n": 81,
+    "I": -0.03181466224921786,
+    "EI": -0.0125,
+    "media_perm": -0.014039248258648586,
+    "dt_perm": 0.06143105387871902,
+    "z_perm": -0.28935551106876006,
+    "p_superior": 0.5865,
+    "p_una_cola_pysal": 0.4136,
+    "p_dos_colas": 0.7573,
+    "enlaces": 162,
+    "vecinos_medios": 4.0
+   }
+  },
+  {
+   "nombre": "C_todos_h5",
+   "definicion": "todos los municipios con backtest; h = 5; media de err por municipio",
+   "n_con_residuo": 134,
+   "sin_geometria": [],
+   "islas": [
+    "28076",
+    "28100",
+    "28107"
+   ],
+   "n": 131,
+   "con_signo": {
+    "n": 131,
+    "I": -0.1289679960683651,
+    "EI": -0.007692307692307693,
+    "media_perm": -0.0076301585005578544,
+    "dt_perm": 0.05411495291836605,
+    "z_perm": -2.242223840624029,
+    "p_superior": 0.9953,
+    "p_una_cola_pysal": 0.0048,
+    "p_dos_colas": 0.0283,
+    "enlaces": 330,
+    "vecinos_medios": 5.038167938931298
+   },
+   "absoluto": {
+    "n": 131,
+    "I": 0.08720349539435267,
+    "EI": -0.007692307692307693,
+    "media_perm": -0.008419817536993343,
+    "dt_perm": 0.05274148746220627,
+    "z_perm": 1.8130568084540315,
+    "p_superior": 0.0551,
+    "p_una_cola_pysal": 0.0551,
+    "p_dos_colas": 0.0645,
+    "enlaces": 330,
+    "vecinos_medios": 5.038167938931298
+   },
+   "con_signo_rangos": {
+    "n": 131,
+    "I": -0.03829476055033895,
+    "EI": -0.007692307692307693,
+    "media_perm": -0.007657937789241216,
+    "dt_perm": 0.05779096816039233,
+    "z_perm": -0.5301316751792197,
+    "p_superior": 0.697,
+    "p_una_cola_pysal": 0.3031,
+    "p_dos_colas": 0.5952,
+    "enlaces": 330,
+    "vecinos_medios": 5.038167938931298
+   },
+   "absoluto_rangos": {
+    "n": 131,
+    "I": 0.193884458661323,
+    "EI": -0.007692307692307693,
+    "media_perm": -0.008583485787126659,
+    "dt_perm": 0.05712142818800328,
+    "z_perm": 3.5445182459736233,
+    "p_superior": 0.0004,
+    "p_una_cola_pysal": 0.0004,
+    "p_dos_colas": 0.0004,
+    "enlaces": 330,
+    "vecinos_medios": 5.038167938931298
+   },
+   "absoluto_dentro_de_tamano": {
+    "n": 131,
+    "I": 0.08720349539435267,
+    "EI": 0.07976474428610818,
+    "media_perm": 0.07976474428610818,
+    "dt_perm": 0.06528106479099688,
+    "z_perm": 0.11394959828030245,
+    "p_superior": 0.3973,
+    "p_una_cola_pysal": 0.3973,
+    "p_dos_colas": 0.9084,
+    "enlaces": 330,
+    "vecinos_medios": 5.038167938931298
+   },
+   "absoluto_rangos_dentro_de_tamano": {
+    "n": 131,
+    "I": 0.193884458661323,
+    "EI": 0.15878854811806145,
+    "media_perm": 0.15878854811806145,
+    "dt_perm": 0.05779124573071451,
+    "z_perm": 0.6072876626815644,
+    "p_superior": 0.2677,
+    "p_una_cola_pysal": 0.2677,
+    "p_dos_colas": 0.5447,
+    "enlaces": 330,
+    "vecinos_medios": 5.038167938931298
+   },
+   "con_signo_dentro_de_tamano": {
+    "n": 131,
+    "I": -0.1289679960683651,
+    "EI": -0.004293306590907383,
+    "media_perm": -0.004293306590907383,
+    "dt_perm": 0.07161986971565225,
+    "z_perm": -1.7407835279852586,
+    "p_superior": 0.9805,
+    "p_una_cola_pysal": 0.0196,
+    "p_dos_colas": 0.0713,
+    "enlaces": 330,
+    "vecinos_medios": 5.038167938931298
+   },
+   "mediana_abs_por_tamano": {
+    "grande": 4.03,
+    "mediano": 12.65,
+    "pequeño": 16.32
+   },
+   "knn4_con_signo": {
+    "n": 134,
+    "I": -0.0711148430346601,
+    "EI": -0.007518796992481203,
+    "media_perm": -0.006389416866300001,
+    "dt_perm": 0.05497932628049284,
+    "z_perm": -1.177268448837382,
+    "p_superior": 0.8979,
+    "p_una_cola_pysal": 0.1022,
+    "p_dos_colas": 0.2334,
+    "enlaces": 268,
+    "vecinos_medios": 4.0
+   },
+   "knn4_absoluto": {
+    "n": 134,
+    "I": 0.0932608754703788,
+    "EI": -0.007518796992481203,
+    "media_perm": -0.006984654897983905,
+    "dt_perm": 0.05400688294055593,
+    "z_perm": 1.8561621206448913,
+    "p_superior": 0.0488,
+    "p_una_cola_pysal": 0.0488,
+    "p_dos_colas": 0.0576,
+    "enlaces": 268,
+    "vecinos_medios": 4.0
+   }
+  },
+  {
+   "nombre": "D_todos_h1a6",
+   "definicion": "todos los municipios con backtest; media de err en h = 1 a 6",
+   "n_con_residuo": 135,
+   "sin_geometria": [],
+   "islas": [
+    "28076",
+    "28100",
+    "28107"
+   ],
+   "n": 132,
+   "con_signo": {
+    "n": 132,
+    "I": -0.04699452360739819,
+    "EI": -0.007633587786259542,
+    "media_perm": -0.007927938635143173,
+    "dt_perm": 0.053967570415144495,
+    "z_perm": -0.7238900078646503,
+    "p_superior": 0.7675,
+    "p_una_cola_pysal": 0.2326,
+    "p_dos_colas": 0.44,
+    "enlaces": 332,
+    "vecinos_medios": 5.03030303030303
+   },
+   "absoluto": {
+    "n": 132,
+    "I": 0.09880682802508865,
+    "EI": -0.007633587786259542,
+    "media_perm": -0.007599724982616687,
+    "dt_perm": 0.05318390799024175,
+    "z_perm": 2.0007283599247527,
+    "p_superior": 0.0434,
+    "p_una_cola_pysal": 0.0434,
+    "p_dos_colas": 0.0456,
+    "enlaces": 332,
+    "vecinos_medios": 5.03030303030303
+   },
+   "con_signo_rangos": {
+    "n": 132,
+    "I": 0.007486100362614165,
+    "EI": -0.007633587786259542,
+    "media_perm": -0.006970488796030588,
+    "dt_perm": 0.05729692921358167,
+    "z_perm": 0.25231001655875757,
+    "p_superior": 0.3949,
+    "p_una_cola_pysal": 0.3949,
+    "p_dos_colas": 0.7928,
+    "enlaces": 332,
+    "vecinos_medios": 5.03030303030303
+   },
+   "absoluto_rangos": {
+    "n": 132,
+    "I": 0.1924592659440275,
+    "EI": -0.007633587786259542,
+    "media_perm": -0.007780843473207154,
+    "dt_perm": 0.05820780089711268,
+    "z_perm": 3.44009061210157,
+    "p_superior": 0.0009,
+    "p_una_cola_pysal": 0.0009,
+    "p_dos_colas": 0.0009,
+    "enlaces": 332,
+    "vecinos_medios": 5.03030303030303
+   },
+   "absoluto_dentro_de_tamano": {
+    "n": 132,
+    "I": 0.09880682802508865,
+    "EI": 0.06912985723526385,
+    "media_perm": 0.06912985723526385,
+    "dt_perm": 0.06420628161934866,
+    "z_perm": 0.4622128869845906,
+    "p_superior": 0.2732,
+    "p_una_cola_pysal": 0.2732,
+    "p_dos_colas": 0.6429,
+    "enlaces": 332,
+    "vecinos_medios": 5.03030303030303
+   },
+   "absoluto_rangos_dentro_de_tamano": {
+    "n": 132,
+    "I": 0.1924592659440275,
+    "EI": 0.1623321903789622,
+    "media_perm": 0.1623321903789622,
+    "dt_perm": 0.05630975313891603,
+    "z_perm": 0.5350241101349154,
+    "p_superior": 0.2951,
+    "p_una_cola_pysal": 0.2951,
+    "p_dos_colas": 0.5921,
+    "enlaces": 332,
+    "vecinos_medios": 5.03030303030303
+   },
+   "con_signo_dentro_de_tamano": {
+    "n": 132,
+    "I": -0.04699452360739819,
+    "EI": 0.005464521131297893,
+    "media_perm": 0.005464521131297893,
+    "dt_perm": 0.0701896539345759,
+    "z_perm": -0.7473899898066659,
+    "p_superior": 0.7745,
+    "p_una_cola_pysal": 0.2256,
+    "p_dos_colas": 0.4329,
+    "enlaces": 332,
+    "vecinos_medios": 5.03030303030303
+   },
+   "mediana_abs_por_tamano": {
+    "grande": 1.66,
+    "mediano": 3.91,
+    "pequeño": 7.1
+   },
+   "knn4_con_signo": {
+    "n": 135,
+    "I": -0.05683371645013007,
+    "EI": -0.007462686567164179,
+    "media_perm": -0.007335383854620521,
+    "dt_perm": 0.05395469698019432,
+    "z_perm": -0.9174054413405267,
+    "p_superior": 0.824,
+    "p_una_cola_pysal": 0.1761,
+    "p_dos_colas": 0.3499,
+    "enlaces": 270,
+    "vecinos_medios": 4.0
+   },
+   "knn4_absoluto": {
+    "n": 135,
+    "I": 0.1263872241267532,
+    "EI": -0.007462686567164179,
+    "media_perm": -0.006753317839656288,
+    "dt_perm": 0.0541503192783646,
+    "z_perm": 2.458721273313063,
+    "p_superior": 0.0195,
+    "p_una_cola_pysal": 0.0195,
+    "p_dos_colas": 0.0197,
+    "enlaces": 270,
+    "vecinos_medios": 4.0
+   },
+   "lisa": {
+    "p_menor_005": 14,
+    "esperados_por_azar": 6.6,
+    "significativos_fdr_005": 0,
+    "nucleos_005": [
+     {
+      "municipio": "Lozoyuela-Navas-Sieteiglesias",
+      "cuadrante": "AB",
+      "residuo": 12.89,
+      "p": 0.0025
+     },
+     {
+      "municipio": "Venturada",
+      "cuadrante": "AA",
+      "residuo": 8.29,
+      "p": 0.0035
+     },
+     {
+      "municipio": "La Cabrera",
+      "cuadrante": "BA",
+      "residuo": -7.85,
+      "p": 0.0037
+     },
+     {
+      "municipio": "Colmenar del Arroyo",
+      "cuadrante": "AB",
+      "residuo": 54.58,
+      "p": 0.005
+     },
+     {
+      "municipio": "Carabaña",
+      "cuadrante": "AB",
+      "residuo": 26.51,
+      "p": 0.0083
+     },
+     {
+      "municipio": "Aldea del Fresno",
+      "cuadrante": "AB",
+      "residuo": 5.63,
+      "p": 0.0122
+     },
+     {
+      "municipio": "Santorcaz",
+      "cuadrante": "AA",
+      "residuo": 14.2,
+      "p": 0.0164
+     },
+     {
+      "municipio": "Estremera",
+      "cuadrante": "BB",
+      "residuo": -6.62,
+      "p": 0.026
+     },
+     {
+      "municipio": "Fuentidueña de Tajo",
+      "cuadrante": "BB",
+      "residuo": -7.78,
+      "p": 0.0263
+     },
+     {
+      "municipio": "Los Santos de la Humosa",
+      "cuadrante": "AA",
+      "residuo": 4.32,
+      "p": 0.0303
+     },
+     {
+      "municipio": "Guadalix de la Sierra",
+      "cuadrante": "AA",
+      "residuo": 4.18,
+      "p": 0.0348
+     },
+     {
+      "municipio": "Valdeavero",
+      "cuadrante": "BA",
+      "residuo": -6.91,
+      "p": 0.0373
+     },
+     {
+      "municipio": "Villalbilla",
+      "cuadrante": "BA",
+      "residuo": -6.43,
+      "p": 0.0397
+     },
+     {
+      "municipio": "El Álamo",
+      "cuadrante": "BB",
+      "residuo": -7.06,
+      "p": 0.0406
+     }
+    ]
+   }
+  },
+  {
+   "nombre": "E_todos_h1a6_log",
+   "definicion": "todos; media de −log(real/previsto) × 100 en h = 1 a 6 (el residuo logarítmico de los intervalos, con el signo de err)",
+   "n_con_residuo": 135,
+   "sin_geometria": [],
+   "islas": [
+    "28076",
+    "28100",
+    "28107"
+   ],
+   "n": 132,
+   "con_signo": {
+    "n": 132,
+    "I": -0.022188012361816428,
+    "EI": -0.007633587786259542,
+    "media_perm": -0.007798886170775471,
+    "dt_perm": 0.0552110557570152,
+    "z_perm": -0.2606203774542502,
+    "p_superior": 0.5993,
+    "p_una_cola_pysal": 0.4008,
+    "p_dos_colas": 0.7906,
+    "enlaces": 332,
+    "vecinos_medios": 5.03030303030303
+   },
+   "absoluto": {
+    "n": 132,
+    "I": 0.10734823995422739,
+    "EI": -0.007633587786259542,
+    "media_perm": -0.007639147059951789,
+    "dt_perm": 0.054774526509405994,
+    "z_perm": 2.099285823939223,
+    "p_superior": 0.0323,
+    "p_una_cola_pysal": 0.0323,
+    "p_dos_colas": 0.0371,
+    "enlaces": 332,
+    "vecinos_medios": 5.03030303030303
+   },
+   "con_signo_rangos": {
+    "n": 132,
+    "I": 0.034426584841625314,
+    "EI": -0.007633587786259542,
+    "media_perm": -0.007090907003872817,
+    "dt_perm": 0.058136129091427693,
+    "z_perm": 0.7141426939555214,
+    "p_superior": 0.231,
+    "p_una_cola_pysal": 0.231,
+    "p_dos_colas": 0.4664,
+    "enlaces": 332,
+    "vecinos_medios": 5.03030303030303
+   },
+   "absoluto_rangos": {
+    "n": 132,
+    "I": 0.18034002669003812,
+    "EI": -0.007633587786259542,
+    "media_perm": -0.007256012804598928,
+    "dt_perm": 0.05771389016538733,
+    "z_perm": 3.2504487040650702,
+    "p_superior": 0.0013,
+    "p_una_cola_pysal": 0.0013,
+    "p_dos_colas": 0.0013,
+    "enlaces": 332,
+    "vecinos_medios": 5.03030303030303
+   },
+   "absoluto_dentro_de_tamano": {
+    "n": 132,
+    "I": 0.10734823995422739,
+    "EI": 0.0883057854574657,
+    "media_perm": 0.0883057854574657,
+    "dt_perm": 0.06225390629630012,
+    "z_perm": 0.30588368874602523,
+    "p_superior": 0.3466,
+    "p_una_cola_pysal": 0.3466,
+    "p_dos_colas": 0.7609,
+    "enlaces": 332,
+    "vecinos_medios": 5.03030303030303
+   },
+   "absoluto_rangos_dentro_de_tamano": {
+    "n": 132,
+    "I": 0.18034002669003812,
+    "EI": 0.16604017950380667,
+    "media_perm": 0.16604017950380667,
+    "dt_perm": 0.05550803468585069,
+    "z_perm": 0.2576176091832803,
+    "p_superior": 0.3942,
+    "p_una_cola_pysal": 0.3942,
+    "p_dos_colas": 0.7982,
+    "enlaces": 332,
+    "vecinos_medios": 5.03030303030303
+   },
+   "con_signo_dentro_de_tamano": {
+    "n": 132,
+    "I": -0.022188012361816428,
+    "EI": -0.009291246630180197,
+    "media_perm": -0.009291246630180197,
+    "dt_perm": 0.06821751544233517,
+    "z_perm": -0.18905358320383234,
+    "p_superior": 0.5689,
+    "p_una_cola_pysal": 0.4312,
+    "p_dos_colas": 0.8474,
+    "enlaces": 332,
+    "vecinos_medios": 5.03030303030303
+   },
+   "mediana_abs_por_tamano": {
+    "grande": 1.8,
+    "mediano": 4.67,
+    "pequeño": 8.03
+   },
+   "knn4_con_signo": {
+    "n": 135,
+    "I": -0.04843107116277447,
+    "EI": -0.007462686567164179,
+    "media_perm": -0.007706901854745878,
+    "dt_perm": 0.05605863448352752,
+    "z_perm": -0.7264566767140062,
+    "p_superior": 0.7672,
+    "p_una_cola_pysal": 0.2329,
+    "p_dos_colas": 0.4604,
+    "enlaces": 270,
+    "vecinos_medios": 4.0
+   },
+   "knn4_absoluto": {
+    "n": 135,
+    "I": 0.13979091844265307,
+    "EI": -0.007462686567164179,
+    "media_perm": -0.007135101676151957,
+    "dt_perm": 0.05505367812295848,
+    "z_perm": 2.668777548171372,
+    "p_superior": 0.0116,
+    "p_una_cola_pysal": 0.0116,
+    "p_dos_colas": 0.0119,
+    "enlaces": 270,
+    "vecinos_medios": 4.0
+   }
+  },
+  {
+   "nombre": "F_grandes_y_medianos_h5",
+   "definicion": "grandes, medianos y capital; h = 5",
+   "n_con_residuo": 81,
+   "sin_geometria": [],
+   "islas": [
+    "28027",
+    "28100"
+   ],
+   "n": 79,
+   "con_signo": {
+    "n": 79,
+    "I": -0.03169580114887851,
+    "EI": -0.01282051282051282,
+    "media_perm": -0.01263188012605955,
+    "dt_perm": 0.08118556873216624,
+    "z_perm": -0.2348190857135144,
+    "p_superior": 0.5812,
+    "p_una_cola_pysal": 0.4189,
+    "p_dos_colas": 0.8191,
+    "enlaces": 181,
+    "vecinos_medios": 4.582278481012659
+   },
+   "absoluto": {
+    "n": 79,
+    "I": -0.05236224968599813,
+    "EI": -0.01282051282051282,
+    "media_perm": -0.01195142257784231,
+    "dt_perm": 0.0804390835115626,
+    "z_perm": -0.5023780150646174,
+    "p_superior": 0.6776,
+    "p_una_cola_pysal": 0.3225,
+    "p_dos_colas": 0.6353,
+    "enlaces": 181,
+    "vecinos_medios": 4.582278481012659
+   },
+   "con_signo_rangos": {
+    "n": 79,
+    "I": -0.04717408646206114,
+    "EI": -0.01282051282051282,
+    "media_perm": -0.013288618296068012,
+    "dt_perm": 0.08129731270931931,
+    "z_perm": -0.41680920360986,
+    "p_superior": 0.6545,
+    "p_una_cola_pysal": 0.3456,
+    "p_dos_colas": 0.6784,
+    "enlaces": 181,
+    "vecinos_medios": 4.582278481012659
+   },
+   "absoluto_rangos": {
+    "n": 79,
+    "I": -0.016591086041244277,
+    "EI": -0.01282051282051282,
+    "media_perm": -0.014264636171015891,
+    "dt_perm": 0.08112458164990352,
+    "z_perm": -0.02867749605499694,
+    "p_superior": 0.4985,
+    "p_una_cola_pysal": 0.4985,
+    "p_dos_colas": 0.9655,
+    "enlaces": 181,
+    "vecinos_medios": 4.582278481012659
+   },
+   "absoluto_dentro_de_tamano": {
+    "n": 79,
+    "I": -0.05236224968599813,
+    "EI": 0.07001425501184948,
+    "media_perm": 0.07001425501184948,
+    "dt_perm": 0.08693538844309352,
+    "z_perm": -1.407671914619134,
+    "p_superior": 0.9253,
+    "p_una_cola_pysal": 0.0748,
+    "p_dos_colas": 0.1622,
+    "enlaces": 181,
+    "vecinos_medios": 4.582278481012659
+   },
+   "absoluto_rangos_dentro_de_tamano": {
+    "n": 79,
+    "I": -0.016591086041244277,
+    "EI": 0.05474747574301873,
+    "media_perm": 0.05474747574301873,
+    "dt_perm": 0.08314739741697781,
+    "z_perm": -0.8579770864805979,
+    "p_superior": 0.8004,
+    "p_una_cola_pysal": 0.1997,
+    "p_dos_colas": 0.3975,
+    "enlaces": 181,
+    "vecinos_medios": 4.582278481012659
+   },
+   "con_signo_dentro_de_tamano": {
+    "n": 79,
+    "I": -0.03169580114887851,
+    "EI": 0.008336735195097924,
+    "media_perm": 0.008336735195097924,
+    "dt_perm": 0.09162245728392523,
+    "z_perm": -0.43692930238621713,
+    "p_superior": 0.6668,
+    "p_una_cola_pysal": 0.3333,
+    "p_dos_colas": 0.6632,
+    "enlaces": 181,
+    "vecinos_medios": 4.582278481012659
+   },
+   "mediana_abs_por_tamano": {
+    "grande": 4.03,
+    "mediano": 11.25
+   },
+   "knn4_con_signo": {
+    "n": 81,
+    "I": 0.013408858879797187,
+    "EI": -0.0125,
+    "media_perm": -0.013548385734775433,
+    "dt_perm": 0.06927890324860378,
+    "z_perm": 0.38911188472250974,
+    "p_superior": 0.3301,
+    "p_una_cola_pysal": 0.3301,
+    "p_dos_colas": 0.7024,
+    "enlaces": 162,
+    "vecinos_medios": 4.0
+   },
+   "knn4_absoluto": {
+    "n": 81,
+    "I": -0.04134181263433363,
+    "EI": -0.0125,
+    "media_perm": -0.012979929331473572,
+    "dt_perm": 0.06843018706865812,
+    "z_perm": -0.41446450050478023,
+    "p_superior": 0.6446,
+    "p_una_cola_pysal": 0.3555,
+    "p_dos_colas": 0.6683,
+    "enlaces": 162,
+    "vecinos_medios": 4.0
+   }
+  }
+ ]
+}
